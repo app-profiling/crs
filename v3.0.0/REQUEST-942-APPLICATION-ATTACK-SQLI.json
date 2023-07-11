@@ -1,0 +1,632 @@
+{
+    "(?i:\\b(?:m(?:s(?:ysaccessobjects|ysaces|ysobjects|ysqueries|ysrelationships|ysaccessstorage|ysaccessxml|ysmodules|ysmodules2|db)|aster\\.\\.sysdatabases|ysql\\.db)\\b|s(?:ys(?:\\.database_name|aux)\\b|chema(?:\\W*\\(|_name\\b)|qlite(_temp)?_master\\b)|d(?:atabas|b_nam)e\\W*\\(|information_schema\\b|pg_(catalog|toast)\\b|northwind\\b|tempdb\\b))": {
+        "targets": [
+            " REQUEST_COOKIES",
+            "!REQUEST_COOKIES:/__utm/",
+            "REQUEST_COOKIES_NAMES",
+            "ARGS_NAMES",
+            "ARGS",
+            "XML"
+        ],
+        "msg": "SQL Injection Attack: Common DB Names Detected",
+        "logdata": "Matched Data: %{TX.0} found within %{MATCHED_VAR_NAME}: %{MATCHED_VAR}",
+        "tag": "application-multi,language-multi,platform-multi,attack-sqli,OWASP_CRS/WEB_ATTACK/SQL_INJECTION,WASCTC/WASC-19,OWASP_TOP_10/A1,OWASP_AppSensor/CIE1,PCI/6.5.2",
+        "paranoia level": 1,
+        "severity": "CRITICAL",
+        "setvar": "tx.msg=%{rule.msg}",
+        "t": [
+            "none",
+            "urlDecodeUni"
+        ],
+        "line": "SecRule REQUEST_COOKIES|!REQUEST_COOKIES:/__utm/|REQUEST_COOKIES_NAMES|ARGS_NAMES|ARGS|XML:/* \"(?i:\\b(?:m(?:s(?:ysaccessobjects|ysaces|ysobjects|ysqueries|ysrelationships|ysaccessstorage|ysaccessxml|ysmodules|ysmodules2|db)|aster\\.\\.sysdatabases|ysql\\.db)\\b|s(?:ys(?:\\.database_name|aux)\\b|chema(?:\\W*\\(|_name\\b)|qlite(_temp)?_master\\b)|d(?:atabas|b_nam)e\\W*\\(|information_schema\\b|pg_(catalog|toast)\\b|northwind\\b|tempdb\\b))\" \\*nl*\"phase:request,\\*nl*rev:'3',\\*nl*ver:'OWASP_CRS/3.0.0',\\*nl*maturity:'9',\\*nl*accuracy:'8',\\*nl*capture,\\*nl*t:none,t:urlDecodeUni,\\*nl*ctl:auditLogParts=+E,\\*nl*block,\\*nl*msg:'SQL Injection Attack: Common DB Names Detected',\\*nl*id:942140,\\*nl*logdata:'Matched Data: %{TX.0} found within %{MATCHED_VAR_NAME}: %{MATCHED_VAR}',\\*nl*severity:'CRITICAL',\\*nl*tag:'application-multi',\\*nl*tag:'language-multi',\\*nl*tag:'platform-multi',\\*nl*tag:'attack-sqli',\\*nl*tag:'OWASP_CRS/WEB_ATTACK/SQL_INJECTION',\\*nl*tag:'WASCTC/WASC-19',\\*nl*tag:'OWASP_TOP_10/A1',\\*nl*tag:'OWASP_AppSensor/CIE1',\\*nl*tag:'PCI/6.5.2',\\*nl*setvar:'tx.msg=%{rule.msg}',\\*nl*setvar:tx.sql_injection_score=+%{tx.critical_anomaly_score},\\*nl*setvar:tx.anomaly_score=+%{tx.critical_anomaly_score},\\*nl*setvar:tx.%{rule.id}-OWASP_CRS/WEB_ATTACK/SQL_INJECTION-%{matched_var_name}=%{tx.0}\""
+    },
+    "(?i:(sleep\\((\\s*?)(\\d*?)(\\s*?)\\)|benchmark\\((.*?)\\,(.*?)\\)))": {
+        "targets": [
+            " REQUEST_COOKIES",
+            "!REQUEST_COOKIES:/__utm/",
+            "REQUEST_COOKIES_NAMES",
+            "ARGS_NAMES",
+            "ARGS",
+            "XML"
+        ],
+        "msg": "Detects blind sqli tests using sleep() or benchmark().",
+        "logdata": "Matched Data: %{TX.0} found within %{MATCHED_VAR_NAME}: %{MATCHED_VAR}",
+        "tag": "application-multi,language-multi,platform-multi,attack-sqli,OWASP_CRS/WEB_ATTACK/SQL_INJECTION",
+        "paranoia level": 1,
+        "severity": "CRITICAL",
+        "setvar": "tx.%{rule.id}-OWASP_CRS/WEB_ATTACK/SQLI-%{matched_var_name}=%{tx.0}",
+        "t": [
+            "none",
+            "urlDecodeUni"
+        ],
+        "line": "SecRule REQUEST_COOKIES|!REQUEST_COOKIES:/__utm/|REQUEST_COOKIES_NAMES|ARGS_NAMES|ARGS|XML:/* \"(?i:(sleep\\((\\s*?)(\\d*?)(\\s*?)\\)|benchmark\\((.*?)\\,(.*?)\\)))\" \\*nl*\"phase:request,\\*nl*rev:'2',\\*nl*ver:'OWASP_CRS/3.0.0',\\*nl*maturity:'9',\\*nl*accuracy:'8',\\*nl*capture,\\*nl*t:none,t:urlDecodeUni,\\*nl*block,\\*nl*msg:'Detects blind sqli tests using sleep() or benchmark().',\\*nl*id:942160,\\*nl*tag:'application-multi',\\*nl*tag:'language-multi',\\*nl*tag:'platform-multi',\\*nl*tag:'attack-sqli',\\*nl*tag:'OWASP_CRS/WEB_ATTACK/SQL_INJECTION',\\*nl*logdata:'Matched Data: %{TX.0} found within %{MATCHED_VAR_NAME}: %{MATCHED_VAR}',\\*nl*severity:'CRITICAL',\\*nl*setvar:'tx.msg=%{rule.msg}',\\*nl*setvar:tx.sql_injection_score=+%{tx.critical_anomaly_score},setvar:tx.anomaly_score=+%{tx.critical_anomaly_score},setvar:'tx.%{rule.id}-OWASP_CRS/WEB_ATTACK/SQLI-%{matched_var_name}=%{tx.0}'\""
+    },
+    "(?i:(?:(select|;)\\s+(?:benchmark|if|sleep)\\s*?\\(\\s*?\\(?\\s*?\\w+))": {
+        "targets": [
+            " REQUEST_COOKIES",
+            "!REQUEST_COOKIES:/__utm/",
+            "REQUEST_COOKIES_NAMES",
+            "ARGS_NAMES",
+            "ARGS",
+            "XML"
+        ],
+        "msg": "Detects SQL benchmark and sleep injection attempts including conditional queries",
+        "logdata": "Matched Data: %{TX.0} found within %{MATCHED_VAR_NAME}: %{MATCHED_VAR}",
+        "tag": "application-multi,language-multi,platform-multi,attack-sqli,OWASP_CRS/WEB_ATTACK/SQL_INJECTION,WASCTC/WASC-19,OWASP_TOP_10/A1,OWASP_AppSensor/CIE1,PCI/6.5.2",
+        "paranoia level": 1,
+        "severity": "CRITICAL",
+        "setvar": "tx.%{rule.id}-OWASP_CRS/WEB_ATTACK/SQLI-%{matched_var_name}=%{tx.0}",
+        "t": [
+            "none",
+            "urlDecodeUni"
+        ],
+        "line": "SecRule REQUEST_COOKIES|!REQUEST_COOKIES:/__utm/|REQUEST_COOKIES_NAMES|ARGS_NAMES|ARGS|XML:/* \"(?i:(?:(select|;)\\s+(?:benchmark|if|sleep)\\s*?\\(\\s*?\\(?\\s*?\\w+))\" \\*nl*\"phase:request,\\*nl*rev:'2',\\*nl*ver:'OWASP_CRS/3.0.0',\\*nl*maturity:'9',\\*nl*accuracy:'8',\\*nl*capture,\\*nl*t:none,t:urlDecodeUni,\\*nl*block,\\*nl*msg:'Detects SQL benchmark and sleep injection attempts including conditional queries',\\*nl*id:942170,\\*nl*tag:'application-multi',\\*nl*tag:'language-multi',\\*nl*tag:'platform-multi',\\*nl*tag:'attack-sqli',\\*nl*tag:'OWASP_CRS/WEB_ATTACK/SQL_INJECTION',\\*nl*tag:'WASCTC/WASC-19',\\*nl*tag:'OWASP_TOP_10/A1',\\*nl*tag:'OWASP_AppSensor/CIE1',\\*nl*tag:'PCI/6.5.2',\\*nl*logdata:'Matched Data: %{TX.0} found within %{MATCHED_VAR_NAME}: %{MATCHED_VAR}',\\*nl*severity:'CRITICAL',\\*nl*setvar:'tx.msg=%{rule.msg}',\\*nl*setvar:tx.sql_injection_score=+%{tx.critical_anomaly_score},\\*nl*setvar:tx.anomaly_score=+%{tx.critical_anomaly_score},\\*nl*setvar:'tx.%{rule.id}-OWASP_CRS/WEB_ATTACK/SQLI-%{matched_var_name}=%{tx.0}'\""
+    },
+    "(?i:(?:\\s*?(?:exec|execute).*?(?:\\W)xp_cmdshell)|(?:[\\\"'`]\\s*?!\\s*?[\\\"'`\\w])|(?:from\\W+information_schema\\W)|(?:(?:(?:current_)?user|database|schema|connection_id)\\s*?\\([^\\)]*?)|(?:[\\\"'`];?\\s*?(?:select|union|having)\\s*?[^\\s])|(?:\\wiif\\s*?\\()|(?:(?:exec|execute)\\s+master\\.)|(?:union select @)|(?:union[\\w(\\s]*?select)|(?:select.*?\\w?user\\()|(?:into[\\s+]+(?:dump|out)file\\s*?[\\\"'`]))": {
+        "targets": [
+            " REQUEST_COOKIES",
+            "!REQUEST_COOKIES:/__utm/",
+            "REQUEST_COOKIES_NAMES",
+            "ARGS_NAMES",
+            "ARGS",
+            "XML"
+        ],
+        "msg": "Detects MSSQL code execution and information gathering attempts",
+        "logdata": "Matched Data: %{TX.0} found within %{MATCHED_VAR_NAME}: %{MATCHED_VAR}",
+        "tag": "application-multi,language-multi,platform-multi,attack-sqli,OWASP_CRS/WEB_ATTACK/SQL_INJECTION,WASCTC/WASC-19,OWASP_TOP_10/A1,OWASP_AppSensor/CIE1,PCI/6.5.2",
+        "paranoia level": 1,
+        "severity": "CRITICAL",
+        "setvar": "tx.%{rule.id}-OWASP_CRS/WEB_ATTACK/SQLI-%{matched_var_name}=%{tx.0}",
+        "t": [
+            "none",
+            "urlDecodeUni"
+        ],
+        "line": "SecRule REQUEST_COOKIES|!REQUEST_COOKIES:/__utm/|REQUEST_COOKIES_NAMES|ARGS_NAMES|ARGS|XML:/* \"(?i:(?:\\s*?(?:exec|execute).*?(?:\\W)xp_cmdshell)|(?:[\\\"'`]\\s*?!\\s*?[\\\"'`\\w])|(?:from\\W+information_schema\\W)|(?:(?:(?:current_)?user|database|schema|connection_id)\\s*?\\([^\\)]*?)|(?:[\\\"'`];?\\s*?(?:select|union|having)\\s*?[^\\s])|(?:\\wiif\\s*?\\()|(?:(?:exec|execute)\\s+master\\.)|(?:union select @)|(?:union[\\w(\\s]*?select)|(?:select.*?\\w?user\\()|(?:into[\\s+]+(?:dump|out)file\\s*?[\\\"'`]))\" \\*nl*\"phase:request,\\*nl*rev:'2',\\*nl*ver:'OWASP_CRS/3.0.0',\\*nl*maturity:'9',\\*nl*accuracy:'8',\\*nl*capture,\\*nl*t:none,t:urlDecodeUni,\\*nl*block,\\*nl*msg:'Detects MSSQL code execution and information gathering attempts',\\*nl*id:942190,\\*nl*tag:'application-multi',\\*nl*tag:'language-multi',\\*nl*tag:'platform-multi',\\*nl*tag:'attack-sqli',\\*nl*tag:'OWASP_CRS/WEB_ATTACK/SQL_INJECTION',\\*nl*tag:'WASCTC/WASC-19',\\*nl*tag:'OWASP_TOP_10/A1',\\*nl*tag:'OWASP_AppSensor/CIE1',\\*nl*tag:'PCI/6.5.2',\\*nl*logdata:'Matched Data: %{TX.0} found within %{MATCHED_VAR_NAME}: %{MATCHED_VAR}',\\*nl*severity:'CRITICAL',\\*nl*setvar:'tx.msg=%{rule.msg}',\\*nl*setvar:tx.sql_injection_score=+%{tx.critical_anomaly_score},\\*nl*setvar:tx.anomaly_score=+%{tx.critical_anomaly_score},\\*nl*setvar:'tx.%{rule.id}-OWASP_CRS/WEB_ATTACK/SQLI-%{matched_var_name}=%{tx.0}'\""
+    },
+    "(?i:(?:^(-0000023456|4294967295|4294967296|2147483648|2147483647|0000012345|-2147483648|-2147483649|0000023456|3.0.00738585072007e-308|1e309)$))": {
+        "targets": [
+            " REQUEST_COOKIES",
+            "!REQUEST_COOKIES:/__utm/",
+            "REQUEST_COOKIES_NAMES",
+            "ARGS_NAMES",
+            "ARGS",
+            "XML"
+        ],
+        "msg": "Looking for intiger overflow attacks, these are taken from skipfish, except 3.0.00738585072007e-308 is the \\",
+        "logdata": "Matched Data: %{TX.0} found within %{MATCHED_VAR_NAME}: %{MATCHED_VAR}",
+        "tag": "application-multi,language-multi,platform-multi,attack-sqli,OWASP_CRS/WEB_ATTACK/SQL_INJECTION,WASCTC/WASC-19,OWASP_TOP_10/A1,OWASP_AppSensor/CIE1,PCI/6.5.2",
+        "paranoia level": 1,
+        "severity": "CRITICAL",
+        "setvar": "tx.%{rule.id}-OWASP_CRS/WEB_ATTACK/SQLI-%{matched_var_name}=%{tx.0}",
+        "t": [
+            "none",
+            "urlDecodeUni"
+        ],
+        "line": "SecRule REQUEST_COOKIES|!REQUEST_COOKIES:/__utm/|REQUEST_COOKIES_NAMES|ARGS_NAMES|ARGS|XML:/* \"(?i:(?:^(-0000023456|4294967295|4294967296|2147483648|2147483647|0000012345|-2147483648|-2147483649|0000023456|3.0.00738585072007e-308|1e309)$))\" \\*nl*\"phase:request,\\*nl*rev:'2',\\*nl*ver:'OWASP_CRS/3.0.0',\\*nl*maturity:'9',\\*nl*accuracy:'8',\\*nl*capture,\\*nl*t:none,t:urlDecodeUni,\\*nl*block,\\*nl*msg:'Looking for intiger overflow attacks, these are taken from skipfish, except 3.0.00738585072007e-308 is the \\\"magic number\\\" crash',\\*nl*id:942220,\\*nl*tag:'application-multi',\\*nl*tag:'language-multi',\\*nl*tag:'platform-multi',\\*nl*tag:'attack-sqli',\\*nl*tag:'OWASP_CRS/WEB_ATTACK/SQL_INJECTION',\\*nl*tag:'WASCTC/WASC-19',\\*nl*tag:'OWASP_TOP_10/A1',\\*nl*tag:'OWASP_AppSensor/CIE1',\\*nl*tag:'PCI/6.5.2',\\*nl*logdata:'Matched Data: %{TX.0} found within %{MATCHED_VAR_NAME}: %{MATCHED_VAR}',\\*nl*severity:'CRITICAL',\\*nl*setvar:'tx.msg=%{rule.msg}',\\*nl*setvar:tx.sql_injection_score=+%{tx.critical_anomaly_score},\\*nl*setvar:tx.anomaly_score=+%{tx.critical_anomaly_score},\\*nl*setvar:'tx.%{rule.id}-OWASP_CRS/WEB_ATTACK/SQLI-%{matched_var_name}=%{tx.0}'\""
+    },
+    "(?i:(?:[\\s()]case\\s*?\\()|(?:\\)\\s*?like\\s*?\\()|(?:having\\s*?[^\\s]+\\s*?[^\\w\\s])|(?:if\\s?\\([\\d\\w]\\s*?[=<>~]))": {
+        "targets": [
+            " REQUEST_COOKIES",
+            "!REQUEST_COOKIES:/__utm/",
+            "REQUEST_COOKIES_NAMES",
+            "ARGS_NAMES",
+            "ARGS",
+            "XML"
+        ],
+        "msg": "Detects conditional SQL injection attempts",
+        "logdata": "Matched Data: %{TX.0} found within %{MATCHED_VAR_NAME}: %{MATCHED_VAR}",
+        "tag": "application-multi,language-multi,platform-multi,attack-sqli,OWASP_CRS/WEB_ATTACK/SQL_INJECTION,WASCTC/WASC-19,OWASP_TOP_10/A1,OWASP_AppSensor/CIE1,PCI/6.5.2",
+        "paranoia level": 1,
+        "severity": "CRITICAL",
+        "setvar": "tx.%{rule.id}-OWASP_CRS/WEB_ATTACK/SQLI-%{matched_var_name}=%{tx.0}",
+        "t": [
+            "none",
+            "urlDecodeUni"
+        ],
+        "line": "SecRule REQUEST_COOKIES|!REQUEST_COOKIES:/__utm/|REQUEST_COOKIES_NAMES|ARGS_NAMES|ARGS|XML:/* \"(?i:(?:[\\s()]case\\s*?\\()|(?:\\)\\s*?like\\s*?\\()|(?:having\\s*?[^\\s]+\\s*?[^\\w\\s])|(?:if\\s?\\([\\d\\w]\\s*?[=<>~]))\" \\*nl*\"phase:request,\\*nl*rev:'2',\\*nl*ver:'OWASP_CRS/3.0.0',\\*nl*maturity:'9',\\*nl*accuracy:'8',\\*nl*capture,\\*nl*t:none,t:urlDecodeUni,\\*nl*block,\\*nl*msg:'Detects conditional SQL injection attempts',\\*nl*id:942230,\\*nl*tag:'application-multi',\\*nl*tag:'language-multi',\\*nl*tag:'platform-multi',\\*nl*tag:'attack-sqli',\\*nl*tag:'OWASP_CRS/WEB_ATTACK/SQL_INJECTION',\\*nl*tag:'WASCTC/WASC-19',\\*nl*tag:'OWASP_TOP_10/A1',\\*nl*tag:'OWASP_AppSensor/CIE1',\\*nl*tag:'PCI/6.5.2',\\*nl*logdata:'Matched Data: %{TX.0} found within %{MATCHED_VAR_NAME}: %{MATCHED_VAR}',\\*nl*severity:'CRITICAL',\\*nl*setvar:'tx.msg=%{rule.msg}',\\*nl*setvar:tx.sql_injection_score=+%{tx.critical_anomaly_score},\\*nl*setvar:tx.anomaly_score=+%{tx.critical_anomaly_score},\\*nl*setvar:'tx.%{rule.id}-OWASP_CRS/WEB_ATTACK/SQLI-%{matched_var_name}=%{tx.0}'\""
+    },
+    "(?i:(?:alter\\s*?\\w+.*?(?:character|char)\\s+set\\s+\\w+)|([\\\"'`];*?\\s*?waitfor\\s+(?:time|delay)\\s+[\\\"'`])|(?:[\\\"'`];.*?:\\s*?goto))": {
+        "targets": [
+            " REQUEST_COOKIES",
+            "!REQUEST_COOKIES:/__utm/",
+            "REQUEST_COOKIES_NAMES",
+            "ARGS_NAMES",
+            "ARGS",
+            "XML"
+        ],
+        "msg": "Detects MySQL charset switch and MSSQL DoS attempts",
+        "logdata": "Matched Data: %{TX.0} found within %{MATCHED_VAR_NAME}: %{MATCHED_VAR}",
+        "tag": "application-multi,language-multi,platform-multi,attack-sqli,OWASP_CRS/WEB_ATTACK/SQL_INJECTION,WASCTC/WASC-19,OWASP_TOP_10/A1,OWASP_AppSensor/CIE1,PCI/6.5.2",
+        "paranoia level": 1,
+        "severity": "CRITICAL",
+        "setvar": "tx.%{rule.id}-OWASP_CRS/WEB_ATTACK/SQLI-%{matched_var_name}=%{tx.0}",
+        "t": [
+            "none",
+            "urlDecodeUni"
+        ],
+        "line": "SecRule REQUEST_COOKIES|!REQUEST_COOKIES:/__utm/|REQUEST_COOKIES_NAMES|ARGS_NAMES|ARGS|XML:/* \"(?i:(?:alter\\s*?\\w+.*?(?:character|char)\\s+set\\s+\\w+)|([\\\"'`];*?\\s*?waitfor\\s+(?:time|delay)\\s+[\\\"'`])|(?:[\\\"'`];.*?:\\s*?goto))\" \\*nl*\"phase:request,\\*nl*rev:'2',\\*nl*ver:'OWASP_CRS/3.0.0',\\*nl*maturity:'9',\\*nl*accuracy:'8',\\*nl*capture,\\*nl*t:none,t:urlDecodeUni,\\*nl*block,\\*nl*msg:'Detects MySQL charset switch and MSSQL DoS attempts',\\*nl*id:942240,\\*nl*tag:'application-multi',\\*nl*tag:'language-multi',\\*nl*tag:'platform-multi',\\*nl*tag:'attack-sqli',\\*nl*tag:'OWASP_CRS/WEB_ATTACK/SQL_INJECTION',\\*nl*tag:'WASCTC/WASC-19',\\*nl*tag:'OWASP_TOP_10/A1',\\*nl*tag:'OWASP_AppSensor/CIE1',\\*nl*tag:'PCI/6.5.2',\\*nl*logdata:'Matched Data: %{TX.0} found within %{MATCHED_VAR_NAME}: %{MATCHED_VAR}',\\*nl*severity:'CRITICAL',\\*nl*setvar:'tx.msg=%{rule.msg}',\\*nl*setvar:tx.sql_injection_score=+%{tx.critical_anomaly_score},\\*nl*setvar:tx.anomaly_score=+%{tx.critical_anomaly_score},\\*nl*setvar:'tx.%{rule.id}-OWASP_CRS/WEB_ATTACK/SQLI-%{matched_var_name}=%{tx.0}'\""
+    },
+    "(?i:(?:merge.*?using\\s*?\\()|(execute\\s*?immediate\\s*?[\\\"'`])|(?:match\\s*?[\\w(),+-]+\\s*?against\\s*?\\())": {
+        "targets": [
+            " REQUEST_COOKIES",
+            "!REQUEST_COOKIES:/__utm/",
+            "REQUEST_COOKIES_NAMES",
+            "ARGS_NAMES",
+            "ARGS",
+            "XML"
+        ],
+        "msg": "Detects MATCH AGAINST, MERGE and EXECUTE IMMEDIATE injections",
+        "logdata": "Matched Data: %{TX.0} found within %{MATCHED_VAR_NAME}: %{MATCHED_VAR}",
+        "tag": "application-multi,language-multi,platform-multi,attack-sqli,OWASP_CRS/WEB_ATTACK/SQL_INJECTION,WASCTC/WASC-19,OWASP_TOP_10/A1,OWASP_AppSensor/CIE1,PCI/6.5.2",
+        "paranoia level": 1,
+        "severity": "CRITICAL",
+        "setvar": "tx.%{rule.id}-OWASP_CRS/WEB_ATTACK/SQLI-%{matched_var_name}=%{tx.0}",
+        "t": [
+            "none",
+            "urlDecodeUni"
+        ],
+        "line": "SecRule REQUEST_COOKIES|!REQUEST_COOKIES:/__utm/|REQUEST_COOKIES_NAMES|ARGS_NAMES|ARGS|XML:/* \"(?i:(?:merge.*?using\\s*?\\()|(execute\\s*?immediate\\s*?[\\\"'`])|(?:match\\s*?[\\w(),+-]+\\s*?against\\s*?\\())\" \\*nl*\"phase:request,\\*nl*rev:'2',\\*nl*ver:'OWASP_CRS/3.0.0',\\*nl*maturity:'9',\\*nl*accuracy:'8',\\*nl*capture,\\*nl*t:none,t:urlDecodeUni,\\*nl*block,\\*nl*msg:'Detects MATCH AGAINST, MERGE and EXECUTE IMMEDIATE injections',\\*nl*id:942250,\\*nl*tag:'application-multi',\\*nl*tag:'language-multi',\\*nl*tag:'platform-multi',\\*nl*tag:'attack-sqli',\\*nl*tag:'OWASP_CRS/WEB_ATTACK/SQL_INJECTION',\\*nl*tag:'WASCTC/WASC-19',\\*nl*tag:'OWASP_TOP_10/A1',\\*nl*tag:'OWASP_AppSensor/CIE1',\\*nl*tag:'PCI/6.5.2',\\*nl*logdata:'Matched Data: %{TX.0} found within %{MATCHED_VAR_NAME}: %{MATCHED_VAR}',\\*nl*severity:'CRITICAL',\\*nl*setvar:'tx.msg=%{rule.msg}',\\*nl*setvar:tx.sql_injection_score=+%{tx.critical_anomaly_score},\\*nl*setvar:tx.anomaly_score=+%{tx.critical_anomaly_score},\\*nl*setvar:'tx.%{rule.id}-OWASP_CRS/WEB_ATTACK/SQLI-%{matched_var_name}=%{tx.0}'\""
+    },
+    "(?i:(?:(union(.*?)select(.*?)from)))": {
+        "targets": [
+            " REQUEST_COOKIES",
+            "!REQUEST_COOKIES:/__utm/",
+            "REQUEST_COOKIES_NAMES",
+            "ARGS_NAMES",
+            "ARGS",
+            "XML"
+        ],
+        "msg": "Looking for basic sql injection. Common attack string for mysql, oracle and others.",
+        "logdata": "Matched Data: %{TX.0} found within %{MATCHED_VAR_NAME}: %{MATCHED_VAR}",
+        "tag": "application-multi,language-multi,platform-multi,attack-sqli,OWASP_CRS/WEB_ATTACK/SQL_INJECTION,WASCTC/WASC-19,OWASP_TOP_10/A1,OWASP_AppSensor/CIE1,PCI/6.5.2",
+        "paranoia level": 1,
+        "severity": "CRITICAL",
+        "setvar": "tx.%{rule.id}-OWASP_CRS/WEB_ATTACK/SQLI-%{matched_var_name}=%{tx.0}",
+        "t": [
+            "none",
+            "urlDecodeUni"
+        ],
+        "line": "SecRule REQUEST_COOKIES|!REQUEST_COOKIES:/__utm/|REQUEST_COOKIES_NAMES|ARGS_NAMES|ARGS|XML:/* \"(?i:(?:(union(.*?)select(.*?)from)))\" \\*nl*\"phase:request,\\*nl*rev:'2',\\*nl*ver:'OWASP_CRS/3.0.0',\\*nl*maturity:'9',\\*nl*accuracy:'8',\\*nl*capture,\\*nl*t:none,t:urlDecodeUni,\\*nl*block,\\*nl*msg:'Looking for basic sql injection. Common attack string for mysql, oracle and others.',\\*nl*id:942270,\\*nl*tag:'application-multi',\\*nl*tag:'language-multi',\\*nl*tag:'platform-multi',\\*nl*tag:'attack-sqli',\\*nl*tag:'OWASP_CRS/WEB_ATTACK/SQL_INJECTION',\\*nl*tag:'WASCTC/WASC-19',\\*nl*tag:'OWASP_TOP_10/A1',\\*nl*tag:'OWASP_AppSensor/CIE1',\\*nl*tag:'PCI/6.5.2',\\*nl*logdata:'Matched Data: %{TX.0} found within %{MATCHED_VAR_NAME}: %{MATCHED_VAR}',\\*nl*severity:'CRITICAL',\\*nl*setvar:'tx.msg=%{rule.msg}',\\*nl*setvar:tx.sql_injection_score=+%{tx.critical_anomaly_score},\\*nl*setvar:tx.anomaly_score=+%{tx.critical_anomaly_score},\\*nl*setvar:'tx.%{rule.id}-OWASP_CRS/WEB_ATTACK/SQLI-%{matched_var_name}=%{tx.0}'\""
+    },
+    "(?i:(?:select\\s*?pg_sleep)|(?:waitfor\\s*?delay\\s?[\\\"'`]+\\s?\\d)|(?:;\\s*?shutdown\\s*?(?:;|--|#|\\/\\*|{)))": {
+        "targets": [
+            " REQUEST_COOKIES",
+            "!REQUEST_COOKIES:/__utm/",
+            "REQUEST_COOKIES_NAMES",
+            "ARGS_NAMES",
+            "ARGS",
+            "XML"
+        ],
+        "msg": "Detects Postgres pg_sleep injection, waitfor delay attacks and database shutdown attempts",
+        "logdata": "Matched Data: %{TX.0} found within %{MATCHED_VAR_NAME}: %{MATCHED_VAR}",
+        "tag": "application-multi,language-multi,platform-multi,attack-sqli,OWASP_CRS/WEB_ATTACK/SQL_INJECTION,WASCTC/WASC-19,OWASP_TOP_10/A1,OWASP_AppSensor/CIE1,PCI/6.5.2",
+        "paranoia level": 1,
+        "severity": "CRITICAL",
+        "setvar": "tx.%{rule.id}-OWASP_CRS/WEB_ATTACK/SQLI-%{matched_var_name}=%{tx.0}",
+        "t": [
+            "none",
+            "urlDecodeUni"
+        ],
+        "line": "SecRule REQUEST_COOKIES|!REQUEST_COOKIES:/__utm/|REQUEST_COOKIES_NAMES|ARGS_NAMES|ARGS|XML:/* \"(?i:(?:select\\s*?pg_sleep)|(?:waitfor\\s*?delay\\s?[\\\"'`]+\\s?\\d)|(?:;\\s*?shutdown\\s*?(?:;|--|#|\\/\\*|{)))\" \\*nl*\"phase:request,\\*nl*rev:'2',\\*nl*ver:'OWASP_CRS/3.0.0',\\*nl*maturity:'9',\\*nl*accuracy:'8',\\*nl*capture,\\*nl*t:none,t:urlDecodeUni,\\*nl*block,\\*nl*msg:'Detects Postgres pg_sleep injection, waitfor delay attacks and database shutdown attempts',\\*nl*id:942280,\\*nl*tag:'application-multi',\\*nl*tag:'language-multi',\\*nl*tag:'platform-multi',\\*nl*tag:'attack-sqli',\\*nl*tag:'OWASP_CRS/WEB_ATTACK/SQL_INJECTION',\\*nl*tag:'WASCTC/WASC-19',\\*nl*tag:'OWASP_TOP_10/A1',\\*nl*tag:'OWASP_AppSensor/CIE1',\\*nl*tag:'PCI/6.5.2',\\*nl*logdata:'Matched Data: %{TX.0} found within %{MATCHED_VAR_NAME}: %{MATCHED_VAR}',\\*nl*severity:'CRITICAL',\\*nl*setvar:'tx.msg=%{rule.msg}',\\*nl*setvar:tx.sql_injection_score=+%{tx.critical_anomaly_score},\\*nl*setvar:tx.anomaly_score=+%{tx.critical_anomaly_score},\\*nl*setvar:'tx.%{rule.id}-OWASP_CRS/WEB_ATTACK/SQLI-%{matched_var_name}=%{tx.0}'\""
+    },
+    "(?i:(?:\\[\\$(?:ne|eq|lte?|gte?|n?in|mod|all|size|exists|type|slice|x?or|div|like|between|and)\\]))": {
+        "targets": [
+            " REQUEST_COOKIES",
+            "!REQUEST_COOKIES:/__utm/",
+            "REQUEST_COOKIES_NAMES",
+            "ARGS_NAMES",
+            "ARGS",
+            "XML"
+        ],
+        "msg": "Finds basic MongoDB SQL injection attempts",
+        "logdata": "Matched Data: %{TX.0} found within %{MATCHED_VAR_NAME}: %{MATCHED_VAR}",
+        "tag": "application-multi,language-multi,platform-multi,attack-sqli,OWASP_CRS/WEB_ATTACK/SQL_INJECTION,WASCTC/WASC-19,OWASP_TOP_10/A1,OWASP_AppSensor/CIE1,PCI/6.5.2",
+        "paranoia level": 1,
+        "severity": "CRITICAL",
+        "setvar": "tx.%{rule.id}-OWASP_CRS/WEB_ATTACK/SQLI-%{matched_var_name}=%{tx.0}",
+        "t": [
+            "none",
+            "urlDecodeUni"
+        ],
+        "line": "SecRule REQUEST_COOKIES|!REQUEST_COOKIES:/__utm/|REQUEST_COOKIES_NAMES|ARGS_NAMES|ARGS|XML:/* \"(?i:(?:\\[\\$(?:ne|eq|lte?|gte?|n?in|mod|all|size|exists|type|slice|x?or|div|like|between|and)\\]))\" \\*nl*\"phase:request,\\*nl*rev:'2',\\*nl*ver:'OWASP_CRS/3.0.0',\\*nl*maturity:'9',\\*nl*accuracy:'8',\\*nl*capture,\\*nl*t:none,t:urlDecodeUni,\\*nl*block,\\*nl*msg:'Finds basic MongoDB SQL injection attempts',\\*nl*id:942290,\\*nl*tag:'application-multi',\\*nl*tag:'language-multi',\\*nl*tag:'platform-multi',\\*nl*tag:'attack-sqli',\\*nl*tag:'OWASP_CRS/WEB_ATTACK/SQL_INJECTION',\\*nl*tag:'WASCTC/WASC-19',\\*nl*tag:'OWASP_TOP_10/A1',\\*nl*tag:'OWASP_AppSensor/CIE1',\\*nl*tag:'PCI/6.5.2',\\*nl*logdata:'Matched Data: %{TX.0} found within %{MATCHED_VAR_NAME}: %{MATCHED_VAR}',\\*nl*severity:'CRITICAL',\\*nl*setvar:'tx.msg=%{rule.msg}',\\*nl*setvar:tx.sql_injection_score=+%{tx.critical_anomaly_score},\\*nl*setvar:tx.anomaly_score=+%{tx.critical_anomaly_score},\\*nl*setvar:'tx.%{rule.id}-OWASP_CRS/WEB_ATTACK/SQLI-%{matched_var_name}=%{tx.0}'\""
+    },
+    "(?i:(?:procedure\\s+analyse\\s*?\\()|(?:;\\s*?(declare|open)\\s+[\\w-]+)|(?:create\\s+(procedure|function)\\s*?\\w+\\s*?\\(\\s*?\\)\\s*?-)|(?:declare[^\\w]+[@#]\\s*?\\w+)|(exec\\s*?\\(\\s*?@))": {
+        "targets": [
+            " REQUEST_COOKIES",
+            "!REQUEST_COOKIES:/__utm/",
+            "REQUEST_COOKIES_NAMES",
+            "ARGS_NAMES",
+            "ARGS",
+            "XML"
+        ],
+        "msg": "Detects MySQL and PostgreSQL stored procedure/function injections",
+        "logdata": "Matched Data: %{TX.0} found within %{MATCHED_VAR_NAME}: %{MATCHED_VAR}",
+        "tag": "application-multi,language-multi,platform-multi,attack-sqli,OWASP_CRS/WEB_ATTACK/SQL_INJECTION,WASCTC/WASC-19,OWASP_TOP_10/A1,OWASP_AppSensor/CIE1,PCI/6.5.2",
+        "paranoia level": 1,
+        "severity": "CRITICAL",
+        "setvar": "tx.%{rule.id}-OWASP_CRS/WEB_ATTACK/SQLI-%{matched_var_name}=%{tx.0}",
+        "t": [
+            "none",
+            "urlDecodeUni"
+        ],
+        "line": "SecRule REQUEST_COOKIES|!REQUEST_COOKIES:/__utm/|REQUEST_COOKIES_NAMES|ARGS_NAMES|ARGS|XML:/* \"(?i:(?:procedure\\s+analyse\\s*?\\()|(?:;\\s*?(declare|open)\\s+[\\w-]+)|(?:create\\s+(procedure|function)\\s*?\\w+\\s*?\\(\\s*?\\)\\s*?-)|(?:declare[^\\w]+[@#]\\s*?\\w+)|(exec\\s*?\\(\\s*?@))\" \\*nl*\"phase:request,\\*nl*rev:'2',\\*nl*ver:'OWASP_CRS/3.0.0',\\*nl*maturity:'9',\\*nl*accuracy:'8',\\*nl*capture,\\*nl*t:none,t:urlDecodeUni,\\*nl*block,\\*nl*msg:'Detects MySQL and PostgreSQL stored procedure/function injections',\\*nl*id:942320,\\*nl*tag:'application-multi',\\*nl*tag:'language-multi',\\*nl*tag:'platform-multi',\\*nl*tag:'attack-sqli',\\*nl*tag:'OWASP_CRS/WEB_ATTACK/SQL_INJECTION',\\*nl*tag:'WASCTC/WASC-19',\\*nl*tag:'OWASP_TOP_10/A1',\\*nl*tag:'OWASP_AppSensor/CIE1',\\*nl*tag:'PCI/6.5.2',\\*nl*logdata:'Matched Data: %{TX.0} found within %{MATCHED_VAR_NAME}: %{MATCHED_VAR}',\\*nl*severity:'CRITICAL',\\*nl*setvar:'tx.msg=%{rule.msg}',\\*nl*setvar:tx.sql_injection_score=+%{tx.critical_anomaly_score},\\*nl*setvar:tx.anomaly_score=+%{tx.critical_anomaly_score},\\*nl*setvar:'tx.%{rule.id}-OWASP_CRS/WEB_ATTACK/SQLI-%{matched_var_name}=%{tx.0}'\""
+    },
+    "(?i:(?:create\\s+function\\s+.+\\s+returns)|(?:;\\s*?(?:select|create|rename|truncate|load|alter|delete|update|insert|desc)\\s*?[\\[(]?\\w{2,}))": {
+        "targets": [
+            " REQUEST_COOKIES",
+            "!REQUEST_COOKIES:/__utm/",
+            "REQUEST_COOKIES_NAMES",
+            "ARGS_NAMES",
+            "ARGS",
+            "XML"
+        ],
+        "msg": "Detects MySQL UDF injection and other data/structure manipulation attempts",
+        "logdata": "Matched Data: %{TX.0} found within %{MATCHED_VAR_NAME}: %{MATCHED_VAR}",
+        "tag": "application-multi,language-multi,platform-multi,attack-sqli,OWASP_CRS/WEB_ATTACK/SQL_INJECTION,WASCTC/WASC-19,OWASP_TOP_10/A1,OWASP_AppSensor/CIE1,PCI/6.5.2",
+        "paranoia level": 1,
+        "severity": "CRITICAL",
+        "setvar": "tx.%{rule.id}-OWASP_CRS/WEB_ATTACK/SQLI-%{matched_var_name}=%{tx.0}",
+        "t": [
+            "none",
+            "urlDecodeUni"
+        ],
+        "line": "SecRule REQUEST_COOKIES|!REQUEST_COOKIES:/__utm/|REQUEST_COOKIES_NAMES|ARGS_NAMES|ARGS|XML:/* \"(?i:(?:create\\s+function\\s+.+\\s+returns)|(?:;\\s*?(?:select|create|rename|truncate|load|alter|delete|update|insert|desc)\\s*?[\\[(]?\\w{2,}))\" \\*nl*\"phase:request,\\*nl*rev:'2',\\*nl*ver:'OWASP_CRS/3.0.0',\\*nl*maturity:'9',\\*nl*accuracy:'8',\\*nl*capture,\\*nl*t:none,t:urlDecodeUni,\\*nl*block,\\*nl*msg:'Detects MySQL UDF injection and other data/structure manipulation attempts',\\*nl*id:942350,\\*nl*tag:'application-multi',\\*nl*tag:'language-multi',\\*nl*tag:'platform-multi',\\*nl*tag:'attack-sqli',\\*nl*tag:'OWASP_CRS/WEB_ATTACK/SQL_INJECTION',\\*nl*tag:'WASCTC/WASC-19',\\*nl*tag:'OWASP_TOP_10/A1',\\*nl*tag:'OWASP_AppSensor/CIE1',\\*nl*tag:'PCI/6.5.2',\\*nl*logdata:'Matched Data: %{TX.0} found within %{MATCHED_VAR_NAME}: %{MATCHED_VAR}',\\*nl*severity:'CRITICAL',\\*nl*setvar:'tx.msg=%{rule.msg}',\\*nl*setvar:tx.sql_injection_score=+%{tx.critical_anomaly_score},\\*nl*setvar:tx.anomaly_score=+%{tx.critical_anomaly_score},\\*nl*setvar:'tx.%{rule.id}-OWASP_CRS/WEB_ATTACK/SQLI-%{matched_var_name}=%{tx.0}'\""
+    },
+    "(?i:(?:[\\d\\W]\\s+as\\s*?[\\\"'`\\w]+\\s*?from)|(?:^[\\W\\d]+\\s*?(?:union|select|create|rename|truncate|load|alter|delete|update|insert|desc))|(?:(?:select|create|rename|truncate|load|alter|delete|update|insert|desc)\\s+(?:(?:group_)concat|char|load_file)\\s?\\(?)|(?:end\\s*?\\);)|([\\\"'`]\\s+regexp\\W)|(?:[\\s(]load_file\\s*?\\())": {
+        "targets": [
+            " REQUEST_COOKIES",
+            "!REQUEST_COOKIES:/__utm/",
+            "REQUEST_COOKIES_NAMES",
+            "ARGS_NAMES",
+            "ARGS",
+            "XML"
+        ],
+        "msg": "Detects concatenated basic SQL injection and SQLLFI attempts",
+        "logdata": "Matched Data: %{TX.0} found within %{MATCHED_VAR_NAME}: %{MATCHED_VAR}",
+        "tag": "application-multi,language-multi,platform-multi,attack-sqli,OWASP_CRS/WEB_ATTACK/SQL_INJECTION,WASCTC/WASC-19,OWASP_TOP_10/A1,OWASP_AppSensor/CIE1,PCI/6.5.2",
+        "paranoia level": 1,
+        "severity": "CRITICAL",
+        "setvar": "tx.%{rule.id}-OWASP_CRS/WEB_ATTACK/SQLI-%{matched_var_name}=%{tx.0}",
+        "t": [
+            "none",
+            "urlDecodeUni"
+        ],
+        "line": "SecRule REQUEST_COOKIES|!REQUEST_COOKIES:/__utm/|REQUEST_COOKIES_NAMES|ARGS_NAMES|ARGS|XML:/* \"(?i:(?:[\\d\\W]\\s+as\\s*?[\\\"'`\\w]+\\s*?from)|(?:^[\\W\\d]+\\s*?(?:union|select|create|rename|truncate|load|alter|delete|update|insert|desc))|(?:(?:select|create|rename|truncate|load|alter|delete|update|insert|desc)\\s+(?:(?:group_)concat|char|load_file)\\s?\\(?)|(?:end\\s*?\\);)|([\\\"'`]\\s+regexp\\W)|(?:[\\s(]load_file\\s*?\\())\" \\*nl*\"phase:request,\\*nl*rev:'2',\\*nl*ver:'OWASP_CRS/3.0.0',\\*nl*maturity:'9',\\*nl*accuracy:'8',\\*nl*capture,\\*nl*t:none,t:urlDecodeUni,\\*nl*block,\\*nl*msg:'Detects concatenated basic SQL injection and SQLLFI attempts',\\*nl*id:942360,\\*nl*tag:'application-multi',\\*nl*tag:'language-multi',\\*nl*tag:'platform-multi',\\*nl*tag:'attack-sqli',\\*nl*tag:'OWASP_CRS/WEB_ATTACK/SQL_INJECTION',\\*nl*tag:'WASCTC/WASC-19',\\*nl*tag:'OWASP_TOP_10/A1',\\*nl*tag:'OWASP_AppSensor/CIE1',\\*nl*tag:'PCI/6.5.2',\\*nl*logdata:'Matched Data: %{TX.0} found within %{MATCHED_VAR_NAME}: %{MATCHED_VAR}',\\*nl*severity:'CRITICAL',\\*nl*setvar:'tx.msg=%{rule.msg}',\\*nl*setvar:tx.sql_injection_score=+%{tx.critical_anomaly_score},\\*nl*setvar:tx.anomaly_score=+%{tx.critical_anomaly_score},\\*nl*setvar:'tx.%{rule.id}-OWASP_CRS/WEB_ATTACK/SQLI-%{matched_var_name}=%{tx.0}'\""
+    },
+    "(?i:(\\!\\=|\\&\\&|\\|\\||>>|<<|>=|<=|<>|<=>|\\bxor\\b|\\brlike\\b|\\bregexp\\b|\\bisnull\\b)|(?:not\\s+between\\s+0\\s+and)|(?:is\\s+null)|(like\\s+null)|(?:(?:^|\\W)in[+\\s]*\\([\\s\\d\\\"]+[^()]*\\))|(?:\\bxor\\b|<>|rlike(?:\\s+binary)?)|(?:regexp\\s+binary))": {
+        "targets": [
+            " ARGS_NAMES",
+            "ARGS",
+            "XML"
+        ],
+        "msg": "SQL Injection Attack: SQL Operator Detected",
+        "logdata": "Matched Data: %{TX.0} found within %{MATCHED_VAR_NAME}: %{MATCHED_VAR}",
+        "tag": "application-multi,language-multi,platform-multi,attack-sqli,OWASP_CRS/WEB_ATTACK/SQL_INJECTION,WASCTC/WASC-19,OWASP_TOP_10/A1,OWASP_AppSensor/CIE1,PCI/6.5.2,paranoia-level/2",
+        "paranoia level": 2,
+        "severity": "CRITICAL",
+        "setvar": "tx.msg=%{rule.msg}",
+        "t": [
+            "none",
+            "utf8toUnicode",
+            "urlDecodeUni"
+        ],
+        "line": "SecRule ARGS_NAMES|ARGS|XML:/* \"(?i:(\\!\\=|\\&\\&|\\|\\||>>|<<|>=|<=|<>|<=>|\\bxor\\b|\\brlike\\b|\\bregexp\\b|\\bisnull\\b)|(?:not\\s+between\\s+0\\s+and)|(?:is\\s+null)|(like\\s+null)|(?:(?:^|\\W)in[+\\s]*\\([\\s\\d\\\"]+[^()]*\\))|(?:\\bxor\\b|<>|rlike(?:\\s+binary)?)|(?:regexp\\s+binary))\" \\*nl*\"phase:request,\\*nl*rev:'3',\\*nl*ver:'OWASP_CRS/3.0.0',\\*nl*maturity:'9',\\*nl*accuracy:'8',\\*nl*capture,\\*nl*t:none,t:utf8toUnicode,t:urlDecodeUni,\\*nl*block,\\*nl*msg:'SQL Injection Attack: SQL Operator Detected',\\*nl*id:942120,\\*nl*logdata:'Matched Data: %{TX.0} found within %{MATCHED_VAR_NAME}: %{MATCHED_VAR}',\\*nl*severity:'CRITICAL',\\*nl*tag:'application-multi',\\*nl*tag:'language-multi',\\*nl*tag:'platform-multi',\\*nl*tag:'attack-sqli',\\*nl*tag:'OWASP_CRS/WEB_ATTACK/SQL_INJECTION',\\*nl*tag:'WASCTC/WASC-19',\\*nl*tag:'OWASP_TOP_10/A1',\\*nl*tag:'OWASP_AppSensor/CIE1',\\*nl*tag:'PCI/6.5.2',\\*nl*tag:'paranoia-level/2',\\*nl*setvar:'tx.msg=%{rule.msg}',\\*nl*setvar:tx.sql_injection_score=+%{tx.critical_anomaly_score},\\*nl*setvar:tx.anomaly_score=+%{tx.critical_anomaly_score},\\*nl*setvar:tx.%{rule.id}-OWASP_CRS/WEB_ATTACK/SQL_INJECTION-%{matched_var_name}=%{tx.0}\""
+    },
+    "(?i:([\\s'\\\"`\\(\\)]*?)([\\d\\w]++)([\\s'\\\"`\\(\\)]*?)(?:(?:=|<=>|r?like|sounds\\s+like|regexp)([\\s'\\\"`\\(\\)]*?)\\2|(?:!=|<=|>=|<>|<|>|\\^|is\\s+not|not\\s+like|not\\s+regexp)([\\s'\\\"`\\(\\)]*?)(?!\\2)([\\d\\w]+)))": {
+        "targets": [
+            " ARGS_NAMES",
+            "ARGS",
+            "XML"
+        ],
+        "msg": "SQL Injection Attack: SQL Tautology Detected.",
+        "logdata": "Matched Data: %{TX.0} found within %{MATCHED_VAR_NAME}: %{MATCHED_VAR}",
+        "tag": "application-multi,language-multi,platform-multi,attack-sqli,OWASP_CRS/WEB_ATTACK/SQL_INJECTION,WASCTC/WASC-19,OWASP_TOP_10/A1,OWASP_AppSensor/CIE1,PCI/6.5.2,paranoia-level/2",
+        "paranoia level": 2,
+        "severity": "CRITICAL",
+        "setvar": "tx.msg=%{rule.msg}",
+        "t": [
+            "none",
+            "urlDecodeUni",
+            "replaceComments"
+        ],
+        "line": "SecRule ARGS_NAMES|ARGS|XML:/* \"(?i:([\\s'\\\"`\\(\\)]*?)([\\d\\w]++)([\\s'\\\"`\\(\\)]*?)(?:(?:=|<=>|r?like|sounds\\s+like|regexp)([\\s'\\\"`\\(\\)]*?)\\2|(?:!=|<=|>=|<>|<|>|\\^|is\\s+not|not\\s+like|not\\s+regexp)([\\s'\\\"`\\(\\)]*?)(?!\\2)([\\d\\w]+)))\" \\*nl*\"phase:request,\\*nl*rev:'2',\\*nl*ver:'OWASP_CRS/3.0.0',\\*nl*maturity:'9',\\*nl*accuracy:'8',\\*nl*capture,\\*nl*multiMatch,t:none,t:urlDecodeUni,t:replaceComments,\\*nl*block,\\*nl*msg:'SQL Injection Attack: SQL Tautology Detected.',\\*nl*id:942130,\\*nl*logdata:'Matched Data: %{TX.0} found within %{MATCHED_VAR_NAME}: %{MATCHED_VAR}',\\*nl*severity:'CRITICAL',\\*nl*tag:'application-multi',\\*nl*tag:'language-multi',\\*nl*tag:'platform-multi',\\*nl*tag:'attack-sqli',\\*nl*tag:'OWASP_CRS/WEB_ATTACK/SQL_INJECTION',\\*nl*tag:'WASCTC/WASC-19',\\*nl*tag:'OWASP_TOP_10/A1',\\*nl*tag:'OWASP_AppSensor/CIE1',\\*nl*tag:'PCI/6.5.2',\\*nl*tag:'paranoia-level/2',\\*nl*setvar:'tx.msg=%{rule.msg}',\\*nl*setvar:tx.sql_injection_score=+%{tx.critical_anomaly_score},\\*nl*setvar:tx.anomaly_score=+%{tx.critical_anomaly_score},\\*nl*setvar:tx.%{rule.id}-OWASP_CRS/WEB_ATTACK/SQL_INJECTION-%{matched_var_name}=%{tx.0}\""
+    },
+    "(?i:(?i:\\d[\\\"'`]\\s+[\\\"'`]\\s+\\d)|(?:^admin\\s*?[\\\"'`]|(\\/\\*)+[\\\"'`]+\\s?(?:--|#|\\/\\*|{)?)|(?:[\\\"'`]\\s*?(x?or|div|like|between|and)[\\w\\s-]+\\s*?[+<>=(),-]\\s*?[\\d\\\"'`])|(?:[\\\"'`]\\s*?[^\\w\\s]?=\\s*?[\\\"'`])|(?:[\\\"'`]\\W*?[+=]+\\W*?[\\\"'`])|(?:[\\\"'`]\\s*?[!=|][\\d\\s!=+-]+.*?[\\\"'`(].*?$)|(?:[\\\"'`]\\s*?[!=|][\\d\\s!=]+.*?\\d+$)|(?:[\\\"'`]\\s*?like\\W+[\\w\\\"'`(])|(?:\\sis\\s*?0\\W)|(?:where\\s[\\s\\w\\.,-]+\\s=)|(?:[\\\"'`][<>~]+[\\\"'`]))": {
+        "targets": [
+            " REQUEST_COOKIES",
+            "!REQUEST_COOKIES:/__utm/",
+            "REQUEST_COOKIES_NAMES",
+            "ARGS_NAMES",
+            "ARGS",
+            "XML"
+        ],
+        "msg": "Detects basic SQL authentication bypass attempts 1/3",
+        "logdata": "Matched Data: %{TX.0} found within %{MATCHED_VAR_NAME}: %{MATCHED_VAR}",
+        "tag": "application-multi,language-multi,platform-multi,attack-sqli,OWASP_CRS/WEB_ATTACK/SQL_INJECTION,WASCTC/WASC-19,OWASP_TOP_10/A1,OWASP_AppSensor/CIE1,PCI/6.5.2,paranoia-level/2",
+        "paranoia level": 2,
+        "severity": "CRITICAL",
+        "setvar": "tx.%{rule.id}-OWASP_CRS/WEB_ATTACK/SQLI-%{matched_var_name}=%{tx.0}",
+        "t": [
+            "none",
+            "urlDecodeUni"
+        ],
+        "line": "SecRule REQUEST_COOKIES|!REQUEST_COOKIES:/__utm/|REQUEST_COOKIES_NAMES|ARGS_NAMES|ARGS|XML:/* \"(?i:(?i:\\d[\\\"'`]\\s+[\\\"'`]\\s+\\d)|(?:^admin\\s*?[\\\"'`]|(\\/\\*)+[\\\"'`]+\\s?(?:--|#|\\/\\*|{)?)|(?:[\\\"'`]\\s*?(x?or|div|like|between|and)[\\w\\s-]+\\s*?[+<>=(),-]\\s*?[\\d\\\"'`])|(?:[\\\"'`]\\s*?[^\\w\\s]?=\\s*?[\\\"'`])|(?:[\\\"'`]\\W*?[+=]+\\W*?[\\\"'`])|(?:[\\\"'`]\\s*?[!=|][\\d\\s!=+-]+.*?[\\\"'`(].*?$)|(?:[\\\"'`]\\s*?[!=|][\\d\\s!=]+.*?\\d+$)|(?:[\\\"'`]\\s*?like\\W+[\\w\\\"'`(])|(?:\\sis\\s*?0\\W)|(?:where\\s[\\s\\w\\.,-]+\\s=)|(?:[\\\"'`][<>~]+[\\\"'`]))\" \\*nl*\"phase:request,\\*nl*rev:'2',\\*nl*ver:'OWASP_CRS/3.0.0',\\*nl*maturity:'9',\\*nl*accuracy:'8',\\*nl*capture,\\*nl*t:none,t:urlDecodeUni,\\*nl*block,\\*nl*msg:'Detects basic SQL authentication bypass attempts 1/3',\\*nl*id:942180,\\*nl*tag:'application-multi',\\*nl*tag:'language-multi',\\*nl*tag:'platform-multi',\\*nl*tag:'attack-sqli',\\*nl*tag:'OWASP_CRS/WEB_ATTACK/SQL_INJECTION',\\*nl*tag:'WASCTC/WASC-19',\\*nl*tag:'OWASP_TOP_10/A1',\\*nl*tag:'OWASP_AppSensor/CIE1',\\*nl*tag:'PCI/6.5.2',\\*nl*tag:'paranoia-level/2',\\*nl*logdata:'Matched Data: %{TX.0} found within %{MATCHED_VAR_NAME}: %{MATCHED_VAR}',\\*nl*severity:'CRITICAL',\\*nl*setvar:'tx.msg=%{rule.msg}',\\*nl*setvar:tx.sql_injection_score=+%{tx.critical_anomaly_score},\\*nl*setvar:tx.anomaly_score=+%{tx.critical_anomaly_score},\\*nl*setvar:'tx.%{rule.id}-OWASP_CRS/WEB_ATTACK/SQLI-%{matched_var_name}=%{tx.0}'\""
+    },
+    "(?i:(?:,.*?[)\\da-f\\\"'`][\\\"'`](?:[\\\"'`].*?[\\\"'`]|\\Z|[^\\\"'`]+))|(?:\\Wselect.+\\W*?from)|((?:select|create|rename|truncate|load|alter|delete|update|insert|desc)\\s*?\\(\\s*?space\\s*?\\())": {
+        "targets": [
+            " REQUEST_COOKIES",
+            "!REQUEST_COOKIES:/__utm/",
+            "REQUEST_COOKIES_NAMES",
+            "ARGS_NAMES",
+            "ARGS",
+            "XML"
+        ],
+        "msg": "Detects MySQL comment-/space-obfuscated injections and backtick termination",
+        "logdata": "Matched Data: %{TX.0} found within %{MATCHED_VAR_NAME}: %{MATCHED_VAR}",
+        "tag": "application-multi,language-multi,platform-multi,attack-sqli,OWASP_CRS/WEB_ATTACK/SQL_INJECTION,WASCTC/WASC-19,OWASP_TOP_10/A1,OWASP_AppSensor/CIE1,PCI/6.5.2,paranoia-level/2",
+        "paranoia level": 2,
+        "severity": "CRITICAL",
+        "setvar": "tx.%{rule.id}-OWASP_CRS/WEB_ATTACK/SQLI-%{matched_var_name}=%{tx.0}",
+        "t": [
+            "none",
+            "urlDecodeUni"
+        ],
+        "line": "SecRule REQUEST_COOKIES|!REQUEST_COOKIES:/__utm/|REQUEST_COOKIES_NAMES|ARGS_NAMES|ARGS|XML:/* \"(?i:(?:,.*?[)\\da-f\\\"'`][\\\"'`](?:[\\\"'`].*?[\\\"'`]|\\Z|[^\\\"'`]+))|(?:\\Wselect.+\\W*?from)|((?:select|create|rename|truncate|load|alter|delete|update|insert|desc)\\s*?\\(\\s*?space\\s*?\\())\" \\*nl*\"phase:request,\\*nl*rev:'2',\\*nl*ver:'OWASP_CRS/3.0.0',\\*nl*maturity:'9',\\*nl*accuracy:'8',\\*nl*capture,\\*nl*t:none,t:urlDecodeUni,\\*nl*block,\\*nl*msg:'Detects MySQL comment-/space-obfuscated injections and backtick termination',\\*nl*id:942200,\\*nl*tag:'application-multi',\\*nl*tag:'language-multi',\\*nl*tag:'platform-multi',\\*nl*tag:'attack-sqli',\\*nl*tag:'OWASP_CRS/WEB_ATTACK/SQL_INJECTION',\\*nl*tag:'WASCTC/WASC-19',\\*nl*tag:'OWASP_TOP_10/A1',\\*nl*tag:'OWASP_AppSensor/CIE1',\\*nl*tag:'PCI/6.5.2',\\*nl*tag:'paranoia-level/2',\\*nl*logdata:'Matched Data: %{TX.0} found within %{MATCHED_VAR_NAME}: %{MATCHED_VAR}',\\*nl*severity:'CRITICAL',\\*nl*setvar:'tx.msg=%{rule.msg}',\\*nl*setvar:tx.sql_injection_score=+%{tx.critical_anomaly_score},\\*nl*setvar:tx.anomaly_score=+%{tx.critical_anomaly_score},\\*nl*setvar:'tx.%{rule.id}-OWASP_CRS/WEB_ATTACK/SQLI-%{matched_var_name}=%{tx.0}'\""
+    },
+    "(?i:(?:@.+=\\s*?\\(\\s*?select)|(?:\\d+\\s*?(x?or|div|like|between|and)\\s*?\\d+\\s*?[\\-+])|(?:\\/\\w+;?\\s+(?:having|and|x?or|div|like|between|and|select)\\W)|(?:\\d\\s+group\\s+by.+\\()|(?:(?:;|#|--)\\s*?(?:drop|alter))|(?:(?:;|#|--)\\s*?(?:update|insert)\\s*?\\w{2,})|(?:[^\\w]SET\\s*?@\\w+)|(?:(?:n?and|x?x?or|div|like|between|and|not|\\|\\||\\&\\&)[\\s(]+\\w+[\\s)]*?[!=+]+[\\s\\d]*?[\\\"'`=()]))": {
+        "targets": [
+            " REQUEST_COOKIES",
+            "!REQUEST_COOKIES:/__utm/",
+            "REQUEST_COOKIES_NAMES",
+            "ARGS_NAMES",
+            "ARGS",
+            "XML"
+        ],
+        "msg": "Detects chained SQL injection attempts 1/2",
+        "logdata": "Matched Data: %{TX.0} found within %{MATCHED_VAR_NAME}: %{MATCHED_VAR}",
+        "tag": "application-multi,language-multi,platform-multi,attack-sqli,OWASP_CRS/WEB_ATTACK/SQL_INJECTION,WASCTC/WASC-19,OWASP_TOP_10/A1,OWASP_AppSensor/CIE1,PCI/6.5.2,paranoia-level/2",
+        "paranoia level": 2,
+        "severity": "CRITICAL",
+        "setvar": "tx.%{rule.id}-OWASP_CRS/WEB_ATTACK/SQLI-%{matched_var_name}=%{tx.0}",
+        "t": [
+            "none",
+            "urlDecodeUni"
+        ],
+        "line": "SecRule REQUEST_COOKIES|!REQUEST_COOKIES:/__utm/|REQUEST_COOKIES_NAMES|ARGS_NAMES|ARGS|XML:/* \"(?i:(?:@.+=\\s*?\\(\\s*?select)|(?:\\d+\\s*?(x?or|div|like|between|and)\\s*?\\d+\\s*?[\\-+])|(?:\\/\\w+;?\\s+(?:having|and|x?or|div|like|between|and|select)\\W)|(?:\\d\\s+group\\s+by.+\\()|(?:(?:;|#|--)\\s*?(?:drop|alter))|(?:(?:;|#|--)\\s*?(?:update|insert)\\s*?\\w{2,})|(?:[^\\w]SET\\s*?@\\w+)|(?:(?:n?and|x?x?or|div|like|between|and|not|\\|\\||\\&\\&)[\\s(]+\\w+[\\s)]*?[!=+]+[\\s\\d]*?[\\\"'`=()]))\" \\*nl*\"phase:request,\\*nl*rev:'2',\\*nl*ver:'OWASP_CRS/3.0.0',\\*nl*maturity:'9',\\*nl*accuracy:'8',\\*nl*capture,\\*nl*t:none,t:urlDecodeUni,\\*nl*block,\\*nl*msg:'Detects chained SQL injection attempts 1/2',\\*nl*id:942210,\\*nl*tag:'application-multi',\\*nl*tag:'language-multi',\\*nl*tag:'platform-multi',\\*nl*tag:'attack-sqli',\\*nl*tag:'OWASP_CRS/WEB_ATTACK/SQL_INJECTION',\\*nl*tag:'WASCTC/WASC-19',\\*nl*tag:'OWASP_TOP_10/A1',\\*nl*tag:'OWASP_AppSensor/CIE1',\\*nl*tag:'PCI/6.5.2',\\*nl*tag:'paranoia-level/2',\\*nl*logdata:'Matched Data: %{TX.0} found within %{MATCHED_VAR_NAME}: %{MATCHED_VAR}',\\*nl*severity:'CRITICAL',\\*nl*setvar:'tx.msg=%{rule.msg}',\\*nl*setvar:tx.sql_injection_score=+%{tx.critical_anomaly_score},\\*nl*setvar:tx.anomaly_score=+%{tx.critical_anomaly_score},\\*nl*setvar:'tx.%{rule.id}-OWASP_CRS/WEB_ATTACK/SQLI-%{matched_var_name}=%{tx.0}'\""
+    },
+    "(?i:(?:union\\s*?(?:all|distinct|[(!@]*?)?\\s*?[([]*?\\s*?select\\s+)|(?:\\w+\\s+like\\s+[\\\"'`])|(?:like\\s*?[\\\"'`]\\%)|(?:[\\\"'`]\\s*?like\\W*?[\\\"'`\\d])|(?:[\\\"'`]\\s*?(?:n?and|x?x?or|div|like|between|and|not|\\|\\||\\&\\&)\\s+[\\s\\w]+=\\s*?\\w+\\s*?having\\s+)|(?:[\\\"'`]\\s*?\\*\\s*?\\w+\\W+[\\\"'`])|(?:[\\\"'`]\\s*?[^?\\w\\s=.,;)(]+\\s*?[(@\\\"'`]*?\\s*?\\w+\\W+\\w)|(?:select\\s+?[\\[\\]()\\s\\w\\.,\\\"'`-]+from\\s+)|(?:find_in_set\\s*?\\())": {
+        "targets": [
+            " REQUEST_COOKIES",
+            "!REQUEST_COOKIES:/__utm/",
+            "REQUEST_COOKIES_NAMES",
+            "ARGS_NAMES",
+            "ARGS",
+            "XML"
+        ],
+        "msg": "Detects basic SQL authentication bypass attempts 2/3",
+        "logdata": "Matched Data: %{TX.0} found within %{MATCHED_VAR_NAME}: %{MATCHED_VAR}",
+        "tag": "application-multi,language-multi,platform-multi,attack-sqli,OWASP_CRS/WEB_ATTACK/SQL_INJECTION,WASCTC/WASC-19,OWASP_TOP_10/A1,OWASP_AppSensor/CIE1,PCI/6.5.2,paranoia-level/2",
+        "paranoia level": 2,
+        "severity": "CRITICAL",
+        "setvar": "tx.%{rule.id}-OWASP_CRS/WEB_ATTACK/SQLI-%{matched_var_name}=%{tx.0}",
+        "t": [
+            "none",
+            "urlDecodeUni"
+        ],
+        "line": "SecRule REQUEST_COOKIES|!REQUEST_COOKIES:/__utm/|REQUEST_COOKIES_NAMES|ARGS_NAMES|ARGS|XML:/* \"(?i:(?:union\\s*?(?:all|distinct|[(!@]*?)?\\s*?[([]*?\\s*?select\\s+)|(?:\\w+\\s+like\\s+[\\\"'`])|(?:like\\s*?[\\\"'`]\\%)|(?:[\\\"'`]\\s*?like\\W*?[\\\"'`\\d])|(?:[\\\"'`]\\s*?(?:n?and|x?x?or|div|like|between|and|not|\\|\\||\\&\\&)\\s+[\\s\\w]+=\\s*?\\w+\\s*?having\\s+)|(?:[\\\"'`]\\s*?\\*\\s*?\\w+\\W+[\\\"'`])|(?:[\\\"'`]\\s*?[^?\\w\\s=.,;)(]+\\s*?[(@\\\"'`]*?\\s*?\\w+\\W+\\w)|(?:select\\s+?[\\[\\]()\\s\\w\\.,\\\"'`-]+from\\s+)|(?:find_in_set\\s*?\\())\" \\*nl*\"phase:request,\\*nl*rev:'2',\\*nl*ver:'OWASP_CRS/3.0.0',\\*nl*maturity:'9',\\*nl*accuracy:'8',\\*nl*capture,\\*nl*t:none,t:urlDecodeUni,\\*nl*block,\\*nl*msg:'Detects basic SQL authentication bypass attempts 2/3',\\*nl*id:942260,\\*nl*tag:'application-multi',\\*nl*tag:'language-multi',\\*nl*tag:'platform-multi',\\*nl*tag:'attack-sqli',\\*nl*tag:'OWASP_CRS/WEB_ATTACK/SQL_INJECTION',\\*nl*tag:'WASCTC/WASC-19',\\*nl*tag:'OWASP_TOP_10/A1',\\*nl*tag:'OWASP_AppSensor/CIE1',\\*nl*tag:'PCI/6.5.2',\\*nl*tag:'paranoia-level/2',\\*nl*logdata:'Matched Data: %{TX.0} found within %{MATCHED_VAR_NAME}: %{MATCHED_VAR}',\\*nl*severity:'CRITICAL',\\*nl*setvar:'tx.msg=%{rule.msg}',\\*nl*setvar:tx.sql_injection_score=+%{tx.critical_anomaly_score},\\*nl*setvar:tx.anomaly_score=+%{tx.critical_anomaly_score},\\*nl*setvar:'tx.%{rule.id}-OWASP_CRS/WEB_ATTACK/SQLI-%{matched_var_name}=%{tx.0}'\""
+    },
+    "(?i:(?:\\)\\s*?when\\s*?\\d+\\s*?then)|(?:[\\\"'`]\\s*?(?:#|--|{))|(?:\\/\\*!\\s?\\d+)|(?:ch(?:a)?r\\s*?\\(\\s*?\\d)|(?:(?:(n?and|x?x?or|div|like|between|and|not)\\s+|\\|\\||\\&\\&)\\s*?\\w+\\())": {
+        "targets": [
+            " REQUEST_COOKIES",
+            "!REQUEST_COOKIES:/__utm/",
+            "REQUEST_COOKIES_NAMES",
+            "ARGS_NAMES",
+            "ARGS",
+            "XML"
+        ],
+        "msg": "Detects MySQL comments, conditions and ch(a)r injections",
+        "logdata": "Matched Data: %{TX.0} found within %{MATCHED_VAR_NAME}: %{MATCHED_VAR}",
+        "tag": "application-multi,language-multi,platform-multi,attack-sqli,OWASP_CRS/WEB_ATTACK/SQL_INJECTION,WASCTC/WASC-19,OWASP_TOP_10/A1,OWASP_AppSensor/CIE1,PCI/6.5.2,paranoia-level/2",
+        "paranoia level": 2,
+        "severity": "CRITICAL",
+        "setvar": "tx.%{rule.id}-OWASP_CRS/WEB_ATTACK/SQLI-%{matched_var_name}=%{tx.0}",
+        "t": [
+            "none",
+            "urlDecodeUni"
+        ],
+        "line": "SecRule REQUEST_COOKIES|!REQUEST_COOKIES:/__utm/|REQUEST_COOKIES_NAMES|ARGS_NAMES|ARGS|XML:/* \"(?i:(?:\\)\\s*?when\\s*?\\d+\\s*?then)|(?:[\\\"'`]\\s*?(?:#|--|{))|(?:\\/\\*!\\s?\\d+)|(?:ch(?:a)?r\\s*?\\(\\s*?\\d)|(?:(?:(n?and|x?x?or|div|like|between|and|not)\\s+|\\|\\||\\&\\&)\\s*?\\w+\\())\" \\*nl*\"phase:request,\\*nl*rev:'2',\\*nl*ver:'OWASP_CRS/3.0.0',\\*nl*maturity:'9',\\*nl*accuracy:'8',\\*nl*capture,\\*nl*t:none,t:urlDecodeUni,\\*nl*block,\\*nl*msg:'Detects MySQL comments, conditions and ch(a)r injections',\\*nl*id:942300,\\*nl*tag:'application-multi',\\*nl*tag:'language-multi',\\*nl*tag:'platform-multi',\\*nl*tag:'attack-sqli',\\*nl*tag:'OWASP_CRS/WEB_ATTACK/SQL_INJECTION',\\*nl*tag:'WASCTC/WASC-19',\\*nl*tag:'OWASP_TOP_10/A1',\\*nl*tag:'OWASP_AppSensor/CIE1',\\*nl*tag:'PCI/6.5.2',\\*nl*tag:'paranoia-level/2',\\*nl*logdata:'Matched Data: %{TX.0} found within %{MATCHED_VAR_NAME}: %{MATCHED_VAR}',\\*nl*severity:'CRITICAL',\\*nl*setvar:'tx.msg=%{rule.msg}',\\*nl*setvar:tx.sql_injection_score=+%{tx.critical_anomaly_score},\\*nl*setvar:tx.anomaly_score=+%{tx.critical_anomaly_score},\\*nl*setvar:'tx.%{rule.id}-OWASP_CRS/WEB_ATTACK/SQLI-%{matched_var_name}=%{tx.0}'\""
+    },
+    "(?i:(?:[\\\"'`]\\s+and\\s*?=\\W)|(?:\\(\\s*?select\\s*?\\w+\\s*?\\()|(?:\\*\\/from)|(?:\\+\\s*?\\d+\\s*?\\+\\s*?@)|(?:\\w[\\\"'`]\\s*?(?:(?:[-+=|@]+\\s+?)+|[-+=|@]+)[\\d(])|(?:coalesce\\s*?\\(|@@\\w+\\s*?[^\\w\\s])|(?:\\W!+[\\\"'`]\\w)|(?:[\\\"'`];\\s*?(?:if|while|begin))|(?:[\\\"'`][\\s\\d]+=\\s*?\\d)|(?:order\\s+by\\s+if\\w*?\\s*?\\()|(?:[\\s(]+case\\d*?\\W.+[tw]hen[\\s(]))": {
+        "targets": [
+            " REQUEST_COOKIES",
+            "!REQUEST_COOKIES:/__utm/",
+            "REQUEST_COOKIES_NAMES",
+            "ARGS_NAMES",
+            "ARGS",
+            "XML"
+        ],
+        "msg": "Detects chained SQL injection attempts 2/2",
+        "logdata": "Matched Data: %{TX.0} found within %{MATCHED_VAR_NAME}: %{MATCHED_VAR}",
+        "tag": "application-multi,language-multi,platform-multi,attack-sqli,OWASP_CRS/WEB_ATTACK/SQL_INJECTION,WASCTC/WASC-19,OWASP_TOP_10/A1,OWASP_AppSensor/CIE1,PCI/6.5.2,paranoia-level/2",
+        "paranoia level": 2,
+        "severity": "CRITICAL",
+        "setvar": "tx.%{rule.id}-OWASP_CRS/WEB_ATTACK/SQLI-%{matched_var_name}=%{tx.0}",
+        "t": [
+            "none",
+            "urlDecodeUni"
+        ],
+        "line": "SecRule REQUEST_COOKIES|!REQUEST_COOKIES:/__utm/|REQUEST_COOKIES_NAMES|ARGS_NAMES|ARGS|XML:/* \"(?i:(?:[\\\"'`]\\s+and\\s*?=\\W)|(?:\\(\\s*?select\\s*?\\w+\\s*?\\()|(?:\\*\\/from)|(?:\\+\\s*?\\d+\\s*?\\+\\s*?@)|(?:\\w[\\\"'`]\\s*?(?:(?:[-+=|@]+\\s+?)+|[-+=|@]+)[\\d(])|(?:coalesce\\s*?\\(|@@\\w+\\s*?[^\\w\\s])|(?:\\W!+[\\\"'`]\\w)|(?:[\\\"'`];\\s*?(?:if|while|begin))|(?:[\\\"'`][\\s\\d]+=\\s*?\\d)|(?:order\\s+by\\s+if\\w*?\\s*?\\()|(?:[\\s(]+case\\d*?\\W.+[tw]hen[\\s(]))\" \\*nl*\"phase:request,\\*nl*rev:'2',\\*nl*ver:'OWASP_CRS/3.0.0',\\*nl*maturity:'9',\\*nl*accuracy:'8',\\*nl*capture,\\*nl*t:none,t:urlDecodeUni,\\*nl*block,\\*nl*msg:'Detects chained SQL injection attempts 2/2',\\*nl*id:942310,\\*nl*tag:'application-multi',\\*nl*tag:'language-multi',\\*nl*tag:'platform-multi',\\*nl*tag:'attack-sqli',\\*nl*tag:'OWASP_CRS/WEB_ATTACK/SQL_INJECTION',\\*nl*tag:'WASCTC/WASC-19',\\*nl*tag:'OWASP_TOP_10/A1',\\*nl*tag:'OWASP_AppSensor/CIE1',\\*nl*tag:'PCI/6.5.2',\\*nl*tag:'paranoia-level/2',\\*nl*logdata:'Matched Data: %{TX.0} found within %{MATCHED_VAR_NAME}: %{MATCHED_VAR}',\\*nl*severity:'CRITICAL',\\*nl*setvar:'tx.msg=%{rule.msg}',\\*nl*setvar:tx.sql_injection_score=+%{tx.critical_anomaly_score},\\*nl*setvar:tx.anomaly_score=+%{tx.critical_anomaly_score},\\*nl*setvar:'tx.%{rule.id}-OWASP_CRS/WEB_ATTACK/SQLI-%{matched_var_name}=%{tx.0}'\""
+    },
+    "(?i:(?:[\\\"'`]\\s*?(x?or|div|like|between|and)\\s*?[\\\"'`]?\\d)|(?:\\\\\\\\x(?:23|27|3d))|(?:^.?[\\\"'`]$)|(?:(?:^[\\\"'`\\\\\\\\]*?(?:[\\d\\\"'`]+|[^\\\"'`]+[\\\"'`]))+\\s*?(?:n?and|x?x?or|div|like|between|and|not|\\|\\||\\&\\&)\\s*?[\\w\\\"'`][+&!@(),.-])|(?:[^\\w\\s]\\w+\\s*?[|-]\\s*?[\\\"'`]\\s*?\\w)|(?:@\\w+\\s+(and|x?or|div|like|between|and)\\s*?[\\\"'`\\d]+)|(?:@[\\w-]+\\s(and|x?or|div|like|between|and)\\s*?[^\\w\\s])|(?:[^\\w\\s:]\\s*?\\d\\W+[^\\w\\s]\\s*?[\\\"'`].)|(?:\\Winformation_schema|table_name\\W))": {
+        "targets": [
+            " REQUEST_COOKIES",
+            "!REQUEST_COOKIES:/__utm/",
+            "REQUEST_COOKIES_NAMES",
+            "ARGS_NAMES",
+            "ARGS",
+            "XML"
+        ],
+        "msg": "Detects classic SQL injection probings 1/2",
+        "logdata": "Matched Data: %{TX.0} found within %{MATCHED_VAR_NAME}: %{MATCHED_VAR}",
+        "tag": "application-multi,language-multi,platform-multi,attack-sqli,OWASP_CRS/WEB_ATTACK/SQL_INJECTION,WASCTC/WASC-19,OWASP_TOP_10/A1,OWASP_AppSensor/CIE1,PCI/6.5.2,paranoia-level/2",
+        "paranoia level": 2,
+        "severity": "CRITICAL",
+        "setvar": "tx.%{rule.id}-OWASP_CRS/WEB_ATTACK/SQLI-%{matched_var_name}=%{tx.0}",
+        "t": [
+            "none",
+            "urlDecodeUni"
+        ],
+        "line": "SecRule REQUEST_COOKIES|!REQUEST_COOKIES:/__utm/|REQUEST_COOKIES_NAMES|ARGS_NAMES|ARGS|XML:/* \"(?i:(?:[\\\"'`]\\s*?(x?or|div|like|between|and)\\s*?[\\\"'`]?\\d)|(?:\\\\\\\\x(?:23|27|3d))|(?:^.?[\\\"'`]$)|(?:(?:^[\\\"'`\\\\\\\\]*?(?:[\\d\\\"'`]+|[^\\\"'`]+[\\\"'`]))+\\s*?(?:n?and|x?x?or|div|like|between|and|not|\\|\\||\\&\\&)\\s*?[\\w\\\"'`][+&!@(),.-])|(?:[^\\w\\s]\\w+\\s*?[|-]\\s*?[\\\"'`]\\s*?\\w)|(?:@\\w+\\s+(and|x?or|div|like|between|and)\\s*?[\\\"'`\\d]+)|(?:@[\\w-]+\\s(and|x?or|div|like|between|and)\\s*?[^\\w\\s])|(?:[^\\w\\s:]\\s*?\\d\\W+[^\\w\\s]\\s*?[\\\"'`].)|(?:\\Winformation_schema|table_name\\W))\" \\*nl*\"phase:request,\\*nl*rev:'2',\\*nl*ver:'OWASP_CRS/3.0.0',\\*nl*maturity:'9',\\*nl*accuracy:'8',\\*nl*capture,\\*nl*t:none,t:urlDecodeUni,\\*nl*block,\\*nl*msg:'Detects classic SQL injection probings 1/2',\\*nl*id:942330,\\*nl*tag:'application-multi',\\*nl*tag:'language-multi',\\*nl*tag:'platform-multi',\\*nl*tag:'attack-sqli',\\*nl*tag:'OWASP_CRS/WEB_ATTACK/SQL_INJECTION',\\*nl*tag:'WASCTC/WASC-19',\\*nl*tag:'OWASP_TOP_10/A1',\\*nl*tag:'OWASP_AppSensor/CIE1',\\*nl*tag:'PCI/6.5.2',\\*nl*tag:'paranoia-level/2',\\*nl*logdata:'Matched Data: %{TX.0} found within %{MATCHED_VAR_NAME}: %{MATCHED_VAR}',\\*nl*severity:'CRITICAL',\\*nl*setvar:'tx.msg=%{rule.msg}',\\*nl*setvar:tx.sql_injection_score=+%{tx.critical_anomaly_score},\\*nl*setvar:tx.anomaly_score=+%{tx.critical_anomaly_score},\\*nl*setvar:'tx.%{rule.id}-OWASP_CRS/WEB_ATTACK/SQLI-%{matched_var_name}=%{tx.0}'\""
+    },
+    "(?i:(?:in\\s*?\\(+\\s*?select)|(?:(?:n?and|x?x?or|div|like|between|and|not|\\|\\||\\&\\&)\\s+[\\s\\w+]+(?:regexp\\s*?\\(|sounds\\s+like\\s*?[\\\"'`]|[=\\d]+x))|([\\\"'`]\\s*?\\d\\s*?(?:--|#))|(?:[\\\"'`][\\%&<>^=]+\\d\\s*?(=|x?or|div|like|between|and))|(?:[\\\"'`]\\W+[\\w+-]+\\s*?=\\s*?\\d\\W+[\\\"'`])|(?:[\\\"'`]\\s*?is\\s*?\\d.+[\\\"'`]?\\w)|(?:[\\\"'`]\\|?[\\w-]{3,}[^\\w\\s.,]+[\\\"'`])|(?:[\\\"'`]\\s*?is\\s*?[\\d.]+\\s*?\\W.*?[\\\"'`]))": {
+        "targets": [
+            " REQUEST_COOKIES",
+            "!REQUEST_COOKIES:/__utm/",
+            "REQUEST_COOKIES_NAMES",
+            "ARGS_NAMES",
+            "ARGS",
+            "XML"
+        ],
+        "msg": "Detects basic SQL authentication bypass attempts 3/3",
+        "logdata": "Matched Data: %{TX.0} found within %{MATCHED_VAR_NAME}: %{MATCHED_VAR}",
+        "tag": "application-multi,language-multi,platform-multi,attack-sqli,OWASP_CRS/WEB_ATTACK/SQL_INJECTION,WASCTC/WASC-19,OWASP_TOP_10/A1,OWASP_AppSensor/CIE1,PCI/6.5.2,paranoia-level/2",
+        "paranoia level": 2,
+        "severity": "CRITICAL",
+        "setvar": "tx.%{rule.id}-OWASP_CRS/WEB_ATTACK/SQLI-%{matched_var_name}=%{tx.0}",
+        "t": [
+            "none",
+            "urlDecodeUni"
+        ],
+        "line": "SecRule REQUEST_COOKIES|!REQUEST_COOKIES:/__utm/|REQUEST_COOKIES_NAMES|ARGS_NAMES|ARGS|XML:/* \"(?i:(?:in\\s*?\\(+\\s*?select)|(?:(?:n?and|x?x?or|div|like|between|and|not|\\|\\||\\&\\&)\\s+[\\s\\w+]+(?:regexp\\s*?\\(|sounds\\s+like\\s*?[\\\"'`]|[=\\d]+x))|([\\\"'`]\\s*?\\d\\s*?(?:--|#))|(?:[\\\"'`][\\%&<>^=]+\\d\\s*?(=|x?or|div|like|between|and))|(?:[\\\"'`]\\W+[\\w+-]+\\s*?=\\s*?\\d\\W+[\\\"'`])|(?:[\\\"'`]\\s*?is\\s*?\\d.+[\\\"'`]?\\w)|(?:[\\\"'`]\\|?[\\w-]{3,}[^\\w\\s.,]+[\\\"'`])|(?:[\\\"'`]\\s*?is\\s*?[\\d.]+\\s*?\\W.*?[\\\"'`]))\" \\*nl*\"phase:request,\\*nl*rev:'2',\\*nl*ver:'OWASP_CRS/3.0.0',\\*nl*maturity:'9',\\*nl*accuracy:'8',\\*nl*capture,\\*nl*t:none,t:urlDecodeUni,\\*nl*block,\\*nl*msg:'Detects basic SQL authentication bypass attempts 3/3',\\*nl*id:942340,\\*nl*tag:'application-multi',\\*nl*tag:'language-multi',\\*nl*tag:'platform-multi',\\*nl*tag:'attack-sqli',\\*nl*tag:'OWASP_CRS/WEB_ATTACK/SQL_INJECTION',\\*nl*tag:'WASCTC/WASC-19',\\*nl*tag:'OWASP_TOP_10/A1',\\*nl*tag:'OWASP_AppSensor/CIE1',\\*nl*tag:'PCI/6.5.2',\\*nl*tag:'paranoia-level/2',\\*nl*logdata:'Matched Data: %{TX.0} found within %{MATCHED_VAR_NAME}: %{MATCHED_VAR}',\\*nl*severity:'CRITICAL',\\*nl*setvar:'tx.msg=%{rule.msg}',\\*nl*setvar:tx.sql_injection_score=+%{tx.critical_anomaly_score},\\*nl*setvar:tx.anomaly_score=+%{tx.critical_anomaly_score},\\*nl*setvar:'tx.%{rule.id}-OWASP_CRS/WEB_ATTACK/SQLI-%{matched_var_name}=%{tx.0}'\""
+    },
+    "(?i:(?:[\\\"'`]\\s*?\\*.+(?:x?or|div|like|between|and|id)\\W*?[\\\"'`]\\d)|(?:\\^[\\\"'`])|(?:^[\\w\\s\\\"'`-]+(?<=and\\s)(?<=or|xor|div|like|between|and\\s)(?<=xor\\s)(?<=nand\\s)(?<=not\\s)(?<=\\|\\|)(?<=\\&\\&)\\w+\\()|(?:[\\\"'`][\\s\\d]*?[^\\w\\s]+\\W*?\\d\\W*?.*?[\\\"'`\\d])|(?:[\\\"'`]\\s*?[^\\w\\s?]+\\s*?[^\\w\\s]+\\s*?[\\\"'`])|(?:[\\\"'`]\\s*?[^\\w\\s]+\\s*?[\\W\\d].*?(?:#|--))|(?:[\\\"'`].*?\\*\\s*?\\d)|(?:[\\\"'`]\\s*?(x?or|div|like|between|and)\\s[^\\d]+[\\w-]+.*?\\d)|(?:[()\\*<>%+-][\\w-]+[^\\w\\s]+[\\\"'`][^,]))": {
+        "targets": [
+            " REQUEST_COOKIES",
+            "!REQUEST_COOKIES:/__utm/",
+            "REQUEST_COOKIES_NAMES",
+            "ARGS_NAMES",
+            "ARGS",
+            "XML"
+        ],
+        "msg": "Detects classic SQL injection probings 2/2",
+        "logdata": "Matched Data: %{TX.0} found within %{MATCHED_VAR_NAME}: %{MATCHED_VAR}",
+        "tag": "application-multi,language-multi,platform-multi,attack-sqli,OWASP_CRS/WEB_ATTACK/SQL_INJECTION,WASCTC/WASC-19,OWASP_TOP_10/A1,OWASP_AppSensor/CIE1,PCI/6.5.2,paranoia-level/2",
+        "paranoia level": 2,
+        "severity": "CRITICAL",
+        "setvar": "tx.%{rule.id}-OWASP_CRS/WEB_ATTACK/SQLI-%{matched_var_name}=%{tx.0}",
+        "t": [
+            "none",
+            "urlDecodeUni"
+        ],
+        "line": "SecRule REQUEST_COOKIES|!REQUEST_COOKIES:/__utm/|REQUEST_COOKIES_NAMES|ARGS_NAMES|ARGS|XML:/* \"(?i:(?:[\\\"'`]\\s*?\\*.+(?:x?or|div|like|between|and|id)\\W*?[\\\"'`]\\d)|(?:\\^[\\\"'`])|(?:^[\\w\\s\\\"'`-]+(?<=and\\s)(?<=or|xor|div|like|between|and\\s)(?<=xor\\s)(?<=nand\\s)(?<=not\\s)(?<=\\|\\|)(?<=\\&\\&)\\w+\\()|(?:[\\\"'`][\\s\\d]*?[^\\w\\s]+\\W*?\\d\\W*?.*?[\\\"'`\\d])|(?:[\\\"'`]\\s*?[^\\w\\s?]+\\s*?[^\\w\\s]+\\s*?[\\\"'`])|(?:[\\\"'`]\\s*?[^\\w\\s]+\\s*?[\\W\\d].*?(?:#|--))|(?:[\\\"'`].*?\\*\\s*?\\d)|(?:[\\\"'`]\\s*?(x?or|div|like|between|and)\\s[^\\d]+[\\w-]+.*?\\d)|(?:[()\\*<>%+-][\\w-]+[^\\w\\s]+[\\\"'`][^,]))\" \\*nl*\"phase:request,\\*nl*rev:'2',\\*nl*ver:'OWASP_CRS/3.0.0',\\*nl*maturity:'9',\\*nl*accuracy:'8',\\*nl*capture,\\*nl*t:none,t:urlDecodeUni,\\*nl*block,\\*nl*msg:'Detects classic SQL injection probings 2/2',\\*nl*id:942370,\\*nl*tag:'application-multi',\\*nl*tag:'language-multi',\\*nl*tag:'platform-multi',\\*nl*tag:'attack-sqli',\\*nl*tag:'OWASP_CRS/WEB_ATTACK/SQL_INJECTION',\\*nl*tag:'WASCTC/WASC-19',\\*nl*tag:'OWASP_TOP_10/A1',\\*nl*tag:'OWASP_AppSensor/CIE1',\\*nl*tag:'PCI/6.5.2',\\*nl*tag:'paranoia-level/2',\\*nl*logdata:'Matched Data: %{TX.0} found within %{MATCHED_VAR_NAME}: %{MATCHED_VAR}',\\*nl*severity:'CRITICAL',\\*nl*setvar:'tx.msg=%{rule.msg}',\\*nl*setvar:tx.sql_injection_score=+%{tx.critical_anomaly_score},\\*nl*setvar:tx.anomaly_score=+%{tx.critical_anomaly_score},\\*nl*setvar:'tx.%{rule.id}-OWASP_CRS/WEB_ATTACK/SQLI-%{matched_var_name}=%{tx.0}'\""
+    },
+    "(?i:\\bor\\b ?(?:\\d{1,10}|[\\'\\\"][^=]{1,10}[\\'\\\"]) ?[=<>]+|(?i:'\\s+x?or\\s+.{1,20}[+\\-!<>=])|\\b(?i:x?or)\\b\\s+(\\d{1,10}|'[^=]{1,10}')|\\b(?i:x?or)\\b\\s+(\\d{1,10}|'[^=]{1,10}')\\s*?[=<>])": {
+        "targets": [
+            " REQUEST_COOKIES",
+            "!REQUEST_COOKIES:/__utm/",
+            "!REQUEST_COOKIES:/_pk_ref/",
+            "REQUEST_COOKIES_NAMES",
+            "ARGS_NAMES",
+            "ARGS",
+            "XML"
+        ],
+        "msg": "SQL Injection Attack",
+        "logdata": "Matched Data: %{TX.0} found within %{MATCHED_VAR_NAME}: %{MATCHED_VAR}",
+        "tag": "application-multi,language-multi,platform-multi,attack-sqli,OWASP_CRS/WEB_ATTACK/SQL_INJECTION,WASCTC/WASC-19,OWASP_TOP_10/A1,OWASP_AppSensor/CIE1,PCI/6.5.2,paranoia-level/2",
+        "paranoia level": 2,
+        "severity": "CRITICAL",
+        "setvar": "tx.msg=%{rule.msg}",
+        "t": [
+            "none",
+            "urlDecodeUni"
+        ],
+        "line": "SecRule REQUEST_COOKIES|!REQUEST_COOKIES:/__utm/|!REQUEST_COOKIES:/_pk_ref/|REQUEST_COOKIES_NAMES|ARGS_NAMES|ARGS|XML:/* \"(?i:\\bor\\b ?(?:\\d{1,10}|[\\'\\\"][^=]{1,10}[\\'\\\"]) ?[=<>]+|(?i:'\\s+x?or\\s+.{1,20}[+\\-!<>=])|\\b(?i:x?or)\\b\\s+(\\d{1,10}|'[^=]{1,10}')|\\b(?i:x?or)\\b\\s+(\\d{1,10}|'[^=]{1,10}')\\s*?[=<>])\" \\*nl*\"phase:request,\\*nl*rev:'2',\\*nl*ver:'OWASP_CRS/3.0.0',\\*nl*maturity:'9',\\*nl*accuracy:'8',\\*nl*capture,\\*nl*t:none,t:urlDecodeUni,\\*nl*ctl:auditLogParts=+E,\\*nl*block,\\*nl*msg:'SQL Injection Attack',\\*nl*id:942390,\\*nl*tag:'application-multi',\\*nl*tag:'language-multi',\\*nl*tag:'platform-multi',\\*nl*tag:'attack-sqli',\\*nl*tag:'OWASP_CRS/WEB_ATTACK/SQL_INJECTION',\\*nl*tag:'WASCTC/WASC-19',\\*nl*tag:'OWASP_TOP_10/A1',\\*nl*tag:'OWASP_AppSensor/CIE1',\\*nl*tag:'PCI/6.5.2',\\*nl*tag:'paranoia-level/2',\\*nl*logdata:'Matched Data: %{TX.0} found within %{MATCHED_VAR_NAME}: %{MATCHED_VAR}',\\*nl*severity:'CRITICAL',\\*nl*setvar:'tx.msg=%{rule.msg}',\\*nl*setvar:tx.sql_injection_score=+%{tx.critical_anomaly_score},\\*nl*setvar:tx.anomaly_score=+%{tx.critical_anomaly_score},\\*nl*setvar:tx.%{rule.id}-OWASP_CRS/WEB_ATTACK/SQL_INJECTION-%{matched_var_name}=%{tx.0}\""
+    },
+    "(?i)\\b(?i:and)\\b\\s+(\\d{1,10}|'[^=]{1,10}')\\s*?[=]|\\b(?i:and)\\b\\s+(\\d{1,10}|'[^=]{1,10}')\\s*?[<>]|\\band\\b ?(?:\\d{1,10}|[\\'\\\"][^=]{1,10}[\\'\\\"]) ?[=<>]+|\\b(?i:and)\\b\\s+(\\d{1,10}|'[^=]{1,10}')": {
+        "targets": [
+            " REQUEST_COOKIES",
+            "!REQUEST_COOKIES:/__utm/",
+            "!REQUEST_COOKIES:/_pk_ref/",
+            "REQUEST_COOKIES_NAMES",
+            "ARGS_NAMES",
+            "ARGS",
+            "XML"
+        ],
+        "msg": "SQL Injection Attack",
+        "logdata": "Matched Data: %{TX.0} found within %{MATCHED_VAR_NAME}: %{MATCHED_VAR}",
+        "tag": "application-multi,language-multi,platform-multi,attack-sqli,OWASP_CRS/WEB_ATTACK/SQL_INJECTION,WASCTC/WASC-19,OWASP_TOP_10/A1,OWASP_AppSensor/CIE1,PCI/6.5.2,paranoia-level/2",
+        "paranoia level": 2,
+        "severity": "CRITICAL",
+        "setvar": "tx.msg=%{rule.msg}",
+        "t": [
+            "none",
+            "urlDecodeUni"
+        ],
+        "line": "SecRule REQUEST_COOKIES|!REQUEST_COOKIES:/__utm/|!REQUEST_COOKIES:/_pk_ref/|REQUEST_COOKIES_NAMES|ARGS_NAMES|ARGS|XML:/* \"(?i)\\b(?i:and)\\b\\s+(\\d{1,10}|'[^=]{1,10}')\\s*?[=]|\\b(?i:and)\\b\\s+(\\d{1,10}|'[^=]{1,10}')\\s*?[<>]|\\band\\b ?(?:\\d{1,10}|[\\'\\\"][^=]{1,10}[\\'\\\"]) ?[=<>]+|\\b(?i:and)\\b\\s+(\\d{1,10}|'[^=]{1,10}')\" \\*nl*\"phase:request,\\*nl*rev:'2',\\*nl*ver:'OWASP_CRS/3.0.0',\\*nl*maturity:'9',\\*nl*accuracy:'8',\\*nl*capture,\\*nl*t:none,t:urlDecodeUni,\\*nl*ctl:auditLogParts=+E,\\*nl*block,\\*nl*msg:'SQL Injection Attack',\\*nl*id:942400,\\*nl*tag:'application-multi',\\*nl*tag:'language-multi',\\*nl*tag:'platform-multi',\\*nl*tag:'attack-sqli',\\*nl*tag:'OWASP_CRS/WEB_ATTACK/SQL_INJECTION',\\*nl*tag:'WASCTC/WASC-19',\\*nl*tag:'OWASP_TOP_10/A1',\\*nl*tag:'OWASP_AppSensor/CIE1',\\*nl*tag:'PCI/6.5.2',\\*nl*tag:'paranoia-level/2',\\*nl*logdata:'Matched Data: %{TX.0} found within %{MATCHED_VAR_NAME}: %{MATCHED_VAR}',\\*nl*severity:'CRITICAL',\\*nl*setvar:'tx.msg=%{rule.msg}',\\*nl*setvar:tx.sql_injection_score=+%{tx.critical_anomaly_score},\\*nl*setvar:tx.anomaly_score=+%{tx.critical_anomaly_score},\\*nl*setvar:tx.%{rule.id}-OWASP_CRS/WEB_ATTACK/SQL_INJECTION-%{matched_var_name}=%{tx.0}\""
+    },
+    "(?i:(?:(?:s(?:t(?:d(?:dev(_pop|_samp)?)?|r(?:_to_date|cmp))|u(?:b(?:str(?:ing(_index)?)?|(?:dat|tim)e)|m)|e(?:c(?:_to_time|ond)|ssion_user)|ys(?:tem_user|date)|ha(1|2)?|oundex|chema|ig?n|pace|qrt)|i(?:s(null|_(free_lock|ipv4_compat|ipv4_mapped|ipv4|ipv6|not_null|not|null|used_lock))?|n(?:et6?_(aton|ntoa)|s(?:ert|tr)|terval)?|f(null)?)|u(?:n(?:compress(?:ed_length)?|ix_timestamp|hex)|tc_(date|time|timestamp)|p(?:datexml|per)|uid(_short)?|case|ser)|l(?:o(?:ca(?:l(timestamp)?|te)|g(2|10)?|ad_file|wer)|ast(_day|_insert_id)?|e(?:(?:as|f)t|ngth)|case|trim|pad|n)|t(?:ime(stamp|stampadd|stampdiff|diff|_format|_to_sec)?|o_(base64|days|seconds|n?char)|r(?:uncate|im)|an)|m(?:a(?:ke(?:_set|date)|ster_pos_wait|x)|i(?:(?:crosecon)?d|n(?:ute)?)|o(?:nth(name)?|d)|d5)|r(?:e(?:p(?:lace|eat)|lease_lock|verse)|o(?:w_count|und)|a(?:dians|nd)|ight|trim|pad)|f(?:i(?:eld(_in_set)?|nd_in_set)|rom_(base64|days|unixtime)|o(?:und_rows|rmat)|loor)|a(?:es_(?:de|en)crypt|s(?:cii(str)?|in)|dd(?:dat|tim)e|(?:co|b)s|tan2?|vg)|p(?:o(?:sition|w(er)?)|eriod_(add|diff)|rocedure_analyse|assword|i)|b(?:i(?:t_(?:length|count|x?or|and)|n(_to_num)?)|enchmark)|e(?:x(?:p(?:ort_set)?|tract(value)?)|nc(?:rypt|ode)|lt)|v(?:a(?:r(?:_(?:sam|po)p|iance)|lues)|ersion)|g(?:r(?:oup_conca|eates)t|et_(format|lock))|o(?:(?:ld_passwo)?rd|ct(et_length)?)|we(?:ek(day|ofyear)?|ight_string)|n(?:o(?:t_in|w)|ame_const|ullif)|(rawton?)?hex(toraw)?|qu(?:arter|ote)|(pg_)?sleep|year(week)?|d?count|xmltype|hour)\\W*?\\(|\\b(?:(?:s(?:elect\\b(?:.{1,100}?\\b(?:(?:length|count|top)\\b.{1,100}?\\bfrom|from\\b.{1,100}?\\bwhere)|.*?\\b(?:d(?:ump\\b.*?\\bfrom|ata_type)|(?:to_(?:numbe|cha)|inst)r))|p_(?:sqlexec|sp_replwritetovarbin|sp_help|addextendedproc|is_srvrolemember|prepare|sp_password|execute(?:sql)?|makewebtask|oacreate)|ql_(?:longvarchar|variant))|xp_(?:reg(?:re(?:movemultistring|ad)|delete(?:value|key)|enum(?:value|key)s|addmultistring|write)|terminate|xp_servicecontrol|xp_ntsec_enumdomains|xp_terminate_process|e(?:xecresultset|numdsn)|availablemedia|loginconfig|cmdshell|filelist|dirtree|makecab|ntsec)|u(?:nion\\b.{1,100}?\\bselect|tl_(?:file|http))|d(?:b(?:a_users|ms_java)|elete\\b\\W*?\\bfrom)|group\\b.*?\\bby\\b.{1,100}?\\bhaving|open(?:rowset|owa_util|query)|load\\b\\W*?\\bdata\\b.*?\\binfile|(?:n?varcha|tbcreato)r|autonomous_transaction)\\b|i(?:n(?:to\\b\\W*?\\b(?:dump|out)file|sert\\b\\W*?\\binto|ner\\b\\W*?\\bjoin)\\b|(?:f(?:\\b\\W*?\\(\\W*?\\bbenchmark|null\\b)|snull\\b)\\W*?\\()|print\\b\\W*?\\@\\@|cast\\b\\W*?\\()|c(?:(?:ur(?:rent_(?:time(?:stamp)?|date|user)|(?:dat|tim)e)|h(?:ar(?:(?:acter)?_length|set)?|r)|iel(?:ing)?|ast|r32)\\W*?\\(|o(?:(?:n(?:v(?:ert(?:_tz)?)?|cat(?:_ws)?|nection_id)|(?:mpres)?s|ercibility|alesce|t)\\W*?\\(|llation\\W*?\\(a))|d(?:(?:a(?:t(?:e(?:(_(add|format|sub))?|diff)|abase)|y(name|ofmonth|ofweek|ofyear)?)|e(?:(?:s_(de|en)cryp|faul)t|grees|code)|ump)\\W*?\\(|bms_\\w+\\.\\b)|(?:;\\W*?\\b(?:shutdown|drop)|\\@\\@version)\\b|\\butl_inaddr\\b|\\bsys_context\\b|'(?:s(?:qloledb|a)|msdasql|dbo)'))": {
+        "targets": [
+            " REQUEST_COOKIES",
+            "!REQUEST_COOKIES:/__utm/",
+            "!REQUEST_COOKIES:/_pk_ref/",
+            "REQUEST_COOKIES_NAMES",
+            "ARGS_NAMES",
+            "ARGS",
+            "XML"
+        ],
+        "msg": "SQL Injection Attack",
+        "logdata": "Matched Data: %{TX.0} found within %{MATCHED_VAR_NAME}: %{MATCHED_VAR}",
+        "tag": "application-multi,language-multi,platform-multi,attack-sqli,OWASP_CRS/WEB_ATTACK/SQL_INJECTION,WASCTC/WASC-19,OWASP_TOP_10/A1,OWASP_AppSensor/CIE1,PCI/6.5.2,paranoia-level/2",
+        "paranoia level": 2,
+        "severity": "CRITICAL",
+        "setvar": "tx.msg=%{rule.msg}",
+        "t": [
+            "none",
+            "urlDecodeUni"
+        ],
+        "line": "SecRule REQUEST_COOKIES|!REQUEST_COOKIES:/__utm/|!REQUEST_COOKIES:/_pk_ref/|REQUEST_COOKIES_NAMES|ARGS_NAMES|ARGS|XML:/* \"(?i:(?:(?:s(?:t(?:d(?:dev(_pop|_samp)?)?|r(?:_to_date|cmp))|u(?:b(?:str(?:ing(_index)?)?|(?:dat|tim)e)|m)|e(?:c(?:_to_time|ond)|ssion_user)|ys(?:tem_user|date)|ha(1|2)?|oundex|chema|ig?n|pace|qrt)|i(?:s(null|_(free_lock|ipv4_compat|ipv4_mapped|ipv4|ipv6|not_null|not|null|used_lock))?|n(?:et6?_(aton|ntoa)|s(?:ert|tr)|terval)?|f(null)?)|u(?:n(?:compress(?:ed_length)?|ix_timestamp|hex)|tc_(date|time|timestamp)|p(?:datexml|per)|uid(_short)?|case|ser)|l(?:o(?:ca(?:l(timestamp)?|te)|g(2|10)?|ad_file|wer)|ast(_day|_insert_id)?|e(?:(?:as|f)t|ngth)|case|trim|pad|n)|t(?:ime(stamp|stampadd|stampdiff|diff|_format|_to_sec)?|o_(base64|days|seconds|n?char)|r(?:uncate|im)|an)|m(?:a(?:ke(?:_set|date)|ster_pos_wait|x)|i(?:(?:crosecon)?d|n(?:ute)?)|o(?:nth(name)?|d)|d5)|r(?:e(?:p(?:lace|eat)|lease_lock|verse)|o(?:w_count|und)|a(?:dians|nd)|ight|trim|pad)|f(?:i(?:eld(_in_set)?|nd_in_set)|rom_(base64|days|unixtime)|o(?:und_rows|rmat)|loor)|a(?:es_(?:de|en)crypt|s(?:cii(str)?|in)|dd(?:dat|tim)e|(?:co|b)s|tan2?|vg)|p(?:o(?:sition|w(er)?)|eriod_(add|diff)|rocedure_analyse|assword|i)|b(?:i(?:t_(?:length|count|x?or|and)|n(_to_num)?)|enchmark)|e(?:x(?:p(?:ort_set)?|tract(value)?)|nc(?:rypt|ode)|lt)|v(?:a(?:r(?:_(?:sam|po)p|iance)|lues)|ersion)|g(?:r(?:oup_conca|eates)t|et_(format|lock))|o(?:(?:ld_passwo)?rd|ct(et_length)?)|we(?:ek(day|ofyear)?|ight_string)|n(?:o(?:t_in|w)|ame_const|ullif)|(rawton?)?hex(toraw)?|qu(?:arter|ote)|(pg_)?sleep|year(week)?|d?count|xmltype|hour)\\W*?\\(|\\b(?:(?:s(?:elect\\b(?:.{1,100}?\\b(?:(?:length|count|top)\\b.{1,100}?\\bfrom|from\\b.{1,100}?\\bwhere)|.*?\\b(?:d(?:ump\\b.*?\\bfrom|ata_type)|(?:to_(?:numbe|cha)|inst)r))|p_(?:sqlexec|sp_replwritetovarbin|sp_help|addextendedproc|is_srvrolemember|prepare|sp_password|execute(?:sql)?|makewebtask|oacreate)|ql_(?:longvarchar|variant))|xp_(?:reg(?:re(?:movemultistring|ad)|delete(?:value|key)|enum(?:value|key)s|addmultistring|write)|terminate|xp_servicecontrol|xp_ntsec_enumdomains|xp_terminate_process|e(?:xecresultset|numdsn)|availablemedia|loginconfig|cmdshell|filelist|dirtree|makecab|ntsec)|u(?:nion\\b.{1,100}?\\bselect|tl_(?:file|http))|d(?:b(?:a_users|ms_java)|elete\\b\\W*?\\bfrom)|group\\b.*?\\bby\\b.{1,100}?\\bhaving|open(?:rowset|owa_util|query)|load\\b\\W*?\\bdata\\b.*?\\binfile|(?:n?varcha|tbcreato)r|autonomous_transaction)\\b|i(?:n(?:to\\b\\W*?\\b(?:dump|out)file|sert\\b\\W*?\\binto|ner\\b\\W*?\\bjoin)\\b|(?:f(?:\\b\\W*?\\(\\W*?\\bbenchmark|null\\b)|snull\\b)\\W*?\\()|print\\b\\W*?\\@\\@|cast\\b\\W*?\\()|c(?:(?:ur(?:rent_(?:time(?:stamp)?|date|user)|(?:dat|tim)e)|h(?:ar(?:(?:acter)?_length|set)?|r)|iel(?:ing)?|ast|r32)\\W*?\\(|o(?:(?:n(?:v(?:ert(?:_tz)?)?|cat(?:_ws)?|nection_id)|(?:mpres)?s|ercibility|alesce|t)\\W*?\\(|llation\\W*?\\(a))|d(?:(?:a(?:t(?:e(?:(_(add|format|sub))?|diff)|abase)|y(name|ofmonth|ofweek|ofyear)?)|e(?:(?:s_(de|en)cryp|faul)t|grees|code)|ump)\\W*?\\(|bms_\\w+\\.\\b)|(?:;\\W*?\\b(?:shutdown|drop)|\\@\\@version)\\b|\\butl_inaddr\\b|\\bsys_context\\b|'(?:s(?:qloledb|a)|msdasql|dbo)'))\" \\*nl*\"phase:request,\\*nl*rev:'2',\\*nl*ver:'OWASP_CRS/3.0.0',\\*nl*maturity:'9',\\*nl*accuracy:'8',\\*nl*capture,\\*nl*t:none,t:urlDecodeUni,\\*nl*ctl:auditLogParts=+E,\\*nl*block,\\*nl*msg:'SQL Injection Attack',\\*nl*id:942410,\\*nl*tag:'application-multi',\\*nl*tag:'language-multi',\\*nl*tag:'platform-multi',\\*nl*tag:'attack-sqli',\\*nl*tag:'OWASP_CRS/WEB_ATTACK/SQL_INJECTION',\\*nl*tag:'WASCTC/WASC-19',\\*nl*tag:'OWASP_TOP_10/A1',\\*nl*tag:'OWASP_AppSensor/CIE1',\\*nl*tag:'PCI/6.5.2',\\*nl*tag:'paranoia-level/2',\\*nl*logdata:'Matched Data: %{TX.0} found within %{MATCHED_VAR_NAME}: %{MATCHED_VAR}',\\*nl*severity:'CRITICAL',\\*nl*setvar:'tx.msg=%{rule.msg}',\\*nl*setvar:tx.sql_injection_score=+%{tx.critical_anomaly_score},\\*nl*setvar:tx.anomaly_score=+%{tx.critical_anomaly_score},\\*nl*setvar:tx.%{rule.id}-OWASP_CRS/WEB_ATTACK/SQL_INJECTION-%{matched_var_name}=%{tx.0}\""
+    },
+    "(?i:(?:\\A|[^\\d])0x[a-f\\d]{3,}[a-f\\d]*)+": {
+        "targets": [
+            " REQUEST_COOKIES",
+            "!REQUEST_COOKIES:/__utm/",
+            "!REQUEST_COOKIES:/_pk_ref/",
+            "REQUEST_COOKIES_NAMES",
+            "ARGS_NAMES",
+            "ARGS",
+            "XML"
+        ],
+        "msg": "SQL Hex Encoding Identified",
+        "logdata": "Matched Data: %{TX.0} found within %{MATCHED_VAR_NAME}: %{MATCHED_VAR}",
+        "tag": "application-multi,language-multi,platform-multi,attack-sqli,OWASP_CRS/WEB_ATTACK/SQL_INJECTION,WASCTC/WASC-19,OWASP_TOP_10/A1,OWASP_AppSensor/CIE1,PCI/6.5.2,paranoia-level/2",
+        "paranoia level": 2,
+        "severity": "CRITICAL",
+        "setvar": "tx.msg=%{rule.msg}",
+        "t": [
+            "none",
+            "urlDecodeUni"
+        ],
+        "line": "SecRule REQUEST_COOKIES|!REQUEST_COOKIES:/__utm/|!REQUEST_COOKIES:/_pk_ref/|REQUEST_COOKIES_NAMES|ARGS_NAMES|ARGS|XML:/* \"(?i:(?:\\A|[^\\d])0x[a-f\\d]{3,}[a-f\\d]*)+\" \\*nl*\"phase:request,\\*nl*id:942450,\\*nl*rev:'2',\\*nl*ver:'OWASP_CRS/3.0.0',\\*nl*maturity:'8',\\*nl*accuracy:'8',\\*nl*capture,\\*nl*t:none,t:urlDecodeUni,\\*nl*block,\\*nl*msg:'SQL Hex Encoding Identified',\\*nl*logdata:'Matched Data: %{TX.0} found within %{MATCHED_VAR_NAME}: %{MATCHED_VAR}',\\*nl*severity:'CRITICAL',\\*nl*tag:'application-multi',\\*nl*tag:'language-multi',\\*nl*tag:'platform-multi',\\*nl*tag:'attack-sqli',\\*nl*tag:'OWASP_CRS/WEB_ATTACK/SQL_INJECTION',\\*nl*tag:'WASCTC/WASC-19',\\*nl*tag:'OWASP_TOP_10/A1',\\*nl*tag:'OWASP_AppSensor/CIE1',\\*nl*tag:'PCI/6.5.2',\\*nl*tag:'paranoia-level/2',\\*nl*setvar:'tx.msg=%{rule.msg}',\\*nl*setvar:tx.sql_injection_score=+%{tx.critical_anomaly_score},\\*nl*setvar:tx.anomaly_score=+%{tx.critical_anomaly_score},\\*nl*setvar:tx.%{rule.id}-OWASP_CRS/WEB_ATTACK/SQL_INJECTION-%{matched_var_name}=%{tx.0}\""
+    },
+    "(?i)\\W+\\d*?\\s*?having\\s*?[^\\s\\-]": {
+        "targets": [
+            " REQUEST_COOKIES",
+            "!REQUEST_COOKIES:/__utm/",
+            "REQUEST_COOKIES_NAMES",
+            "ARGS_NAMES",
+            "ARGS",
+            "XML"
+        ],
+        "msg": "Detects HAVING injections",
+        "logdata": "Matched Data: %{TX.0} found within %{MATCHED_VAR_NAME}: %{MATCHED_VAR}",
+        "tag": "application-multi,language-multi,platform-multi,attack-sqli,OWASP_CRS/WEB_ATTACK/SQL_INJECTION,WASCTC/WASC-19,OWASP_TOP_10/A1,OWASP_AppSensor/CIE1,PCI/6.5.2,paranoia-level/3",
+        "paranoia level": 3,
+        "severity": "CRITICAL",
+        "setvar": "tx.%{rule.id}-OWASP_CRS/WEB_ATTACK/SQLI-%{matched_var_name}=%{tx.0}",
+        "t": [
+            "none",
+            "urlDecodeUni"
+        ],
+        "line": "SecRule REQUEST_COOKIES|!REQUEST_COOKIES:/__utm/|REQUEST_COOKIES_NAMES|ARGS_NAMES|ARGS|XML:/* \"(?i)\\W+\\d*?\\s*?having\\s*?[^\\s\\-]\" \\*nl*\"phase:request,\\*nl*rev:'1',\\*nl*ver:'OWASP_CRS/3.0.0',\\*nl*maturity:'9',\\*nl*accuracy:'6',\\*nl*capture,\\*nl*t:none,t:urlDecodeUni,\\*nl*block,\\*nl*msg:'Detects HAVING injections',\\*nl*id:942251,\\*nl*tag:'application-multi',\\*nl*tag:'language-multi',\\*nl*tag:'platform-multi',\\*nl*tag:'attack-sqli',\\*nl*tag:'OWASP_CRS/WEB_ATTACK/SQL_INJECTION',\\*nl*tag:'WASCTC/WASC-19',\\*nl*tag:'OWASP_TOP_10/A1',\\*nl*tag:'OWASP_AppSensor/CIE1',\\*nl*tag:'PCI/6.5.2',\\*nl*tag:'paranoia-level/3',\\*nl*logdata:'Matched Data: %{TX.0} found within %{MATCHED_VAR_NAME}: %{MATCHED_VAR}',\\*nl*severity:'CRITICAL',\\*nl*setvar:'tx.msg=%{rule.msg}',\\*nl*setvar:tx.sql_injection_score=+%{tx.critical_anomaly_score},\\*nl*setvar:tx.anomaly_score=+%{tx.critical_anomaly_score},\\*nl*setvar:'tx.%{rule.id}-OWASP_CRS/WEB_ATTACK/SQLI-%{matched_var_name}=%{tx.0}'\""
+    }
+}

@@ -1,0 +1,631 @@
+{
+    "(?i)([<\u00ef\u00bc\u0153]script[^>\u00ef\u00bc\u017e]*[>\u00ef\u00bc\u017e][\\s\\S]*?)": {
+        "targets": [
+            " REQUEST_COOKIES",
+            "!REQUEST_COOKIES:/__utm/",
+            "REQUEST_COOKIES_NAMES",
+            "REQUEST_HEADERS:User-Agent",
+            "REQUEST_HEADERS:Referer",
+            "ARGS_NAMES",
+            "ARGS",
+            "XML"
+        ],
+        "msg": "XSS Filter - Category 1: Script Tag Vector",
+        "logdata": "Matched Data: %{TX.0} found within %{MATCHED_VAR_NAME}: %{MATCHED_VAR}",
+        "tag": "application-multi,language-multi,platform-multi,attack-xss,OWASP_CRS/WEB_ATTACK/XSS,WASCTC/WASC-8,WASCTC/WASC-22,OWASP_TOP_10/A3,OWASP_AppSensor/IE1,CAPEC-242",
+        "paranoia level": 1,
+        "severity": "CRITICAL",
+        "setvar": "tx.msg=%{rule.msg}",
+        "t": [
+            "none",
+            "utf8toUnicode",
+            "urlDecodeUni",
+            "htmlEntityDecode",
+            "jsDecode",
+            "cssDecode",
+            "removeNulls"
+        ],
+        "line": "SecRule REQUEST_COOKIES|!REQUEST_COOKIES:/__utm/|REQUEST_COOKIES_NAMES|REQUEST_HEADERS:User-Agent|REQUEST_HEADERS:Referer|ARGS_NAMES|ARGS|XML:/* \"(?i)([<\u00ef\u00bc\u0153]script[^>\u00ef\u00bc\u017e]*[>\u00ef\u00bc\u017e][\\s\\S]*?)\" \\*nl*\"msg:'XSS Filter - Category 1: Script Tag Vector',\\*nl*id:941110,\\*nl*phase:request,\\*nl*severity:'CRITICAL',\\*nl*rev:'2',\\*nl*ver:'OWASP_CRS/3.0.0',\\*nl*maturity:'4',\\*nl*accuracy:'9',\\*nl*t:none,t:utf8toUnicode,t:urlDecodeUni,t:htmlEntityDecode,t:jsDecode,t:cssDecode,t:removeNulls,\\*nl*block,\\*nl*ctl:auditLogParts=+E,\\*nl*capture,\\*nl*tag:'application-multi',\\*nl*tag:'language-multi',\\*nl*tag:'platform-multi',\\*nl*tag:'attack-xss',\\*nl*tag:'OWASP_CRS/WEB_ATTACK/XSS',\\*nl*tag:'WASCTC/WASC-8',\\*nl*tag:'WASCTC/WASC-22',\\*nl*tag:'OWASP_TOP_10/A3',\\*nl*tag:'OWASP_AppSensor/IE1',\\*nl*tag:'CAPEC-242',\\*nl*logdata:'Matched Data: %{TX.0} found within %{MATCHED_VAR_NAME}: %{MATCHED_VAR}',\\*nl*setvar:'tx.msg=%{rule.msg}',\\*nl*setvar:tx.xss_score=+%{tx.critical_anomaly_score},\\*nl*setvar:tx.anomaly_score=+%{tx.critical_anomaly_score},\\*nl*setvar:tx.%{rule.id}-OWASP_CRS/WEB_ATTACK/XSS-%{matched_var_name}=%{tx.0}\""
+    },
+    "(?i)([\\s\\\"'`;\\/0-9\\=\\x0B\\x09\\x0C\\x3B\\x2C\\x28\\x3B]+on\\w+[\\s\\x0B\\x09\\x0C\\x3B\\x2C\\x28\\x3B]*?=)": {
+        "targets": [
+            " REQUEST_COOKIES",
+            "!REQUEST_COOKIES:/__utm/",
+            "REQUEST_COOKIES_NAMES",
+            "REQUEST_HEADERS:User-Agent",
+            "REQUEST_HEADERS:Referer",
+            "ARGS_NAMES",
+            "ARGS",
+            "XML"
+        ],
+        "msg": "XSS Filter - Category 2: Event Handler Vector",
+        "logdata": "Matched Data: %{TX.0} found within %{MATCHED_VAR_NAME}: %{MATCHED_VAR}",
+        "tag": "application-multi,language-multi,platform-multi,attack-xss,OWASP_CRS/WEB_ATTACK/XSS,WASCTC/WASC-8,WASCTC/WASC-22,OWASP_TOP_10/A3,OWASP_AppSensor/IE1,CAPEC-242",
+        "paranoia level": 1,
+        "severity": "CRITICAL",
+        "setvar": "tx.msg=%{rule.msg}",
+        "t": [
+            "none",
+            "utf8toUnicode",
+            "urlDecodeUni",
+            "htmlEntityDecode",
+            "jsDecode",
+            "cssDecode",
+            "removeNulls"
+        ],
+        "line": "SecRule REQUEST_COOKIES|!REQUEST_COOKIES:/__utm/|REQUEST_COOKIES_NAMES|REQUEST_HEADERS:User-Agent|REQUEST_HEADERS:Referer|ARGS_NAMES|ARGS|XML:/* \"(?i)([\\s\\\"'`;\\/0-9\\=\\x0B\\x09\\x0C\\x3B\\x2C\\x28\\x3B]+on\\w+[\\s\\x0B\\x09\\x0C\\x3B\\x2C\\x28\\x3B]*?=)\" \\*nl*\"msg:'XSS Filter - Category 2: Event Handler Vector',\\*nl*id:941120,\\*nl*phase:request,\\*nl*severity:'CRITICAL',\\*nl*rev:'2',\\*nl*ver:'OWASP_CRS/3.0.0',\\*nl*maturity:'4',\\*nl*accuracy:'8',\\*nl*t:none,t:utf8toUnicode,t:urlDecodeUni,t:htmlEntityDecode,t:jsDecode,t:cssDecode,t:removeNulls,\\*nl*block,\\*nl*ctl:auditLogParts=+E,\\*nl*capture,\\*nl*tag:'application-multi',\\*nl*tag:'language-multi',\\*nl*tag:'platform-multi',\\*nl*tag:'attack-xss',\\*nl*tag:'OWASP_CRS/WEB_ATTACK/XSS',\\*nl*tag:'WASCTC/WASC-8',\\*nl*tag:'WASCTC/WASC-22',\\*nl*tag:'OWASP_TOP_10/A3',\\*nl*tag:'OWASP_AppSensor/IE1',\\*nl*tag:'CAPEC-242',\\*nl*logdata:'Matched Data: %{TX.0} found within %{MATCHED_VAR_NAME}: %{MATCHED_VAR}',\\*nl*setvar:'tx.msg=%{rule.msg}',\\*nl*setvar:tx.xss_score=+%{tx.critical_anomaly_score},\\*nl*setvar:tx.anomaly_score=+%{tx.critical_anomaly_score},\\*nl*setvar:tx.%{rule.id}-OWASP_CRS/WEB_ATTACK/XSS-%{matched_var_name}=%{tx.0}\""
+    },
+    "(?i)[\\s\\S](?:x(?:link:href|html|mlns)|!ENTITY.*?SYSTEM|data:text\\/html|pattern(?=.*?=)|formaction|\\@import|base64)\\b": {
+        "targets": [
+            " REQUEST_COOKIES",
+            "!REQUEST_COOKIES:/__utm/",
+            "REQUEST_COOKIES_NAMES",
+            "REQUEST_HEADERS:User-Agent",
+            "ARGS_NAMES",
+            "ARGS",
+            "XML"
+        ],
+        "msg": "XSS Filter - Category 3: Attribute Vector",
+        "logdata": "Matched Data: %{TX.0} found within %{MATCHED_VAR_NAME}: %{MATCHED_VAR}",
+        "tag": "application-multi,language-multi,platform-multi,attack-xss,OWASP_CRS/WEB_ATTACK/XSS,WASCTC/WASC-8,WASCTC/WASC-22,OWASP_TOP_10/A3,OWASP_AppSensor/IE1,CAPEC-242",
+        "paranoia level": 1,
+        "severity": "CRITICAL",
+        "setvar": "tx.msg=%{rule.msg}",
+        "t": [
+            "none",
+            "utf8toUnicode",
+            "urlDecodeUni",
+            "htmlEntityDecode",
+            "jsDecode",
+            "cssDecode",
+            "removeNulls"
+        ],
+        "line": "SecRule REQUEST_COOKIES|!REQUEST_COOKIES:/__utm/|REQUEST_COOKIES_NAMES|REQUEST_HEADERS:User-Agent|ARGS_NAMES|ARGS|XML:/* \"(?i)[\\s\\S](?:x(?:link:href|html|mlns)|!ENTITY.*?SYSTEM|data:text\\/html|pattern(?=.*?=)|formaction|\\@import|base64)\\b\" \\*nl*\"msg:'XSS Filter - Category 3: Attribute Vector',\\*nl*id:941130,\\*nl*phase:request,\\*nl*severity:'CRITICAL',\\*nl*rev:'2',\\*nl*ver:'OWASP_CRS/3.0.0',\\*nl*maturity:'1',\\*nl*accuracy:'8',\\*nl*t:none,t:utf8toUnicode,t:urlDecodeUni,t:htmlEntityDecode,t:jsDecode,t:cssDecode,t:removeNulls,\\*nl*block,\\*nl*ctl:auditLogParts=+E,\\*nl*capture,\\*nl*tag:'application-multi',\\*nl*tag:'language-multi',\\*nl*tag:'platform-multi',\\*nl*tag:'attack-xss',\\*nl*tag:'OWASP_CRS/WEB_ATTACK/XSS',\\*nl*tag:'WASCTC/WASC-8',\\*nl*tag:'WASCTC/WASC-22',\\*nl*tag:'OWASP_TOP_10/A3',\\*nl*tag:'OWASP_AppSensor/IE1',\\*nl*tag:'CAPEC-242',\\*nl*logdata:'Matched Data: %{TX.0} found within %{MATCHED_VAR_NAME}: %{MATCHED_VAR}',\\*nl*setvar:'tx.msg=%{rule.msg}',\\*nl*setvar:tx.xss_score=+%{tx.critical_anomaly_score},\\*nl*setvar:tx.anomaly_score=+%{tx.critical_anomaly_score},\\*nl*setvar:tx.%{rule.id}-OWASP_CRS/WEB_ATTACK/XSS-%{matched_var_name}=%{tx.0}\""
+    },
+    "(?i)(?:<(?:(?:apple|objec)t|isindex|embed|style|form|meta)\\b[^>]*?>[\\s\\S]*?|(?:=|U\\s*?R\\s*?L\\s*?\\()\\s*?[^>]*?\\s*?S\\s*?C\\s*?R\\s*?I\\s*?P\\s*?T\\s*?:)": {
+        "targets": [
+            " REQUEST_COOKIES",
+            "!REQUEST_COOKIES:/__utm/",
+            "REQUEST_COOKIES_NAMES",
+            "REQUEST_HEADERS:User-Agent",
+            "REQUEST_HEADERS:Referer",
+            "ARGS_NAMES",
+            "ARGS",
+            "XML"
+        ],
+        "msg": "XSS Filter - Category 4: Javascript URI Vector",
+        "logdata": "Matched Data: %{TX.0} found within %{MATCHED_VAR_NAME}: %{MATCHED_VAR}",
+        "tag": "application-multi,language-multi,platform-multi,attack-xss,OWASP_CRS/WEB_ATTACK/XSS,WASCTC/WASC-8,WASCTC/WASC-22,OWASP_TOP_10/A3,OWASP_AppSensor/IE1,CAPEC-242",
+        "paranoia level": 1,
+        "severity": "CRITICAL",
+        "setvar": "tx.msg=%{rule.msg}",
+        "t": [
+            "none",
+            "utf8toUnicode",
+            "urlDecodeUni",
+            "htmlEntityDecode",
+            "jsDecode",
+            "cssDecode",
+            "removeNulls"
+        ],
+        "line": "SecRule REQUEST_COOKIES|!REQUEST_COOKIES:/__utm/|REQUEST_COOKIES_NAMES|REQUEST_HEADERS:User-Agent|REQUEST_HEADERS:Referer|ARGS_NAMES|ARGS|XML:/* \"(?i)(?:<(?:(?:apple|objec)t|isindex|embed|style|form|meta)\\b[^>]*?>[\\s\\S]*?|(?:=|U\\s*?R\\s*?L\\s*?\\()\\s*?[^>]*?\\s*?S\\s*?C\\s*?R\\s*?I\\s*?P\\s*?T\\s*?:)\" \\*nl*\"msg:'XSS Filter - Category 4: Javascript URI Vector',\\*nl*id:941140,\\*nl*severity:'CRITICAL',\\*nl*phase:request,\\*nl*t:none,t:utf8toUnicode,t:urlDecodeUni,t:htmlEntityDecode,t:jsDecode,t:cssDecode,t:removeNulls,\\*nl*rev:'3',\\*nl*ver:'OWASP_CRS/3.0.0',\\*nl*maturity:'1',\\*nl*accuracy:'8',\\*nl*block,\\*nl*ctl:auditLogParts=+E,\\*nl*capture,\\*nl*tag:'application-multi',\\*nl*tag:'language-multi',\\*nl*tag:'platform-multi',\\*nl*tag:'attack-xss',\\*nl*tag:'OWASP_CRS/WEB_ATTACK/XSS',\\*nl*tag:'WASCTC/WASC-8',\\*nl*tag:'WASCTC/WASC-22',\\*nl*tag:'OWASP_TOP_10/A3',\\*nl*tag:'OWASP_AppSensor/IE1',\\*nl*tag:'CAPEC-242',\\*nl*logdata:'Matched Data: %{TX.0} found within %{MATCHED_VAR_NAME}: %{MATCHED_VAR}',\\*nl*setvar:'tx.msg=%{rule.msg}',\\*nl*setvar:tx.xss_score=+%{tx.critical_anomaly_score},\\*nl*setvar:tx.anomaly_score=+%{tx.critical_anomaly_score},\\*nl*setvar:tx.%{rule.id}-OWASP_CRS/WEB_ATTACK/XSS-%{matched_var_name}=%{tx.0}\""
+    },
+    "(?i)\\b(?:s(?:tyle|rc)|href)\\b[\\s\\S]*?=": {
+        "targets": [
+            " REQUEST_COOKIES",
+            "!REQUEST_COOKIES:/__utm/",
+            "REQUEST_COOKIES_NAMES",
+            "REQUEST_HEADERS:User-Agent",
+            "ARGS_NAMES",
+            "ARGS",
+            "XML"
+        ],
+        "msg": "XSS Filter - Category 5: Disallowed HTML Attributes",
+        "logdata": "Matched Data: %{TX.0} found within %{MATCHED_VAR_NAME}: %{MATCHED_VAR}",
+        "tag": "application-multi,language-multi,platform-multi,attack-xss,OWASP_CRS/WEB_ATTACK/XSS,WASCTC/WASC-8,WASCTC/WASC-22,OWASP_TOP_10/A3,OWASP_AppSensor/IE1,CAPEC-242",
+        "paranoia level": 1,
+        "severity": "CRITICAL",
+        "setvar": "tx.msg=%{rule.msg}",
+        "t": [
+            "none",
+            "utf8toUnicode",
+            "urlDecodeUni",
+            "htmlEntityDecode",
+            "jsDecode",
+            "cssDecode",
+            "removeNulls"
+        ],
+        "line": "SecRule REQUEST_COOKIES|!REQUEST_COOKIES:/__utm/|REQUEST_COOKIES_NAMES|REQUEST_HEADERS:User-Agent|ARGS_NAMES|ARGS|XML:/* \"(?i)\\b(?:s(?:tyle|rc)|href)\\b[\\s\\S]*?=\" \\*nl*\"msg:'XSS Filter - Category 5: Disallowed HTML Attributes',\\*nl*id:941150,\\*nl*phase:request,\\*nl*severity:'CRITICAL',\\*nl*rev:'2',\\*nl*ver:'OWASP_CRS/3.0.0',\\*nl*maturity:'1',\\*nl*accuracy:'8',\\*nl*t:none,t:utf8toUnicode,t:urlDecodeUni,t:htmlEntityDecode,t:jsDecode,t:cssDecode,t:removeNulls,\\*nl*block,\\*nl*ctl:auditLogParts=+E,\\*nl*capture,\\*nl*tag:'application-multi',\\*nl*tag:'language-multi',\\*nl*tag:'platform-multi',\\*nl*tag:'attack-xss',\\*nl*tag:'OWASP_CRS/WEB_ATTACK/XSS',\\*nl*tag:'WASCTC/WASC-8',\\*nl*tag:'WASCTC/WASC-22',\\*nl*tag:'OWASP_TOP_10/A3',\\*nl*tag:'OWASP_AppSensor/IE1',\\*nl*tag:'CAPEC-242',\\*nl*logdata:'Matched Data: %{TX.0} found within %{MATCHED_VAR_NAME}: %{MATCHED_VAR}',\\*nl*setvar:'tx.msg=%{rule.msg}',\\*nl*setvar:tx.xss_score=+%{tx.critical_anomaly_score},\\*nl*setvar:tx.anomaly_score=+%{tx.critical_anomaly_score},\\*nl*setvar:tx.%{rule.id}-OWASP_CRS/WEB_ATTACK/XSS-%{matched_var_name}=%{tx.0},\\*nl*chain\""
+    },
+    "(?i)<[^\\w<>]*(?:[^<>\\\"'\\s]*:)?[^\\w<>]*(?:\\W*?s\\W*?c\\W*?r\\W*?i\\W*?p\\W*?t|\\W*?f\\W*?o\\W*?r\\W*?m|\\W*?s\\W*?t\\W*?y\\W*?l\\W*?e|\\W*?s\\W*?v\\W*?g|\\W*?m\\W*?a\\W*?r\\W*?q\\W*?u\\W*?e\\W*?e|(?:\\W*?l\\W*?i\\W*?n\\W*?k|\\W*?o\\W*?b\\W*?j\\W*?e\\W*?c\\W*?t|\\W*?e\\W*?m\\W*?b\\W*?e\\W*?d|\\W*?a\\W*?p\\W*?p\\W*?l\\W*?e\\W*?t|\\W*?p\\W*?a\\W*?r\\W*?a\\W*?m|\\W*?i?\\W*?f\\W*?r\\W*?a\\W*?m\\W*?e|\\W*?b\\W*?a\\W*?s\\W*?e|\\W*?b\\W*?o\\W*?d\\W*?y|\\W*?m\\W*?e\\W*?t\\W*?a|\\W*?i\\W*?m\\W*?a?\\W*?g\\W*?e?|\\W*?v\\W*?i\\W*?d\\W*?e\\W*?o|\\W*?a\\W*?u\\W*?d\\W*?i\\W*?o|\\W*?b\\W*?i\\W*?n\\W*?d\\W*?i\\W*?n\\W*?g\\W*?s|\\W*?s\\W*?e\\W*?t|\\W*?a\\W*?n\\W*?i\\W*?m\\W*?a\\W*?t\\W*?e)[^>\\w])|(?:<\\w[\\s\\S]*[\\s\\/]|['\\\"](?:[\\s\\S]*[\\s\\/])?)(?:formaction|style|background|src|lowsrc|ping|on(?:d(?:e(?:vice(?:(?:orienta|mo)tion|proximity|found|light)|livery(?:success|error)|activate)|r(?:ag(?:e(?:n(?:ter|d)|xit)|(?:gestur|leav)e|start|drop|over)?|op)|i(?:s(?:c(?:hargingtimechange|onnect(?:ing|ed))|abled)|aling)|ata(?:setc(?:omplete|hanged)|(?:availabl|chang)e|error)|urationchange|ownloading|blclick)|Moz(?:M(?:agnifyGesture(?:Update|Start)?|ouse(?:PixelScroll|Hittest))|S(?:wipeGesture(?:Update|Start|End)?|crolledAreaChanged)|(?:(?:Press)?TapGestur|BeforeResiz)e|EdgeUI(?:C(?:omplet|ancel)|Start)ed|RotateGesture(?:Update|Start)?|A(?:udioAvailable|fterPaint))|c(?:o(?:m(?:p(?:osition(?:update|start|end)|lete)|mand(?:update)?)|n(?:t(?:rolselect|extmenu)|nect(?:ing|ed))|py)|a(?:(?:llschang|ch)ed|nplay(?:through)?|rdstatechange)|h(?:(?:arging(?:time)?ch)?ange|ecking)|(?:fstate|ell)change|u(?:echange|t)|l(?:ick|ose))|m(?:o(?:z(?:pointerlock(?:change|error)|(?:orientation|time)change|fullscreen(?:change|error)|network(?:down|up)load)|use(?:(?:lea|mo)ve|o(?:ver|ut)|enter|wheel|down|up)|ve(?:start|end)?)|essage|ark)|s(?:t(?:a(?:t(?:uschanged|echange)|lled|rt)|k(?:sessione|comma)nd|op)|e(?:ek(?:complete|ing|ed)|(?:lec(?:tstar)?)?t|n(?:ding|t))|u(?:ccess|spend|bmit)|peech(?:start|end)|ound(?:start|end)|croll|how)|b(?:e(?:for(?:e(?:(?:scriptexecu|activa)te|u(?:nload|pdate)|p(?:aste|rint)|c(?:opy|ut)|editfocus)|deactivate)|gin(?:Event)?)|oun(?:dary|ce)|l(?:ocked|ur)|roadcast|usy)|a(?:n(?:imation(?:iteration|start|end)|tennastatechange)|fter(?:(?:scriptexecu|upda)te|print)|udio(?:process|start|end)|d(?:apteradded|dtrack)|ctivate|lerting|bort)|DOM(?:Node(?:Inserted(?:IntoDocument)?|Removed(?:FromDocument)?)|(?:CharacterData|Subtree)Modified|A(?:ttrModified|ctivate)|Focus(?:Out|In)|MouseScroll)|r(?:e(?:s(?:u(?:m(?:ing|e)|lt)|ize|et)|adystatechange|pea(?:tEven)?t|movetrack|trieving|ceived)|ow(?:s(?:inserted|delete)|e(?:nter|xit))|atechange)|p(?:op(?:up(?:hid(?:den|ing)|show(?:ing|n))|state)|a(?:ge(?:hide|show)|(?:st|us)e|int)|ro(?:pertychange|gress)|lay(?:ing)?)|t(?:ouch(?:(?:lea|mo)ve|en(?:ter|d)|cancel|start)|ime(?:update|out)|ransitionend|ext)|u(?:s(?:erproximity|sdreceived)|p(?:gradeneeded|dateready)|n(?:derflow|load))|f(?:o(?:rm(?:change|input)|cus(?:out|in)?)|i(?:lterchange|nish)|ailed)|l(?:o(?:ad(?:e(?:d(?:meta)?data|nd)|start)?|secapture)|evelchange|y)|g(?:amepad(?:(?:dis)?connected|button(?:down|up)|axismove)|et)|e(?:n(?:d(?:Event|ed)?|abled|ter)|rror(?:update)?|mptied|xit)|i(?:cc(?:cardlockerror|infochange)|n(?:coming|valid|put))|o(?:(?:(?:ff|n)lin|bsolet)e|verflow(?:changed)?|pen)|SVG(?:(?:Unl|L)oad|Resize|Scroll|Abort|Error|Zoom)|h(?:e(?:adphoneschange|l[dp])|ashchange|olding)|v(?:o(?:lum|ic)e|ersion)change|w(?:a(?:it|rn)ing|heel)|key(?:press|down|up)|(?:AppComman|Loa)d|no(?:update|match)|Request|zoom))[\\s\\x08]*?=": {
+        "targets": [
+            " REQUEST_COOKIES",
+            "!REQUEST_COOKIES:/__utm/",
+            "REQUEST_COOKIES_NAMES",
+            "REQUEST_HEADERS:User-Agent",
+            "REQUEST_HEADERS:Referer",
+            "ARGS_NAMES",
+            "ARGS",
+            "XML"
+        ],
+        "msg": "NoScript XSS InjectionChecker: HTML Injection",
+        "logdata": "Matched Data: %{TX.0} found within %{MATCHED_VAR_NAME}: %{MATCHED_VAR}",
+        "tag": "application-multi,language-multi,platform-multi,attack-xss,OWASP_CRS/WEB_ATTACK/XSS,WASCTC/WASC-8,WASCTC/WASC-22,OWASP_TOP_10/A3,OWASP_AppSensor/IE1,CAPEC-242",
+        "paranoia level": 1,
+        "severity": "CRITICAL",
+        "setvar": "tx.msg=%{rule.msg}",
+        "t": [
+            "none",
+            "utf8toUnicode",
+            "urlDecodeUni",
+            "htmlEntityDecode",
+            "jsDecode",
+            "cssDecode",
+            "removeNulls"
+        ],
+        "line": "SecRule REQUEST_COOKIES|!REQUEST_COOKIES:/__utm/|REQUEST_COOKIES_NAMES|REQUEST_HEADERS:User-Agent|REQUEST_HEADERS:Referer|ARGS_NAMES|ARGS|XML:/* \"(?i)<[^\\w<>]*(?:[^<>\\\"'\\s]*:)?[^\\w<>]*(?:\\W*?s\\W*?c\\W*?r\\W*?i\\W*?p\\W*?t|\\W*?f\\W*?o\\W*?r\\W*?m|\\W*?s\\W*?t\\W*?y\\W*?l\\W*?e|\\W*?s\\W*?v\\W*?g|\\W*?m\\W*?a\\W*?r\\W*?q\\W*?u\\W*?e\\W*?e|(?:\\W*?l\\W*?i\\W*?n\\W*?k|\\W*?o\\W*?b\\W*?j\\W*?e\\W*?c\\W*?t|\\W*?e\\W*?m\\W*?b\\W*?e\\W*?d|\\W*?a\\W*?p\\W*?p\\W*?l\\W*?e\\W*?t|\\W*?p\\W*?a\\W*?r\\W*?a\\W*?m|\\W*?i?\\W*?f\\W*?r\\W*?a\\W*?m\\W*?e|\\W*?b\\W*?a\\W*?s\\W*?e|\\W*?b\\W*?o\\W*?d\\W*?y|\\W*?m\\W*?e\\W*?t\\W*?a|\\W*?i\\W*?m\\W*?a?\\W*?g\\W*?e?|\\W*?v\\W*?i\\W*?d\\W*?e\\W*?o|\\W*?a\\W*?u\\W*?d\\W*?i\\W*?o|\\W*?b\\W*?i\\W*?n\\W*?d\\W*?i\\W*?n\\W*?g\\W*?s|\\W*?s\\W*?e\\W*?t|\\W*?a\\W*?n\\W*?i\\W*?m\\W*?a\\W*?t\\W*?e)[^>\\w])|(?:<\\w[\\s\\S]*[\\s\\/]|['\\\"](?:[\\s\\S]*[\\s\\/])?)(?:formaction|style|background|src|lowsrc|ping|on(?:d(?:e(?:vice(?:(?:orienta|mo)tion|proximity|found|light)|livery(?:success|error)|activate)|r(?:ag(?:e(?:n(?:ter|d)|xit)|(?:gestur|leav)e|start|drop|over)?|op)|i(?:s(?:c(?:hargingtimechange|onnect(?:ing|ed))|abled)|aling)|ata(?:setc(?:omplete|hanged)|(?:availabl|chang)e|error)|urationchange|ownloading|blclick)|Moz(?:M(?:agnifyGesture(?:Update|Start)?|ouse(?:PixelScroll|Hittest))|S(?:wipeGesture(?:Update|Start|End)?|crolledAreaChanged)|(?:(?:Press)?TapGestur|BeforeResiz)e|EdgeUI(?:C(?:omplet|ancel)|Start)ed|RotateGesture(?:Update|Start)?|A(?:udioAvailable|fterPaint))|c(?:o(?:m(?:p(?:osition(?:update|start|end)|lete)|mand(?:update)?)|n(?:t(?:rolselect|extmenu)|nect(?:ing|ed))|py)|a(?:(?:llschang|ch)ed|nplay(?:through)?|rdstatechange)|h(?:(?:arging(?:time)?ch)?ange|ecking)|(?:fstate|ell)change|u(?:echange|t)|l(?:ick|ose))|m(?:o(?:z(?:pointerlock(?:change|error)|(?:orientation|time)change|fullscreen(?:change|error)|network(?:down|up)load)|use(?:(?:lea|mo)ve|o(?:ver|ut)|enter|wheel|down|up)|ve(?:start|end)?)|essage|ark)|s(?:t(?:a(?:t(?:uschanged|echange)|lled|rt)|k(?:sessione|comma)nd|op)|e(?:ek(?:complete|ing|ed)|(?:lec(?:tstar)?)?t|n(?:ding|t))|u(?:ccess|spend|bmit)|peech(?:start|end)|ound(?:start|end)|croll|how)|b(?:e(?:for(?:e(?:(?:scriptexecu|activa)te|u(?:nload|pdate)|p(?:aste|rint)|c(?:opy|ut)|editfocus)|deactivate)|gin(?:Event)?)|oun(?:dary|ce)|l(?:ocked|ur)|roadcast|usy)|a(?:n(?:imation(?:iteration|start|end)|tennastatechange)|fter(?:(?:scriptexecu|upda)te|print)|udio(?:process|start|end)|d(?:apteradded|dtrack)|ctivate|lerting|bort)|DOM(?:Node(?:Inserted(?:IntoDocument)?|Removed(?:FromDocument)?)|(?:CharacterData|Subtree)Modified|A(?:ttrModified|ctivate)|Focus(?:Out|In)|MouseScroll)|r(?:e(?:s(?:u(?:m(?:ing|e)|lt)|ize|et)|adystatechange|pea(?:tEven)?t|movetrack|trieving|ceived)|ow(?:s(?:inserted|delete)|e(?:nter|xit))|atechange)|p(?:op(?:up(?:hid(?:den|ing)|show(?:ing|n))|state)|a(?:ge(?:hide|show)|(?:st|us)e|int)|ro(?:pertychange|gress)|lay(?:ing)?)|t(?:ouch(?:(?:lea|mo)ve|en(?:ter|d)|cancel|start)|ime(?:update|out)|ransitionend|ext)|u(?:s(?:erproximity|sdreceived)|p(?:gradeneeded|dateready)|n(?:derflow|load))|f(?:o(?:rm(?:change|input)|cus(?:out|in)?)|i(?:lterchange|nish)|ailed)|l(?:o(?:ad(?:e(?:d(?:meta)?data|nd)|start)?|secapture)|evelchange|y)|g(?:amepad(?:(?:dis)?connected|button(?:down|up)|axismove)|et)|e(?:n(?:d(?:Event|ed)?|abled|ter)|rror(?:update)?|mptied|xit)|i(?:cc(?:cardlockerror|infochange)|n(?:coming|valid|put))|o(?:(?:(?:ff|n)lin|bsolet)e|verflow(?:changed)?|pen)|SVG(?:(?:Unl|L)oad|Resize|Scroll|Abort|Error|Zoom)|h(?:e(?:adphoneschange|l[dp])|ashchange|olding)|v(?:o(?:lum|ic)e|ersion)change|w(?:a(?:it|rn)ing|heel)|key(?:press|down|up)|(?:AppComman|Loa)d|no(?:update|match)|Request|zoom))[\\s\\x08]*?=\" \\*nl*\"msg:'NoScript XSS InjectionChecker: HTML Injection',\\*nl*id:941160,\\*nl*severity:'CRITICAL',\\*nl*phase:request,\\*nl*t:none,t:utf8toUnicode,t:urlDecodeUni,t:htmlEntityDecode,t:jsDecode,t:cssDecode,t:removeNulls,\\*nl*rev:'2',\\*nl*ver:'OWASP_CRS/3.0.0',\\*nl*maturity:'1',\\*nl*accuracy:'8',\\*nl*block,\\*nl*ctl:auditLogParts=+E,\\*nl*capture,\\*nl*tag:'application-multi',\\*nl*tag:'language-multi',\\*nl*tag:'platform-multi',\\*nl*tag:'attack-xss',\\*nl*tag:'OWASP_CRS/WEB_ATTACK/XSS',\\*nl*tag:'WASCTC/WASC-8',\\*nl*tag:'WASCTC/WASC-22',\\*nl*tag:'OWASP_TOP_10/A3',\\*nl*tag:'OWASP_AppSensor/IE1',\\*nl*tag:'CAPEC-242',\\*nl*logdata:'Matched Data: %{TX.0} found within %{MATCHED_VAR_NAME}: %{MATCHED_VAR}',\\*nl*setvar:'tx.msg=%{rule.msg}',\\*nl*setvar:tx.xss_score=+%{tx.critical_anomaly_score},\\*nl*setvar:tx.anomaly_score=+%{tx.critical_anomaly_score},\\*nl*setvar:tx.%{rule.id}-OWASP_CRS/WEB_ATTACK/XSS-%{matched_var_name}=%{tx.0}\""
+    },
+    "(?i)(?:\\W|^)(?:javascript:(?:[\\s\\S]+[=\\\\\\(\\[\\.<]|[\\s\\S]*?(?:\\bname\\b|\\\\[ux]\\d))|data:(?:(?:[a-z]\\w+\\/\\w[\\w+-]+\\w)?[;,]|[\\s\\S]*?;[\\s\\S]*?\\b(?:base64|charset=)|[\\s\\S]*?,[\\s\\S]*?<[\\s\\S]*?\\w[\\s\\S]*?>))|@\\W*?i\\W*?m\\W*?p\\W*?o\\W*?r\\W*?t\\W*?(?:\\/\\*[\\s\\S]*?)?(?:[\\\"']|\\W*?u\\W*?r\\W*?l[\\s\\S]*?\\()|\\W*?-\\W*?m\\W*?o\\W*?z\\W*?-\\W*?b\\W*?i\\W*?n\\W*?d\\W*?i\\W*?n\\W*?g[\\s\\S]*?:[\\s\\S]*?\\W*?u\\W*?r\\W*?l[\\s\\S]*?\\(": {
+        "targets": [
+            " REQUEST_COOKIES",
+            "!REQUEST_COOKIES:/__utm/",
+            "REQUEST_COOKIES_NAMES",
+            "REQUEST_HEADERS:User-Agent",
+            "REQUEST_HEADERS:Referer",
+            "ARGS_NAMES",
+            "ARGS",
+            "XML"
+        ],
+        "msg": "NoScript XSS InjectionChecker: Attribute Injection",
+        "logdata": "Matched Data: %{TX.0} found within %{MATCHED_VAR_NAME}: %{MATCHED_VAR}",
+        "tag": "application-multi,language-multi,platform-multi,attack-xss,OWASP_CRS/WEB_ATTACK/XSS,WASCTC/WASC-8,WASCTC/WASC-22,OWASP_TOP_10/A3,OWASP_AppSensor/IE1,CAPEC-242",
+        "paranoia level": 1,
+        "severity": "CRITICAL",
+        "setvar": "tx.msg=%{rule.msg}",
+        "t": [
+            "none",
+            "utf8toUnicode",
+            "urlDecodeUni",
+            "htmlEntityDecode",
+            "jsDecode",
+            "cssDecode",
+            "removeNulls"
+        ],
+        "line": "SecRule REQUEST_COOKIES|!REQUEST_COOKIES:/__utm/|REQUEST_COOKIES_NAMES|REQUEST_HEADERS:User-Agent|REQUEST_HEADERS:Referer|ARGS_NAMES|ARGS|XML:/* \"(?i)(?:\\W|^)(?:javascript:(?:[\\s\\S]+[=\\\\\\(\\[\\.<]|[\\s\\S]*?(?:\\bname\\b|\\\\[ux]\\d))|data:(?:(?:[a-z]\\w+\\/\\w[\\w+-]+\\w)?[;,]|[\\s\\S]*?;[\\s\\S]*?\\b(?:base64|charset=)|[\\s\\S]*?,[\\s\\S]*?<[\\s\\S]*?\\w[\\s\\S]*?>))|@\\W*?i\\W*?m\\W*?p\\W*?o\\W*?r\\W*?t\\W*?(?:\\/\\*[\\s\\S]*?)?(?:[\\\"']|\\W*?u\\W*?r\\W*?l[\\s\\S]*?\\()|\\W*?-\\W*?m\\W*?o\\W*?z\\W*?-\\W*?b\\W*?i\\W*?n\\W*?d\\W*?i\\W*?n\\W*?g[\\s\\S]*?:[\\s\\S]*?\\W*?u\\W*?r\\W*?l[\\s\\S]*?\\(\" \\*nl*\"msg:'NoScript XSS InjectionChecker: Attribute Injection',\\*nl*id:941170,\\*nl*severity:'CRITICAL',\\*nl*phase:request,\\*nl*t:none,t:utf8toUnicode,t:urlDecodeUni,t:htmlEntityDecode,t:jsDecode,t:cssDecode,t:removeNulls,\\*nl*rev:'3',\\*nl*ver:'OWASP_CRS/3.0.0',\\*nl*maturity:'1',\\*nl*accuracy:'8',\\*nl*block,\\*nl*ctl:auditLogParts=+E,\\*nl*capture,\\*nl*tag:'application-multi',\\*nl*tag:'language-multi',\\*nl*tag:'platform-multi',\\*nl*tag:'attack-xss',\\*nl*tag:'OWASP_CRS/WEB_ATTACK/XSS',\\*nl*tag:'WASCTC/WASC-8',\\*nl*tag:'WASCTC/WASC-22',\\*nl*tag:'OWASP_TOP_10/A3',\\*nl*tag:'OWASP_AppSensor/IE1',\\*nl*tag:'CAPEC-242',\\*nl*logdata:'Matched Data: %{TX.0} found within %{MATCHED_VAR_NAME}: %{MATCHED_VAR}',\\*nl*setvar:'tx.msg=%{rule.msg}',\\*nl*setvar:tx.xss_score=+%{tx.critical_anomaly_score},\\*nl*setvar:tx.anomaly_score=+%{tx.critical_anomaly_score},\\*nl*setvar:tx.%{rule.id}-OWASP_CRS/WEB_ATTACK/XSS-%{matched_var_name}=%{tx.0}\""
+    },
+    "(?i:<style.*?>.*?((@[i\\\\\\\\])|(([:=]|(&#x?0*((58)|(3A)|(61)|(3D));?)).*?([(\\\\\\\\]|(&#x?0*((40)|(28)|(92)|(5C));?)))))": {
+        "targets": [
+            " REQUEST_COOKIES",
+            "!REQUEST_COOKIES:/__utm/",
+            "REQUEST_COOKIES_NAMES",
+            "ARGS_NAMES",
+            "ARGS",
+            "XML"
+        ],
+        "msg": "IE XSS Filters - Attack Detected.",
+        "logdata": "Matched Data: %{TX.0} found within %{MATCHED_VAR_NAME}: %{MATCHED_VAR}",
+        "tag": "application-multi,language-multi,platform-multi,attack-xss,OWASP_CRS/WEB_ATTACK/XSS,WASCTC/WASC-8,WASCTC/WASC-22,OWASP_TOP_10/A3,OWASP_AppSensor/IE1,CAPEC-242",
+        "paranoia level": 1,
+        "severity": "CRITICAL",
+        "setvar": "tx.msg=%{rule.msg}",
+        "t": [
+            "none",
+            "utf8toUnicode",
+            "urlDecodeUni",
+            "htmlEntityDecode",
+            "jsDecode",
+            "cssDecode",
+            "removeNulls"
+        ],
+        "line": "SecRule REQUEST_COOKIES|!REQUEST_COOKIES:/__utm/|REQUEST_COOKIES_NAMES|ARGS_NAMES|ARGS|XML:/* \"(?i:<style.*?>.*?((@[i\\\\\\\\])|(([:=]|(&#x?0*((58)|(3A)|(61)|(3D));?)).*?([(\\\\\\\\]|(&#x?0*((40)|(28)|(92)|(5C));?)))))\" \\*nl*\"phase:request,\\*nl*rev:'3',\\*nl*ver:'OWASP_CRS/3.0.0',\\*nl*maturity:'8',\\*nl*accuracy:'8',\\*nl*id:941190,\\*nl*severity:'CRITICAL',\\*nl*capture,\\*nl*logdata:'Matched Data: %{TX.0} found within %{MATCHED_VAR_NAME}: %{MATCHED_VAR}',\\*nl*t:none,t:utf8toUnicode,t:urlDecodeUni,t:htmlEntityDecode,t:jsDecode,t:cssDecode,t:removeNulls,\\*nl*block,ctl:auditLogParts=+E,\\*nl*msg:'IE XSS Filters - Attack Detected.',\\*nl*tag:'application-multi',\\*nl*tag:'language-multi',\\*nl*tag:'platform-multi',\\*nl*tag:'attack-xss',\\*nl*tag:'OWASP_CRS/WEB_ATTACK/XSS',\\*nl*tag:'WASCTC/WASC-8',\\*nl*tag:'WASCTC/WASC-22',\\*nl*tag:'OWASP_TOP_10/A3',\\*nl*tag:'OWASP_AppSensor/IE1',\\*nl*tag:'CAPEC-242',\\*nl*setvar:'tx.msg=%{rule.msg}',\\*nl*setvar:tx.xss_score=+%{tx.critical_anomaly_score},\\*nl*setvar:tx.anomaly_score=+%{tx.critical_anomaly_score},\\*nl*setvar:tx.%{rule.id}-OWASP_CRS/WEB_ATTACK/XSS-%{matched_var_name}=%{tx.0}\""
+    },
+    "(?i:<.*[:]?vmlframe.*?[\\s/+]*?src[\\s/+]*=)": {
+        "targets": [
+            " REQUEST_COOKIES",
+            "!REQUEST_COOKIES:/__utm/",
+            "REQUEST_COOKIES_NAMES",
+            "ARGS_NAMES",
+            "ARGS",
+            "XML"
+        ],
+        "msg": "IE XSS Filters - Attack Detected.",
+        "logdata": "Matched Data: %{TX.0} found within %{MATCHED_VAR_NAME}: %{MATCHED_VAR}",
+        "tag": "application-multi,language-multi,platform-multi,attack-xss,OWASP_CRS/WEB_ATTACK/XSS,WASCTC/WASC-8,WASCTC/WASC-22,OWASP_TOP_10/A3,OWASP_AppSensor/IE1,CAPEC-242",
+        "paranoia level": 1,
+        "severity": "CRITICAL",
+        "setvar": "tx.msg=%{rule.msg}",
+        "t": [
+            "none",
+            "utf8toUnicode",
+            "urlDecodeUni",
+            "htmlEntityDecode",
+            "jsDecode",
+            "cssDecode",
+            "removeNulls"
+        ],
+        "line": "SecRule REQUEST_COOKIES|!REQUEST_COOKIES:/__utm/|REQUEST_COOKIES_NAMES|ARGS_NAMES|ARGS|XML:/* \"(?i:<.*[:]?vmlframe.*?[\\s/+]*?src[\\s/+]*=)\" \\*nl*\"phase:request,\\*nl*rev:'3',\\*nl*ver:'OWASP_CRS/3.0.0',\\*nl*maturity:'8',\\*nl*accuracy:'8',\\*nl*id:941200,\\*nl*severity:'CRITICAL',\\*nl*capture,\\*nl*logdata:'Matched Data: %{TX.0} found within %{MATCHED_VAR_NAME}: %{MATCHED_VAR}',\\*nl*t:none,t:utf8toUnicode,t:urlDecodeUni,t:htmlEntityDecode,t:jsDecode,t:cssDecode,t:removeNulls,\\*nl*block,\\*nl*ctl:auditLogParts=+E,\\*nl*msg:'IE XSS Filters - Attack Detected.',\\*nl*tag:'application-multi',\\*nl*tag:'language-multi',\\*nl*tag:'platform-multi',\\*nl*tag:'attack-xss',\\*nl*tag:'OWASP_CRS/WEB_ATTACK/XSS',\\*nl*tag:'WASCTC/WASC-8',\\*nl*tag:'WASCTC/WASC-22',\\*nl*tag:'OWASP_TOP_10/A3',\\*nl*tag:'OWASP_AppSensor/IE1',\\*nl*tag:'CAPEC-242',\\*nl*setvar:'tx.msg=%{rule.msg}',\\*nl*setvar:tx.xss_score=+%{tx.critical_anomaly_score},\\*nl*setvar:tx.anomaly_score=+%{tx.critical_anomaly_score},\\*nl*setvar:tx.%{rule.id}-OWASP_CRS/WEB_ATTACK/XSS-%{matched_var_name}=%{tx.0}\""
+    },
+    "(?i:(j|(&#x?0*((74)|(4A)|(106)|(6A));?))([\\t]|(&((#x?0*(9|(13)|(10)|A|D);?)|(tab;)|(newline;))))*(a|(&#x?0*((65)|(41)|(97)|(61));?))([\\t]|(&((#x?0*(9|(13)|(10)|A|D);?)|(tab;)|(newline;))))*(v|(&#x?0*((86)|(56)|(118)|(76));?))([\\t]|(&((#x?0*(9|(13)|(10)|A|D);?)|(tab;)|(newline;))))*(a|(&#x?0*((65)|(41)|(97)|(61));?))([\\t]|(&((#x?0*(9|(13)|(10)|A|D);?)|(tab;)|(newline;))))*(s|(&#x?0*((83)|(53)|(115)|(73));?))([\\t]|(&((#x?0*(9|(13)|(10)|A|D);?)|(tab;)|(newline;))))*(c|(&#x?0*((67)|(43)|(99)|(63));?))([\\t]|(&((#x?0*(9|(13)|(10)|A|D);?)|(tab;)|(newline;))))*(r|(&#x?0*((82)|(52)|(114)|(72));?))([\\t]|(&((#x?0*(9|(13)|(10)|A|D);?)|(tab;)|(newline;))))*(i|(&#x?0*((73)|(49)|(105)|(69));?))([\\t]|(&((#x?0*(9|(13)|(10)|A|D);?)|(tab;)|(newline;))))*(p|(&#x?0*((80)|(50)|(112)|(70));?))([\\t]|(&((#x?0*(9|(13)|(10)|A|D);?)|(tab;)|(newline;))))*(t|(&#x?0*((84)|(54)|(116)|(74));?))([\\t]|(&((#x?0*(9|(13)|(10)|A|D);?)|(tab;)|(newline;))))*(:|(&((#x?0*((58)|(3A));?)|(colon;)))).)": {
+        "targets": [
+            " REQUEST_COOKIES",
+            "!REQUEST_COOKIES:/__utm/",
+            "REQUEST_COOKIES_NAMES",
+            "ARGS_NAMES",
+            "ARGS",
+            "XML"
+        ],
+        "msg": "IE XSS Filters - Attack Detected.",
+        "logdata": "Matched Data: %{TX.0} found within %{MATCHED_VAR_NAME}: %{MATCHED_VAR}",
+        "tag": "application-multi,language-multi,platform-multi,attack-xss,OWASP_CRS/WEB_ATTACK/XSS,WASCTC/WASC-8,WASCTC/WASC-22,OWASP_TOP_10/A3,OWASP_AppSensor/IE1,CAPEC-242",
+        "paranoia level": 1,
+        "severity": "CRITICAL",
+        "setvar": "tx.msg=%{rule.msg}",
+        "t": [
+            "none",
+            "utf8toUnicode",
+            "urlDecodeUni",
+            "htmlEntityDecode",
+            "jsDecode",
+            "cssDecode",
+            "removeNulls"
+        ],
+        "line": "SecRule REQUEST_COOKIES|!REQUEST_COOKIES:/__utm/|REQUEST_COOKIES_NAMES|ARGS_NAMES|ARGS|XML:/* \"(?i:(j|(&#x?0*((74)|(4A)|(106)|(6A));?))([\\t]|(&((#x?0*(9|(13)|(10)|A|D);?)|(tab;)|(newline;))))*(a|(&#x?0*((65)|(41)|(97)|(61));?))([\\t]|(&((#x?0*(9|(13)|(10)|A|D);?)|(tab;)|(newline;))))*(v|(&#x?0*((86)|(56)|(118)|(76));?))([\\t]|(&((#x?0*(9|(13)|(10)|A|D);?)|(tab;)|(newline;))))*(a|(&#x?0*((65)|(41)|(97)|(61));?))([\\t]|(&((#x?0*(9|(13)|(10)|A|D);?)|(tab;)|(newline;))))*(s|(&#x?0*((83)|(53)|(115)|(73));?))([\\t]|(&((#x?0*(9|(13)|(10)|A|D);?)|(tab;)|(newline;))))*(c|(&#x?0*((67)|(43)|(99)|(63));?))([\\t]|(&((#x?0*(9|(13)|(10)|A|D);?)|(tab;)|(newline;))))*(r|(&#x?0*((82)|(52)|(114)|(72));?))([\\t]|(&((#x?0*(9|(13)|(10)|A|D);?)|(tab;)|(newline;))))*(i|(&#x?0*((73)|(49)|(105)|(69));?))([\\t]|(&((#x?0*(9|(13)|(10)|A|D);?)|(tab;)|(newline;))))*(p|(&#x?0*((80)|(50)|(112)|(70));?))([\\t]|(&((#x?0*(9|(13)|(10)|A|D);?)|(tab;)|(newline;))))*(t|(&#x?0*((84)|(54)|(116)|(74));?))([\\t]|(&((#x?0*(9|(13)|(10)|A|D);?)|(tab;)|(newline;))))*(:|(&((#x?0*((58)|(3A));?)|(colon;)))).)\" \\*nl*\"phase:request,\\*nl*rev:'3',\\*nl*ver:'OWASP_CRS/3.0.0',\\*nl*maturity:'8',\\*nl*accuracy:'8',\\*nl*id:941210,\\*nl*severity:'CRITICAL',\\*nl*capture,\\*nl*logdata:'Matched Data: %{TX.0} found within %{MATCHED_VAR_NAME}: %{MATCHED_VAR}',\\*nl*t:none,t:utf8toUnicode,t:urlDecodeUni,t:htmlEntityDecode,t:jsDecode,t:cssDecode,t:removeNulls,\\*nl*block,\\*nl*ctl:auditLogParts=+E,\\*nl*msg:'IE XSS Filters - Attack Detected.',\\*nl*tag:'application-multi',\\*nl*tag:'language-multi',\\*nl*tag:'platform-multi',\\*nl*tag:'attack-xss',\\*nl*tag:'OWASP_CRS/WEB_ATTACK/XSS',\\*nl*tag:'WASCTC/WASC-8',\\*nl*tag:'WASCTC/WASC-22',\\*nl*tag:'OWASP_TOP_10/A3',\\*nl*tag:'OWASP_AppSensor/IE1',\\*nl*tag:'CAPEC-242',\\*nl*setvar:'tx.msg=%{rule.msg}',\\*nl*setvar:tx.xss_score=+%{tx.critical_anomaly_score},\\*nl*setvar:tx.anomaly_score=+%{tx.critical_anomaly_score},\\*nl*setvar:tx.%{rule.id}-OWASP_CRS/WEB_ATTACK/XSS-%{matched_var_name}=%{tx.0}\""
+    },
+    "(?i:(v|(&#x?0*((86)|(56)|(118)|(76));?))([\\t]|(&((#x?0*(9|(13)|(10)|A|D);?)|(tab;)|(newline;))))*(b|(&#x?0*((66)|(42)|(98)|(62));?))([\\t]|(&((#x?0*(9|(13)|(10)|A|D);?)|(tab;)|(newline;))))*(s|(&#x?0*((83)|(53)|(115)|(73));?))([\\t]|(&((#x?0*(9|(13)|(10)|A|D);?)|(tab;)|(newline;))))*(c|(&#x?0*((67)|(43)|(99)|(63));?))([\\t]|(&((#x?0*(9|(13)|(10)|A|D);?)|(tab;)|(newline;))))*(r|(&#x?0*((82)|(52)|(114)|(72));?))([\\t]|(&((#x?0*(9|(13)|(10)|A|D);?)|(tab;)|(newline;))))*(i|(&#x?0*((73)|(49)|(105)|(69));?))([\\t]|(&((#x?0*(9|(13)|(10)|A|D);?)|(tab;)|(newline;))))*(p|(&#x?0*((80)|(50)|(112)|(70));?))([\\t]|(&((#x?0*(9|(13)|(10)|A|D);?)|(tab;)|(newline;))))*(t|(&#x?0*((84)|(54)|(116)|(74));?))([\\t]|(&((#x?0*(9|(13)|(10)|A|D);?)|(tab;)|(newline;))))*(:|(&((#x?0*((58)|(3A));?)|(colon;)))).)": {
+        "targets": [
+            " REQUEST_COOKIES",
+            "!REQUEST_COOKIES:/__utm/",
+            "REQUEST_COOKIES_NAMES",
+            "ARGS_NAMES",
+            "ARGS",
+            "XML"
+        ],
+        "msg": "IE XSS Filters - Attack Detected.",
+        "logdata": "Matched Data: %{TX.0} found within %{MATCHED_VAR_NAME}: %{MATCHED_VAR}",
+        "tag": "application-multi,language-multi,platform-multi,attack-xss,OWASP_CRS/WEB_ATTACK/XSS,WASCTC/WASC-8,WASCTC/WASC-22,OWASP_TOP_10/A3,OWASP_AppSensor/IE1,CAPEC-242",
+        "paranoia level": 1,
+        "severity": "CRITICAL",
+        "setvar": "tx.msg=%{rule.msg}",
+        "t": [
+            "none",
+            "utf8toUnicode",
+            "urlDecodeUni",
+            "htmlEntityDecode",
+            "jsDecode",
+            "cssDecode",
+            "removeNulls"
+        ],
+        "line": "SecRule REQUEST_COOKIES|!REQUEST_COOKIES:/__utm/|REQUEST_COOKIES_NAMES|ARGS_NAMES|ARGS|XML:/* \"(?i:(v|(&#x?0*((86)|(56)|(118)|(76));?))([\\t]|(&((#x?0*(9|(13)|(10)|A|D);?)|(tab;)|(newline;))))*(b|(&#x?0*((66)|(42)|(98)|(62));?))([\\t]|(&((#x?0*(9|(13)|(10)|A|D);?)|(tab;)|(newline;))))*(s|(&#x?0*((83)|(53)|(115)|(73));?))([\\t]|(&((#x?0*(9|(13)|(10)|A|D);?)|(tab;)|(newline;))))*(c|(&#x?0*((67)|(43)|(99)|(63));?))([\\t]|(&((#x?0*(9|(13)|(10)|A|D);?)|(tab;)|(newline;))))*(r|(&#x?0*((82)|(52)|(114)|(72));?))([\\t]|(&((#x?0*(9|(13)|(10)|A|D);?)|(tab;)|(newline;))))*(i|(&#x?0*((73)|(49)|(105)|(69));?))([\\t]|(&((#x?0*(9|(13)|(10)|A|D);?)|(tab;)|(newline;))))*(p|(&#x?0*((80)|(50)|(112)|(70));?))([\\t]|(&((#x?0*(9|(13)|(10)|A|D);?)|(tab;)|(newline;))))*(t|(&#x?0*((84)|(54)|(116)|(74));?))([\\t]|(&((#x?0*(9|(13)|(10)|A|D);?)|(tab;)|(newline;))))*(:|(&((#x?0*((58)|(3A));?)|(colon;)))).)\" \\*nl*\"phase:request,\\*nl*rev:'3',\\*nl*ver:'OWASP_CRS/3.0.0',\\*nl*maturity:'8',\\*nl*accuracy:'8',\\*nl*id:941220,\\*nl*severity:'CRITICAL',\\*nl*capture,\\*nl*logdata:'Matched Data: %{TX.0} found within %{MATCHED_VAR_NAME}: %{MATCHED_VAR}',\\*nl*t:none,t:utf8toUnicode,t:urlDecodeUni,t:htmlEntityDecode,t:jsDecode,t:cssDecode,t:removeNulls,\\*nl*block,\\*nl*ctl:auditLogParts=+E,\\*nl*msg:'IE XSS Filters - Attack Detected.',\\*nl*tag:'application-multi',\\*nl*tag:'language-multi',\\*nl*tag:'platform-multi',\\*nl*tag:'attack-xss',\\*nl*tag:'OWASP_CRS/WEB_ATTACK/XSS',\\*nl*tag:'WASCTC/WASC-8',\\*nl*tag:'WASCTC/WASC-22',\\*nl*tag:'OWASP_TOP_10/A3',\\*nl*tag:'OWASP_AppSensor/IE1',\\*nl*tag:'CAPEC-242',\\*nl*setvar:'tx.msg=%{rule.msg}',\\*nl*setvar:tx.xss_score=+%{tx.critical_anomaly_score},\\*nl*setvar:tx.anomaly_score=+%{tx.critical_anomaly_score},\\*nl*setvar:tx.%{rule.id}-OWASP_CRS/WEB_ATTACK/XSS-%{matched_var_name}=%{tx.0}\""
+    },
+    "(?i:<EMBED[\\s/+].*?((src)|(type)).*?=)": {
+        "targets": [
+            " REQUEST_COOKIES",
+            "!REQUEST_COOKIES:/__utm/",
+            "REQUEST_COOKIES_NAMES",
+            "ARGS_NAMES",
+            "ARGS",
+            "XML"
+        ],
+        "msg": "IE XSS Filters - Attack Detected.",
+        "logdata": "Matched Data: %{TX.0} found within %{MATCHED_VAR_NAME}: %{MATCHED_VAR}",
+        "tag": "application-multi,language-multi,platform-multi,attack-xss,OWASP_CRS/WEB_ATTACK/XSS,WASCTC/WASC-8,WASCTC/WASC-22,OWASP_TOP_10/A3,OWASP_AppSensor/IE1,CAPEC-242",
+        "paranoia level": 1,
+        "severity": "CRITICAL",
+        "setvar": "tx.msg=%{rule.msg}",
+        "t": [
+            "none",
+            "utf8toUnicode",
+            "urlDecodeUni",
+            "htmlEntityDecode",
+            "jsDecode",
+            "cssDecode",
+            "removeNulls"
+        ],
+        "line": "SecRule REQUEST_COOKIES|!REQUEST_COOKIES:/__utm/|REQUEST_COOKIES_NAMES|ARGS_NAMES|ARGS|XML:/* \"(?i:<EMBED[\\s/+].*?((src)|(type)).*?=)\" \\*nl*\"phase:request,\\*nl*rev:'3',\\*nl*ver:'OWASP_CRS/3.0.0',\\*nl*maturity:'8',\\*nl*accuracy:'8',\\*nl*id:941230,\\*nl*severity:'CRITICAL',\\*nl*capture,\\*nl*logdata:'Matched Data: %{TX.0} found within %{MATCHED_VAR_NAME}: %{MATCHED_VAR}',\\*nl*t:none,t:utf8toUnicode,t:urlDecodeUni,t:htmlEntityDecode,t:jsDecode,t:cssDecode,t:removeNulls,\\*nl*block,\\*nl*ctl:auditLogParts=+E,\\*nl*msg:'IE XSS Filters - Attack Detected.',\\*nl*tag:'application-multi',\\*nl*tag:'language-multi',\\*nl*tag:'platform-multi',\\*nl*tag:'attack-xss',\\*nl*tag:'OWASP_CRS/WEB_ATTACK/XSS',\\*nl*tag:'WASCTC/WASC-8',\\*nl*tag:'WASCTC/WASC-22',\\*nl*tag:'OWASP_TOP_10/A3',\\*nl*tag:'OWASP_AppSensor/IE1',\\*nl*tag:'CAPEC-242',\\*nl*setvar:'tx.msg=%{rule.msg}',\\*nl*setvar:tx.xss_score=+%{tx.critical_anomaly_score},\\*nl*setvar:tx.anomaly_score=+%{tx.critical_anomaly_score},\\*nl*setvar:tx.%{rule.id}-OWASP_CRS/WEB_ATTACK/XSS-%{matched_var_name}=%{tx.0}\""
+    },
+    "<[?]?import[\\s\\/+\\S]*?implementation[\\s\\/+]*?=": {
+        "targets": [
+            " REQUEST_COOKIES",
+            "!REQUEST_COOKIES:/__utm/",
+            "REQUEST_COOKIES_NAMES",
+            "ARGS_NAMES",
+            "ARGS",
+            "XML"
+        ],
+        "msg": "IE XSS Filters - Attack Detected.",
+        "logdata": "Matched Data: %{TX.0} found within %{MATCHED_VAR_NAME}: %{MATCHED_VAR}",
+        "tag": "application-multi,language-multi,platform-multi,attack-xss,OWASP_CRS/WEB_ATTACK/XSS,WASCTC/WASC-8,WASCTC/WASC-22,OWASP_TOP_10/A3,OWASP_AppSensor/IE1,CAPEC-242",
+        "paranoia level": 1,
+        "severity": "CRITICAL",
+        "setvar": "tx.msg=%{rule.msg}",
+        "t": [
+            "none",
+            "utf8toUnicode",
+            "urlDecodeUni",
+            "htmlEntityDecode",
+            "jsDecode",
+            "cssDecode",
+            "lowercase",
+            "removeNulls"
+        ],
+        "line": "SecRule REQUEST_COOKIES|!REQUEST_COOKIES:/__utm/|REQUEST_COOKIES_NAMES|ARGS_NAMES|ARGS|XML:/* \"<[?]?import[\\s\\/+\\S]*?implementation[\\s\\/+]*?=\" \\*nl*\"phase:request,\\*nl*rev:'3',\\*nl*ver:'OWASP_CRS/3.0.0',\\*nl*maturity:'8',\\*nl*accuracy:'8',\\*nl*id:941240,\\*nl*severity:'CRITICAL',\\*nl*capture,\\*nl*logdata:'Matched Data: %{TX.0} found within %{MATCHED_VAR_NAME}: %{MATCHED_VAR}',\\*nl*t:none,t:utf8toUnicode,t:urlDecodeUni,t:htmlEntityDecode,t:jsDecode,t:cssDecode,t:lowercase,t:removeNulls,\\*nl*block,\\*nl*ctl:auditLogParts=+E,\\*nl*msg:'IE XSS Filters - Attack Detected.',\\*nl*tag:'application-multi',\\*nl*tag:'language-multi',\\*nl*tag:'platform-multi',\\*nl*tag:'attack-xss',\\*nl*tag:'OWASP_CRS/WEB_ATTACK/XSS',\\*nl*tag:'WASCTC/WASC-8',\\*nl*tag:'WASCTC/WASC-22',\\*nl*tag:'OWASP_TOP_10/A3',\\*nl*tag:'OWASP_AppSensor/IE1',\\*nl*tag:'CAPEC-242',\\*nl*setvar:'tx.msg=%{rule.msg}',\\*nl*setvar:tx.xss_score=+%{tx.critical_anomaly_score},\\*nl*setvar:tx.anomaly_score=+%{tx.critical_anomaly_score},\\*nl*setvar:tx.%{rule.id}-OWASP_CRS/WEB_ATTACK/XSS-%{matched_var_name}=%{tx.0}\""
+    },
+    "(?i:<META[\\s/+].*?http-equiv[\\s/+]*=[\\s/+]*[\\\"\\'`]?(((c|(&#x?0*((67)|(43)|(99)|(63));?)))|((r|(&#x?0*((82)|(52)|(114)|(72));?)))|((s|(&#x?0*((83)|(53)|(115)|(73));?)))))": {
+        "targets": [
+            " REQUEST_COOKIES",
+            "!REQUEST_COOKIES:/__utm/",
+            "REQUEST_COOKIES_NAMES",
+            "ARGS_NAMES",
+            "ARGS",
+            "XML"
+        ],
+        "msg": "IE XSS Filters - Attack Detected.",
+        "logdata": "Matched Data: %{TX.0} found within %{MATCHED_VAR_NAME}: %{MATCHED_VAR}",
+        "tag": "application-multi,language-multi,platform-multi,attack-xss,OWASP_CRS/WEB_ATTACK/XSS,WASCTC/WASC-8,WASCTC/WASC-22,OWASP_TOP_10/A3,OWASP_AppSensor/IE1,CAPEC-242",
+        "paranoia level": 1,
+        "severity": "CRITICAL",
+        "setvar": "tx.msg=%{rule.msg}",
+        "t": [
+            "none",
+            "utf8toUnicode",
+            "urlDecodeUni",
+            "htmlEntityDecode",
+            "jsDecode",
+            "cssDecode",
+            "removeNulls"
+        ],
+        "line": "SecRule REQUEST_COOKIES|!REQUEST_COOKIES:/__utm/|REQUEST_COOKIES_NAMES|ARGS_NAMES|ARGS|XML:/* \"(?i:<META[\\s/+].*?http-equiv[\\s/+]*=[\\s/+]*[\\\"\\'`]?(((c|(&#x?0*((67)|(43)|(99)|(63));?)))|((r|(&#x?0*((82)|(52)|(114)|(72));?)))|((s|(&#x?0*((83)|(53)|(115)|(73));?)))))\" \\*nl*\"phase:request,\\*nl*rev:'3',\\*nl*ver:'OWASP_CRS/3.0.0',\\*nl*maturity:'8',\\*nl*accuracy:'8',\\*nl*id:941250,\\*nl*severity:'CRITICAL',\\*nl*capture,\\*nl*logdata:'Matched Data: %{TX.0} found within %{MATCHED_VAR_NAME}: %{MATCHED_VAR}',\\*nl*t:none,t:utf8toUnicode,t:urlDecodeUni,t:htmlEntityDecode,t:jsDecode,t:cssDecode,t:removeNulls,\\*nl*block,\\*nl*ctl:auditLogParts=+E,\\*nl*msg:'IE XSS Filters - Attack Detected.',\\*nl*tag:'application-multi',\\*nl*tag:'language-multi',\\*nl*tag:'platform-multi',\\*nl*tag:'attack-xss',\\*nl*tag:'OWASP_CRS/WEB_ATTACK/XSS',\\*nl*tag:'WASCTC/WASC-8',\\*nl*tag:'WASCTC/WASC-22',\\*nl*tag:'OWASP_TOP_10/A3',\\*nl*tag:'OWASP_AppSensor/IE1',\\*nl*tag:'CAPEC-242',\\*nl*setvar:'tx.msg=%{rule.msg}',\\*nl*setvar:tx.xss_score=+%{tx.critical_anomaly_score},\\*nl*setvar:tx.anomaly_score=+%{tx.critical_anomaly_score},\\*nl*setvar:tx.%{rule.id}-OWASP_CRS/WEB_ATTACK/XSS-%{matched_var_name}=%{tx.0}\""
+    },
+    "(?i:<META[\\s/+].*?charset[\\s/+]*=)": {
+        "targets": [
+            " REQUEST_COOKIES",
+            "!REQUEST_COOKIES:/__utm/",
+            "REQUEST_COOKIES_NAMES",
+            "ARGS_NAMES",
+            "ARGS",
+            "XML"
+        ],
+        "msg": "IE XSS Filters - Attack Detected.",
+        "logdata": "Matched Data: %{TX.0} found within %{MATCHED_VAR_NAME}: %{MATCHED_VAR}",
+        "tag": "application-multi,language-multi,platform-multi,attack-xss,OWASP_CRS/WEB_ATTACK/XSS,WASCTC/WASC-8,WASCTC/WASC-22,OWASP_TOP_10/A3,OWASP_AppSensor/IE1,CAPEC-242",
+        "paranoia level": 1,
+        "severity": "CRITICAL",
+        "setvar": "tx.msg=%{rule.msg}",
+        "t": [
+            "none",
+            "utf8toUnicode",
+            "urlDecodeUni",
+            "htmlEntityDecode",
+            "jsDecode",
+            "cssDecode",
+            "removeNulls"
+        ],
+        "line": "SecRule REQUEST_COOKIES|!REQUEST_COOKIES:/__utm/|REQUEST_COOKIES_NAMES|ARGS_NAMES|ARGS|XML:/* \"(?i:<META[\\s/+].*?charset[\\s/+]*=)\" \\*nl*\"phase:request,\\*nl*rev:'3',\\*nl*ver:'OWASP_CRS/3.0.0',\\*nl*maturity:'8',\\*nl*accuracy:'8',\\*nl*id:941260,\\*nl*severity:'CRITICAL',\\*nl*capture,\\*nl*logdata:'Matched Data: %{TX.0} found within %{MATCHED_VAR_NAME}: %{MATCHED_VAR}',\\*nl*t:none,t:utf8toUnicode,t:urlDecodeUni,t:htmlEntityDecode,t:jsDecode,t:cssDecode,t:removeNulls,\\*nl*block,\\*nl*ctl:auditLogParts=+E,\\*nl*msg:'IE XSS Filters - Attack Detected.',\\*nl*tag:'application-multi',\\*nl*tag:'language-multi',\\*nl*tag:'platform-multi',\\*nl*tag:'attack-xss',\\*nl*tag:'OWASP_CRS/WEB_ATTACK/XSS',\\*nl*tag:'WASCTC/WASC-8',\\*nl*tag:'WASCTC/WASC-22',\\*nl*tag:'OWASP_TOP_10/A3',\\*nl*tag:'OWASP_AppSensor/IE1',\\*nl*tag:'CAPEC-242',\\*nl*setvar:'tx.msg=%{rule.msg}',\\*nl*setvar:tx.xss_score=+%{tx.critical_anomaly_score},\\*nl*setvar:tx.anomaly_score=+%{tx.critical_anomaly_score},\\*nl*setvar:tx.%{rule.id}-OWASP_CRS/WEB_ATTACK/XSS-%{matched_var_name}=%{tx.0}\""
+    },
+    "(?i:<LINK[\\s/+].*?href[\\s/+]*=)": {
+        "targets": [
+            " REQUEST_COOKIES",
+            "!REQUEST_COOKIES:/__utm/",
+            "REQUEST_COOKIES_NAMES",
+            "ARGS_NAMES",
+            "ARGS",
+            "XML"
+        ],
+        "msg": "IE XSS Filters - Attack Detected.",
+        "logdata": "Matched Data: %{TX.0} found within %{MATCHED_VAR_NAME}: %{MATCHED_VAR}",
+        "tag": "application-multi,language-multi,platform-multi,attack-xss,OWASP_CRS/WEB_ATTACK/XSS,WASCTC/WASC-8,WASCTC/WASC-22,OWASP_TOP_10/A3,OWASP_AppSensor/IE1,CAPEC-242",
+        "paranoia level": 1,
+        "severity": "CRITICAL",
+        "setvar": "tx.msg=%{rule.msg}",
+        "t": [
+            "none",
+            "utf8toUnicode",
+            "urlDecodeUni",
+            "htmlEntityDecode",
+            "jsDecode",
+            "cssDecode",
+            "removeNulls"
+        ],
+        "line": "SecRule REQUEST_COOKIES|!REQUEST_COOKIES:/__utm/|REQUEST_COOKIES_NAMES|ARGS_NAMES|ARGS|XML:/* \"(?i:<LINK[\\s/+].*?href[\\s/+]*=)\" \\*nl*\"phase:request,\\*nl*rev:'3',\\*nl*ver:'OWASP_CRS/3.0.0',\\*nl*maturity:'8',\\*nl*accuracy:'8',\\*nl*id:941270,\\*nl*severity:'CRITICAL',\\*nl*capture,\\*nl*logdata:'Matched Data: %{TX.0} found within %{MATCHED_VAR_NAME}: %{MATCHED_VAR}',\\*nl*t:none,t:utf8toUnicode,t:urlDecodeUni,t:htmlEntityDecode,t:jsDecode,t:cssDecode,t:removeNulls,\\*nl*block,\\*nl*ctl:auditLogParts=+E,\\*nl*msg:'IE XSS Filters - Attack Detected.',\\*nl*tag:'application-multi',\\*nl*tag:'language-multi',\\*nl*tag:'platform-multi',\\*nl*tag:'attack-xss',\\*nl*tag:'OWASP_CRS/WEB_ATTACK/XSS',\\*nl*tag:'WASCTC/WASC-8',\\*nl*tag:'WASCTC/WASC-22',\\*nl*tag:'OWASP_TOP_10/A3',\\*nl*tag:'OWASP_AppSensor/IE1',\\*nl*tag:'CAPEC-242',\\*nl*setvar:'tx.msg=%{rule.msg}',\\*nl*setvar:tx.xss_score=+%{tx.critical_anomaly_score},\\*nl*setvar:tx.anomaly_score=+%{tx.critical_anomaly_score},\\*nl*setvar:tx.%{rule.id}-OWASP_CRS/WEB_ATTACK/XSS-%{matched_var_name}=%{tx.0}\""
+    },
+    "(?i:<BASE[\\s/+].*?href[\\s/+]*=)": {
+        "targets": [
+            " REQUEST_COOKIES",
+            "!REQUEST_COOKIES:/__utm/",
+            "REQUEST_COOKIES_NAMES",
+            "ARGS_NAMES",
+            "ARGS",
+            "XML"
+        ],
+        "msg": "IE XSS Filters - Attack Detected.",
+        "logdata": "Matched Data: %{TX.0} found within %{MATCHED_VAR_NAME}: %{MATCHED_VAR}",
+        "tag": "application-multi,language-multi,platform-multi,attack-xss,OWASP_CRS/WEB_ATTACK/XSS,WASCTC/WASC-8,WASCTC/WASC-22,OWASP_TOP_10/A3,OWASP_AppSensor/IE1,CAPEC-242",
+        "paranoia level": 1,
+        "severity": "CRITICAL",
+        "setvar": "tx.msg=%{rule.msg}",
+        "t": [
+            "none",
+            "utf8toUnicode",
+            "urlDecodeUni",
+            "htmlEntityDecode",
+            "jsDecode",
+            "cssDecode",
+            "removeNulls"
+        ],
+        "line": "SecRule REQUEST_COOKIES|!REQUEST_COOKIES:/__utm/|REQUEST_COOKIES_NAMES|ARGS_NAMES|ARGS|XML:/* \"(?i:<BASE[\\s/+].*?href[\\s/+]*=)\" \\*nl*\"phase:request,\\*nl*rev:'3',\\*nl*ver:'OWASP_CRS/3.0.0',\\*nl*maturity:'8',\\*nl*accuracy:'8',\\*nl*id:941280,\\*nl*severity:'CRITICAL',\\*nl*capture,\\*nl*logdata:'Matched Data: %{TX.0} found within %{MATCHED_VAR_NAME}: %{MATCHED_VAR}',\\*nl*t:none,t:utf8toUnicode,t:urlDecodeUni,t:htmlEntityDecode,t:jsDecode,t:cssDecode,t:removeNulls,\\*nl*block,\\*nl*ctl:auditLogParts=+E,\\*nl*msg:'IE XSS Filters - Attack Detected.',\\*nl*tag:'application-multi',\\*nl*tag:'language-multi',\\*nl*tag:'platform-multi',\\*nl*tag:'attack-xss',\\*nl*tag:'OWASP_CRS/WEB_ATTACK/XSS',\\*nl*tag:'WASCTC/WASC-8',\\*nl*tag:'WASCTC/WASC-22',\\*nl*tag:'OWASP_TOP_10/A3',\\*nl*tag:'OWASP_AppSensor/IE1',\\*nl*tag:'CAPEC-242',\\*nl*setvar:'tx.msg=%{rule.msg}',\\*nl*setvar:tx.xss_score=+%{tx.critical_anomaly_score},\\*nl*setvar:tx.anomaly_score=+%{tx.critical_anomaly_score},\\*nl*setvar:tx.%{rule.id}-OWASP_CRS/WEB_ATTACK/XSS-%{matched_var_name}=%{tx.0}\""
+    },
+    "(?i:<APPLET[\\s/+>])": {
+        "targets": [
+            " REQUEST_COOKIES",
+            "!REQUEST_COOKIES:/__utm/",
+            "REQUEST_COOKIES_NAMES",
+            "ARGS_NAMES",
+            "ARGS",
+            "XML"
+        ],
+        "msg": "IE XSS Filters - Attack Detected.",
+        "logdata": "Matched Data: %{TX.0} found within %{MATCHED_VAR_NAME}: %{MATCHED_VAR}",
+        "tag": "application-multi,language-multi,platform-multi,attack-xss,OWASP_CRS/WEB_ATTACK/XSS,WASCTC/WASC-8,WASCTC/WASC-22,OWASP_TOP_10/A3,OWASP_AppSensor/IE1,CAPEC-242",
+        "paranoia level": 1,
+        "severity": "CRITICAL",
+        "setvar": "tx.msg=%{rule.msg}",
+        "t": [
+            "none",
+            "utf8toUnicode",
+            "urlDecodeUni",
+            "htmlEntityDecode",
+            "jsDecode",
+            "cssDecode",
+            "removeNulls"
+        ],
+        "line": "SecRule REQUEST_COOKIES|!REQUEST_COOKIES:/__utm/|REQUEST_COOKIES_NAMES|ARGS_NAMES|ARGS|XML:/* \"(?i:<APPLET[\\s/+>])\" \\*nl*\"phase:request,\\*nl*rev:'3',\\*nl*ver:'OWASP_CRS/3.0.0',\\*nl*maturity:'8',\\*nl*accuracy:'8',\\*nl*id:941290,\\*nl*severity:'CRITICAL',\\*nl*capture,\\*nl*logdata:'Matched Data: %{TX.0} found within %{MATCHED_VAR_NAME}: %{MATCHED_VAR}',\\*nl*t:none,t:utf8toUnicode,t:urlDecodeUni,t:htmlEntityDecode,t:jsDecode,t:cssDecode,t:removeNulls,\\*nl*block,\\*nl*ctl:auditLogParts=+E,\\*nl*msg:'IE XSS Filters - Attack Detected.',\\*nl*tag:'application-multi',\\*nl*tag:'language-multi',\\*nl*tag:'platform-multi',\\*nl*tag:'attack-xss',\\*nl*tag:'OWASP_CRS/WEB_ATTACK/XSS',\\*nl*tag:'WASCTC/WASC-8',\\*nl*tag:'WASCTC/WASC-22',\\*nl*tag:'OWASP_TOP_10/A3',\\*nl*tag:'OWASP_AppSensor/IE1',\\*nl*tag:'CAPEC-242',\\*nl*setvar:'tx.msg=%{rule.msg}',\\*nl*setvar:tx.xss_score=+%{tx.critical_anomaly_score},\\*nl*setvar:tx.anomaly_score=+%{tx.critical_anomaly_score},\\*nl*setvar:tx.%{rule.id}-OWASP_CRS/WEB_ATTACK/XSS-%{matched_var_name}=%{tx.0}\""
+    },
+    "(?i:<OBJECT[\\s/+].*?((type)|(codetype)|(classid)|(code)|(data))[\\s/+]*=)": {
+        "targets": [
+            " REQUEST_COOKIES",
+            "!REQUEST_COOKIES:/__utm/",
+            "REQUEST_COOKIES_NAMES",
+            "ARGS_NAMES",
+            "ARGS",
+            "XML"
+        ],
+        "msg": "IE XSS Filters - Attack Detected.",
+        "logdata": "Matched Data: %{TX.0} found within %{MATCHED_VAR_NAME}: %{MATCHED_VAR}",
+        "tag": "application-multi,language-multi,platform-multi,attack-xss,OWASP_CRS/WEB_ATTACK/XSS,WASCTC/WASC-8,WASCTC/WASC-22,OWASP_TOP_10/A3,OWASP_AppSensor/IE1,CAPEC-242",
+        "paranoia level": 1,
+        "severity": "CRITICAL",
+        "setvar": "tx.msg=%{rule.msg}",
+        "t": [
+            "none",
+            "utf8toUnicode",
+            "urlDecodeUni",
+            "htmlEntityDecode",
+            "jsDecode",
+            "cssDecode",
+            "removeNulls"
+        ],
+        "line": "SecRule REQUEST_COOKIES|!REQUEST_COOKIES:/__utm/|REQUEST_COOKIES_NAMES|ARGS_NAMES|ARGS|XML:/* \"(?i:<OBJECT[\\s/+].*?((type)|(codetype)|(classid)|(code)|(data))[\\s/+]*=)\" \\*nl*\"phase:request,\\*nl*rev:'3',\\*nl*ver:'OWASP_CRS/3.0.0',\\*nl*maturity:'8',\\*nl*accuracy:'8',\\*nl*id:941300,\\*nl*severity:'CRITICAL',\\*nl*capture,\\*nl*logdata:'Matched Data: %{TX.0} found within %{MATCHED_VAR_NAME}: %{MATCHED_VAR}',\\*nl*t:none,t:utf8toUnicode,t:urlDecodeUni,t:htmlEntityDecode,t:jsDecode,t:cssDecode,t:removeNulls,\\*nl*block,\\*nl*ctl:auditLogParts=+E,\\*nl*msg:'IE XSS Filters - Attack Detected.',\\*nl*tag:'application-multi',\\*nl*tag:'language-multi',\\*nl*tag:'platform-multi',\\*nl*tag:'attack-xss',\\*nl*tag:'OWASP_CRS/WEB_ATTACK/XSS',\\*nl*tag:'WASCTC/WASC-8',\\*nl*tag:'WASCTC/WASC-22',\\*nl*tag:'OWASP_TOP_10/A3',\\*nl*tag:'OWASP_AppSensor/IE1',\\*nl*tag:'CAPEC-242',\\*nl*setvar:'tx.msg=%{rule.msg}',\\*nl*setvar:tx.xss_score=+%{tx.critical_anomaly_score},\\*nl*setvar:tx.anomaly_score=+%{tx.critical_anomaly_score},\\*nl*setvar:tx.%{rule.id}-OWASP_CRS/WEB_ATTACK/XSS-%{matched_var_name}=%{tx.0}\""
+    },
+    " (?:\u00c2\u00be|\u00c2\u00bc).*(?:\u00c2\u00be|\u00c2\u00bc|>)|(?:\u00c2\u00be|\u00c2\u00bc|<).*(?:\u00c2\u00be|\u00c2\u00bc)": {
+        "targets": [
+            " REQUEST_COOKIES",
+            "!REQUEST_COOKIES:/__utm/",
+            "REQUEST_COOKIES_NAMES",
+            "ARGS_NAMES",
+            "ARGS",
+            "XML"
+        ],
+        "msg": "US-ASCII Malformed Encoding XSS Filter - Attack Detected.",
+        "logdata": "Matched Data: %{TX.0} found within %{MATCHED_VAR_NAME}: %{MATCHED_VAR}",
+        "tag": "application-multi,language-multi,platform-tomcat,attack-xss,OWASP_CRS/WEB_ATTACK/XSS,WASCTC/WASC-8,WASCTC/WASC-22,OWASP_TOP_10/A3,OWASP_AppSensor/IE1,CAPEC-242",
+        "paranoia level": 1,
+        "severity": "CRITICAL",
+        "setvar": "tx.msg=%{rule.msg}",
+        "t": [
+            "none",
+            "urlDecodeUni",
+            "lowercase",
+            "urlDecode",
+            "htmlEntityDecode",
+            "jsDecode"
+        ],
+        "line": "SecRule REQUEST_COOKIES|!REQUEST_COOKIES:/__utm/|REQUEST_COOKIES_NAMES|ARGS_NAMES|ARGS|XML:/* \"@rx (?:\u00c2\u00be|\u00c2\u00bc).*(?:\u00c2\u00be|\u00c2\u00bc|>)|(?:\u00c2\u00be|\u00c2\u00bc|<).*(?:\u00c2\u00be|\u00c2\u00bc)\" \\*nl*\"phase:request,\\*nl*rev:'2',\\*nl*ver:'OWASP_CRS/3.0.0',\\*nl*maturity:'7',\\*nl*accuracy:'8',\\*nl*id:941310,\\*nl*severity:'CRITICAL',\\*nl*capture,\\*nl*logdata:'Matched Data: %{TX.0} found within %{MATCHED_VAR_NAME}: %{MATCHED_VAR}',\\*nl*t:none,t:urlDecodeUni,t:lowercase,t:urlDecode,t:htmlEntityDecode,t:jsDecode,\\*nl*block,\\*nl*ctl:auditLogParts=+E,\\*nl*msg:'US-ASCII Malformed Encoding XSS Filter - Attack Detected.',\\*nl*tag:'application-multi',\\*nl*tag:'language-multi',\\*nl*tag:'platform-tomcat',\\*nl*tag:'attack-xss',\\*nl*tag:'OWASP_CRS/WEB_ATTACK/XSS',\\*nl*tag:'WASCTC/WASC-8',\\*nl*tag:'WASCTC/WASC-22',\\*nl*tag:'OWASP_TOP_10/A3',\\*nl*tag:'OWASP_AppSensor/IE1',\\*nl*tag:'CAPEC-242',\\*nl*setvar:'tx.msg=%{rule.msg}',\\*nl*setvar:tx.xss_score=+%{tx.critical_anomaly_score},\\*nl*setvar:tx.anomaly_score=+%{tx.critical_anomaly_score},\\*nl*setvar:tx.%{rule.id}-OWASP_CRS/WEB_ATTACK/XSS-%{matched_var_name}=%{tx.0}\""
+    },
+    " (?:\\+ADw\\-|\\+AD4\\-).*(?:\\+ADw\\-|\\+AD4\\-|>)|(?:\\+ADw\\-|\\+AD4\\-|<).*(?:\\+ADw\\-|\\+AD4\\-)": {
+        "targets": [
+            " REQUEST_COOKIES",
+            "!REQUEST_COOKIES:/__utm/",
+            "REQUEST_COOKIES_NAMES",
+            "ARGS_NAMES",
+            "ARGS",
+            "XML"
+        ],
+        "msg": "UTF-7 Encoding IE XSS - Attack Detected.",
+        "logdata": "Matched Data: %{TX.0} found within %{MATCHED_VAR_NAME}: %{MATCHED_VAR}",
+        "tag": "application-multi,language-multi,platform-internet-explorer,attack-xss,OWASP_CRS/WEB_ATTACK/XSS,WASCTC/WASC-8,WASCTC/WASC-22,OWASP_TOP_10/A3,OWASP_AppSensor/IE1,CAPEC-242",
+        "paranoia level": 1,
+        "severity": "CRITICAL",
+        "setvar": "tx.msg=%{rule.msg}",
+        "t": [
+            "none",
+            "urlDecodeUni",
+            "lowercase",
+            "urlDecode",
+            "htmlEntityDecode",
+            "jsDecode"
+        ],
+        "line": "SecRule REQUEST_COOKIES|!REQUEST_COOKIES:/__utm/|REQUEST_COOKIES_NAMES|ARGS_NAMES|ARGS|XML:/* \"@rx (?:\\+ADw\\-|\\+AD4\\-).*(?:\\+ADw\\-|\\+AD4\\-|>)|(?:\\+ADw\\-|\\+AD4\\-|<).*(?:\\+ADw\\-|\\+AD4\\-)\" \\*nl*\"phase:request,\\*nl*rev:'1',\\*nl*ver:'OWASP_CRS/3.0.0',\\*nl*maturity:'7',\\*nl*accuracy:'8',\\*nl*id:941350,\\*nl*severity:'CRITICAL',\\*nl*capture,\\*nl*logdata:'Matched Data: %{TX.0} found within %{MATCHED_VAR_NAME}: %{MATCHED_VAR}',\\*nl*t:none,t:urlDecodeUni,t:lowercase,t:urlDecode,t:htmlEntityDecode,t:jsDecode,\\*nl*block,\\*nl*ctl:auditLogParts=+E,\\*nl*msg:'UTF-7 Encoding IE XSS - Attack Detected.',\\*nl*tag:'application-multi',\\*nl*tag:'language-multi',\\*nl*tag:'platform-internet-explorer',\\*nl*tag:'attack-xss',\\*nl*tag:'OWASP_CRS/WEB_ATTACK/XSS',\\*nl*tag:'WASCTC/WASC-8',\\*nl*tag:'WASCTC/WASC-22',\\*nl*tag:'OWASP_TOP_10/A3',\\*nl*tag:'OWASP_AppSensor/IE1',\\*nl*tag:'CAPEC-242',\\*nl*setvar:'tx.msg=%{rule.msg}',\\*nl*setvar:tx.xss_score=+%{tx.critical_anomaly_score},\\*nl*setvar:tx.anomaly_score=+%{tx.critical_anomaly_score},\\*nl*setvar:tx.%{rule.id}-OWASP_CRS/WEB_ATTACK/XSS-%{matched_var_name}=%{tx.0}\""
+    },
+    "<(a|abbr|acronym|address|applet|area|audioscope|b|base|basefront|bdo|bgsound|big|blackface|blink|blockquote|body|bq|br|button|caption|center|cite|code|col|colgroup|comment|dd|del|dfn|dir|div|dl|dt|em|embed|fieldset|fn|font|form|frame|frameset|h1|head|hr|html|i|iframe|ilayer|img|input|ins|isindex|kdb|keygen|label|layer|legend|li|limittext|link|listing|map|marquee|menu|meta|multicol|nobr|noembed|noframes|noscript|nosmartquotes|object|ol|optgroup|option|p|param|plaintext|pre|q|rt|ruby|s|samp|script|select|server|shadow|sidebar|small|spacer|span|strike|strong|style|sub|sup|table|tbody|td|textarea|tfoot|th|thead|title|tr|tt|u|ul|var|wbr|xml|xmp)\\W": {
+        "targets": [
+            " REQUEST_COOKIES",
+            "!REQUEST_COOKIES:/__utm/",
+            "!REQUEST_COOKIES:/_pk_ref/",
+            "REQUEST_COOKIES_NAMES",
+            "ARGS_NAMES",
+            "ARGS",
+            "XML"
+        ],
+        "msg": "Possible XSS Attack Detected - HTML Tag Handler",
+        "logdata": "Matched Data: %{TX.0} found within %{MATCHED_VAR_NAME}: %{MATCHED_VAR}",
+        "tag": "application-multi,language-multi,platform-multi,attack-xss,OWASP_CRS/WEB_ATTACK/XSS,WASCTC/WASC-8,WASCTC/WASC-22,OWASP_TOP_10/A2,OWASP_AppSensor/IE1,PCI/6.5.1,paranoia-level/2",
+        "paranoia level": 2,
+        "severity": "CRITICAL",
+        "setvar": "tx.msg=%{rule.msg}",
+        "t": [
+            "none",
+            "urlDecodeUni",
+            "jsDecode",
+            "lowercase"
+        ],
+        "line": "SecRule REQUEST_COOKIES|!REQUEST_COOKIES:/__utm/|!REQUEST_COOKIES:/_pk_ref/|REQUEST_COOKIES_NAMES|ARGS_NAMES|ARGS|XML:/* \"<(a|abbr|acronym|address|applet|area|audioscope|b|base|basefront|bdo|bgsound|big|blackface|blink|blockquote|body|bq|br|button|caption|center|cite|code|col|colgroup|comment|dd|del|dfn|dir|div|dl|dt|em|embed|fieldset|fn|font|form|frame|frameset|h1|head|hr|html|i|iframe|ilayer|img|input|ins|isindex|kdb|keygen|label|layer|legend|li|limittext|link|listing|map|marquee|menu|meta|multicol|nobr|noembed|noframes|noscript|nosmartquotes|object|ol|optgroup|option|p|param|plaintext|pre|q|rt|ruby|s|samp|script|select|server|shadow|sidebar|small|spacer|span|strike|strong|style|sub|sup|table|tbody|td|textarea|tfoot|th|thead|title|tr|tt|u|ul|var|wbr|xml|xmp)\\W\" \\*nl*\"phase:request,\\*nl*rev:'2',\\*nl*ver:'OWASP_CRS/3.0.0',\\*nl*maturity:'8',\\*nl*accuracy:'8',\\*nl*id:941320,\\*nl*severity:'CRITICAL',\\*nl*capture,\\*nl*t:none,t:urlDecodeUni,t:jsDecode,t:lowercase,\\*nl*block,\\*nl*msg:'Possible XSS Attack Detected - HTML Tag Handler',\\*nl*logdata:'Matched Data: %{TX.0} found within %{MATCHED_VAR_NAME}: %{MATCHED_VAR}',\\*nl*tag:'application-multi',\\*nl*tag:'language-multi',\\*nl*tag:'platform-multi',\\*nl*tag:'attack-xss',\\*nl*tag:'OWASP_CRS/WEB_ATTACK/XSS',\\*nl*tag:'WASCTC/WASC-8',\\*nl*tag:'WASCTC/WASC-22',\\*nl*tag:'OWASP_TOP_10/A2',\\*nl*tag:'OWASP_AppSensor/IE1',\\*nl*tag:'PCI/6.5.1',\\*nl*tag:'paranoia-level/2',\\*nl*setvar:'tx.msg=%{rule.msg}',\\*nl*setvar:tx.xss_score=+%{tx.critical_anomaly_score},\\*nl*setvar:tx.anomaly_score=+%{tx.critical_anomaly_score},\\*nl*setvar:tx.%{rule.id}-OWASP_CRS/WEB_ATTACK/XSS-%{matched_var_name}=%{tx.0}\""
+    },
+    "(?i:[\\\"\\'][ ]*(([^a-z0-9~_:\\' ])|(in)).*?(((l|(\\\\\\\\u006C))(o|(\\\\\\\\u006F))(c|(\\\\\\\\u0063))(a|(\\\\\\\\u0061))(t|(\\\\\\\\u0074))(i|(\\\\\\\\u0069))(o|(\\\\\\\\u006F))(n|(\\\\\\\\u006E)))|((n|(\\\\\\\\u006E))(a|(\\\\\\\\u0061))(m|(\\\\\\\\u006D))(e|(\\\\\\\\u0065)))|((o|(\\\\\\\\u006F))(n|(\\\\\\\\u006E))(e|(\\\\\\\\u0065))(r|(\\\\\\\\u0072))(r|(\\\\\\\\u0072))(o|(\\\\\\\\u006F))(r|(\\\\\\\\u0072)))|((v|(\\\\\\\\u0076))(a|(\\\\\\\\u0061))(l|(\\\\\\\\u006C))(u|(\\\\\\\\u0075))(e|(\\\\\\\\u0065))(O|(\\\\\\\\u004F))(f|(\\\\\\\\u0066)))).*?=)": {
+        "targets": [
+            " REQUEST_COOKIES",
+            "!REQUEST_COOKIES:/__utm/",
+            "!REQUEST_COOKIES:/_pk_ref/",
+            "REQUEST_COOKIES_NAMES",
+            "ARGS_NAMES",
+            "ARGS",
+            "XML"
+        ],
+        "msg": "IE XSS Filters - Attack Detected.",
+        "logdata": "Matched Data: %{TX.0} found within %{MATCHED_VAR_NAME}: %{MATCHED_VAR}",
+        "tag": "application-multi,language-multi,platform-multi,attack-xss,OWASP_CRS/WEB_ATTACK/XSS,WASCTC/WASC-8,WASCTC/WASC-22,OWASP_TOP_10/A2,OWASP_AppSensor/IE1,PCI/6.5.1,paranoia-level/2",
+        "paranoia level": 2,
+        "severity": "CRITICAL",
+        "setvar": "tx.msg=%{rule.msg}",
+        "t": [
+            "none",
+            "urlDecodeUni",
+            "htmlEntityDecode",
+            "compressWhiteSpace"
+        ],
+        "line": "SecRule REQUEST_COOKIES|!REQUEST_COOKIES:/__utm/|!REQUEST_COOKIES:/_pk_ref/|REQUEST_COOKIES_NAMES|ARGS_NAMES|ARGS|XML:/* \"(?i:[\\\"\\'][ ]*(([^a-z0-9~_:\\' ])|(in)).*?(((l|(\\\\\\\\u006C))(o|(\\\\\\\\u006F))(c|(\\\\\\\\u0063))(a|(\\\\\\\\u0061))(t|(\\\\\\\\u0074))(i|(\\\\\\\\u0069))(o|(\\\\\\\\u006F))(n|(\\\\\\\\u006E)))|((n|(\\\\\\\\u006E))(a|(\\\\\\\\u0061))(m|(\\\\\\\\u006D))(e|(\\\\\\\\u0065)))|((o|(\\\\\\\\u006F))(n|(\\\\\\\\u006E))(e|(\\\\\\\\u0065))(r|(\\\\\\\\u0072))(r|(\\\\\\\\u0072))(o|(\\\\\\\\u006F))(r|(\\\\\\\\u0072)))|((v|(\\\\\\\\u0076))(a|(\\\\\\\\u0061))(l|(\\\\\\\\u006C))(u|(\\\\\\\\u0075))(e|(\\\\\\\\u0065))(O|(\\\\\\\\u004F))(f|(\\\\\\\\u0066)))).*?=)\" \\*nl*\"phase:request,\\*nl*rev:'2',\\*nl*ver:'OWASP_CRS/3.0.0',\\*nl*maturity:'8',\\*nl*accuracy:'8',\\*nl*id:941330,\\*nl*severity:'CRITICAL',\\*nl*capture,\\*nl*logdata:'Matched Data: %{TX.0} found within %{MATCHED_VAR_NAME}: %{MATCHED_VAR}',\\*nl*t:none,t:urlDecodeUni,t:htmlEntityDecode,t:compressWhiteSpace,\\*nl*block,\\*nl*msg:'IE XSS Filters - Attack Detected.',\\*nl*tag:'application-multi',\\*nl*tag:'language-multi',\\*nl*tag:'platform-multi',\\*nl*tag:'attack-xss',\\*nl*tag:'OWASP_CRS/WEB_ATTACK/XSS',\\*nl*tag:'WASCTC/WASC-8',\\*nl*tag:'WASCTC/WASC-22',\\*nl*tag:'OWASP_TOP_10/A2',\\*nl*tag:'OWASP_AppSensor/IE1',\\*nl*tag:'PCI/6.5.1',\\*nl*tag:'paranoia-level/2',\\*nl*setvar:'tx.msg=%{rule.msg}',\\*nl*setvar:tx.xss_score=+%{tx.critical_anomaly_score},\\*nl*setvar:tx.anomaly_score=+%{tx.critical_anomaly_score},\\*nl*setvar:tx.%{rule.id}-OWASP_CRS/WEB_ATTACK/XSS-%{matched_var_name}=%{tx.0}\""
+    },
+    "(?i:[\\\"\\'][ ]*(([^a-z0-9~_:\\' ])|(in)).+?[.].+?=)": {
+        "targets": [
+            " REQUEST_COOKIES",
+            "!REQUEST_COOKIES:/__utm/",
+            "!REQUEST_COOKIES:/_pk_ref/",
+            "REQUEST_COOKIES_NAMES",
+            "ARGS_NAMES",
+            "ARGS",
+            "XML"
+        ],
+        "msg": "IE XSS Filters - Attack Detected.",
+        "logdata": "Matched Data: %{TX.0} found within %{MATCHED_VAR_NAME}: %{MATCHED_VAR}",
+        "tag": "application-multi,language-multi,platform-multi,attack-xss,OWASP_CRS/WEB_ATTACK/XSS,WASCTC/WASC-8,WASCTC/WASC-22,OWASP_TOP_10/A2,OWASP_AppSensor/IE1,PCI/6.5.1,paranoia-level/2",
+        "paranoia level": 2,
+        "severity": "CRITICAL",
+        "setvar": "tx.msg=%{rule.msg}",
+        "t": [
+            "none",
+            "urlDecodeUni",
+            "htmlEntityDecode",
+            "compressWhiteSpace"
+        ],
+        "line": "SecRule REQUEST_COOKIES|!REQUEST_COOKIES:/__utm/|!REQUEST_COOKIES:/_pk_ref/|REQUEST_COOKIES_NAMES|ARGS_NAMES|ARGS|XML:/* \"(?i:[\\\"\\'][ ]*(([^a-z0-9~_:\\' ])|(in)).+?[.].+?=)\" \\*nl*\"phase:request,\\*nl*rev:'2',\\*nl*ver:'OWASP_CRS/3.0.0',\\*nl*maturity:'8',\\*nl*accuracy:'8',\\*nl*id:941340,\\*nl*severity:'CRITICAL',\\*nl*capture,\\*nl*logdata:'Matched Data: %{TX.0} found within %{MATCHED_VAR_NAME}: %{MATCHED_VAR}',\\*nl*t:none,t:urlDecodeUni,t:htmlEntityDecode,t:compressWhiteSpace,\\*nl*block,\\*nl*msg:'IE XSS Filters - Attack Detected.',\\*nl*tag:'application-multi',\\*nl*tag:'language-multi',\\*nl*tag:'platform-multi',\\*nl*tag:'attack-xss',\\*nl*tag:'OWASP_CRS/WEB_ATTACK/XSS',\\*nl*tag:'WASCTC/WASC-8',\\*nl*tag:'WASCTC/WASC-22',\\*nl*tag:'OWASP_TOP_10/A2',\\*nl*tag:'OWASP_AppSensor/IE1',\\*nl*tag:'PCI/6.5.1',\\*nl*tag:'paranoia-level/2',\\*nl*setvar:'tx.msg=%{rule.msg}',\\*nl*setvar:tx.xss_score=+%{tx.critical_anomaly_score},\\*nl*setvar:tx.anomaly_score=+%{tx.critical_anomaly_score},\\*nl*setvar:tx.%{rule.id}-OWASP_CRS/WEB_ATTACK/XSS-%{matched_var_name}=%{tx.0}\""
+    }
+}

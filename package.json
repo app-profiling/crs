@@ -1,0 +1,19 @@
+{
+  "name": "crs-json",
+  "version": "1.0.1",
+  "description": "OWASP CRS in json format",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/app-profiling/crs.git"
+  },
+  "author": "Sim Sheng Qin",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/app-profiling/crs/issues"
+  },
+  "homepage": "https://github.com/app-profiling/crs#readme"
+}
